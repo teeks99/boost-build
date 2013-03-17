@@ -1,0 +1,37 @@
+Setup keys:
+export EC2_PRIVATE_KEY=/mnt/fs/Documents/Settings/pk-Z5TWFE3CH3SWEGSQZ3774NGDORWI3EOV.pem
+export EC2_CERT=/mnt/fs/Documents/Settigns/cert-Z5TWFE3CH3SWEGSQZ3774NGDORWI3EOV.pem
+
+
+Starting an image.
+
+Use ami-0f33da66 - WinVisualStudios
+Launch with epheremal0 (160GB for Small Instance)
+
+ec2-run-instances ami-0f33da66 -b /dev/sdb=ephemeral0 --group "RDP Only" --instance-type m1.small
+
+Get IP address from AWS Console, connect over RDP, username tomkent
+
+Download: http://boost.teeks99.com/BoostBuildingSetup.exe
+Run and install to D:\
+
+Download Boost Files: http://www.boost.org/users/download get .tar.bz2
+Copy the .tar.bz2 file to D:\BoostBuilding\
+
+(Follow Readme)
+Install python-2.6.4.msi
+
+Set D: drive to Full Control for everybody?
+
+Modify BuildOneRelease.bat with the correct D:\BoostBuild path
+
+Disable computer from automatically installing windows updates (and rebooting).
+
+Test 32&64
+
+Update index.html with version, file, file size, total size for 32; version, file, file size, total size for 64.
+
+Grab md5sum, sha1sum, sha256sum for all installers from lovejoy and paste into file.
+Sign sum file with GPG key.
+
+Copy installers to bart for backup.

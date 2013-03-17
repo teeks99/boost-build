@@ -1,0 +1,17 @@
+import toolset : using ;
+
+using python 
+: 2.6 # version
+: # Interperter/path to dir
+: C:\\BoostBuilding\\Python26-32\\include # includes
+: C:\\BoostBuilding\\Python26-32\\libs # libs 
+: # conditions 
+;
+
+using python
+: 2.6 # version
+: # Interperter/path to dir
+: C:\\BoostBuilding\\Python26-64\\include # includes
+: C:\\BoostBuilding\\Python26-64\\libs # libs 
+: <address-model>64 # conditions 
+;

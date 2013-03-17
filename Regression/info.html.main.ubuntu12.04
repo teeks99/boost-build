@@ -1,0 +1,41 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Tom Kent - runner: teeks99-5</h1>
+<p>Contact me: teeks99@yahoo.com, 314-266-8359</p>
+<p>This runner is a VM on a KVM/QEMU Virtual Machine. It has 2GB of ram and 2 processors.<br/>
+This is running the 64-bit version of Ubuntu 12.04</p>
+<p>
+Command Line:<br/>
+python run.py --runner=teeks99-5-Ubuntu12.04-64 --toolsets=gcc-4.4,gcc-4.5,gcc-4.6,gcc-4.7,clang-3.0 --comment=info.html 2>&1 | tee output.log
+</p>
+<p>
+$ g++-4.7 --version
+g++-4.7 (Ubuntu/Linaro 4.7.0-7ubuntu3) 4.7.0
+<br/>
+$ g++-4.6 --version
+g++-4.6 (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+<br/>
+$ g++-4.5 --version
+g++-4.5 (Ubuntu/Linaro 4.5.3-12ubuntu2) 4.5.3
+<br/>
+$ g++-4.4 --version
+g++-4.4 (Ubuntu/Linaro 4.4.7-1ubuntu2) 4.4.7
+<br/>
+$ clang --version
+Ubuntu clang version 3.0-6ubuntu3 (tags/RELEASE_30/final) (based on LLVM 3.0)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+<br/>
+$ python --version
+Python 2.7.3
+<br/>
+$ svn --version
+svn, version 1.6.17 (r1128011)
+   compiled Dec 17 2011, 16:12:52
+</p>
+
+
+</body>
+</html>

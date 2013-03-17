@@ -1,0 +1,85 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Tom Kent - runner: teeks99-06</h1>
+<p>Contact me: teeks99@yahoo.com, 314-266-8359</p>
+<p>This runner is a VM on a KVM/QEMU Virtual Machine. It has 4GB of ram and 2 processors.<br/>
+This is running the 64-bit version of Ubuntu 12.04</p>
+<p><pre>
+$ g++-4.7 --version
+g++-4.7 (Ubuntu/Linaro 4.7.2-11precise2) 4.7.2
+Copyright (C) 2012 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre><br/><pre>
+$ g++-4.6 --version
+g++-4.6 (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre><br/><pre>
+$ g++-4.5 --version
+g++-4.5 (Ubuntu/Linaro 4.5.3-12ubuntu2) 4.5.3
+Copyright (C) 2010 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre><br/><pre>
+$ g++-4.4 --version
+g++-4.4 (Ubuntu/Linaro 4.4.7-1ubuntu2) 4.4.7
+Copyright (C) 2010 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre><br/><pre>
+$ clang --version
+Ubuntu clang version 3.0-6ubuntu3 (tags/RELEASE_30/final) (based on LLVM 3.0)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+</pre><br/><pre>
+$ src/clang+llvm-3.1-x86_64-linux-ubuntu_12.04/bin/clang --version
+clang version 3.1 (tags/RELEASE_31/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+</pre><br/><pre>
+$ src/clang+llvm-3.2-x86_64-linux-ubuntu-12.04/bin/clang --version
+clang version 3.2 (tags/RELEASE_32/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+</pre><br/><pre>
+$ python --version
+INSERT_MANUALLY
+</pre><br/><pre>
+$ svn --version
+svn, version 1.6.17 (r1128011)
+   compiled Dec 17 2011, 16:12:52
+
+Copyright (C) 2000-2009 CollabNet.
+Subversion is open source software, see http://subversion.apache.org/
+This product includes software developed by CollabNet (http://www.Collab.Net/).
+
+The following repository access (RA) modules are available:
+
+* ra_neon : Module for accessing a repository via WebDAV protocol using Neon.
+  - handles 'http' scheme
+  - handles 'https' scheme
+* ra_svn : Module for accessing a repository using the svn network protocol.
+  - with Cyrus SASL authentication
+  - handles 'svn' scheme
+* ra_local : Module for accessing a repository on local disk.
+  - handles 'file' scheme
+</pre><br/>
+</p>
+<p>
+user-config.jam<br/>
+<pre>
+using gcc : 4.7 : g++-4.7 ;
+using gcc : 4.6 : g++-4.6 ;
+using gcc : 4.5 : g++-4.5 ;
+using gcc : 4.4 : g++-4.4 ;
+using clang : 3.0 ;
+using clang : 3.1 : /home/tomkent/src/clang+llvm-3.1-x86_64-linux-ubuntu_12.04/bin/clang ;
+using clang : 3.2 : /home/tomkent/src/clang+llvm-3.2-x86_64-linux-ubuntu-12.04/bin/clang ;
+</pre>
+</p>
+</body>
+</html>

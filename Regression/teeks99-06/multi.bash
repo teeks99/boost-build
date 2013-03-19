@@ -25,14 +25,5 @@ do
    ./multi_start.bash
    cd ..
 
-   cd f 
-   ./multi_start.bash
-   cd ..
-
-   cd g
-   ./multi_start.bash
-   cd ..
-
-
    echo `date` >> loop_finished.log
 done

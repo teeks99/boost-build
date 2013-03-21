@@ -1,0 +1,73 @@
+Lisa
+============
+*Riley house - uverse 250GB cap
+*8x3.4 i7-3770
+*32GB RAM
+*480GB SSD
+*1TB HD
+
+*Blinky13-BoostRegression03 - Windows 7 - 64bit
+  * teeks99-03-win7-64on64 - msvc8.0,msvc9.0
+
+*Blinky15-BoostRegression05 - Windows 7 - 64bit
+  * teeks99-05-win7-64on64 - msvc10,msvc11
+
+*Todd05-BoostRegression06 - Ubuntu 12.04 - 64bit
+  * teeks99-06a - gcc-4.4
+  * teeks99-06b - gcc-4.5
+  * teeks99-06c - gcc-4.6
+  * teeks99-06d - gcc-4.7
+  * teeks99-06e - clang-3.0
+
+Future
+--------
+*Wiggum04-BoostRegression03 - Windows 2008 Server - 64bit - 4cpu, 6GB RAM
+ * teeks99-03a-win7-64on64 - msvc8.0
+ * teeks99-03b-win7-64on64 - msvc9.0
+ * teeks99-03c-win7-64on64 - msvc10.0
+ * teeks99-03d-win7-64on64 - msvc11.0
+ * teeks99-03e-win7-64on64 - msvc8.0 - release
+ * teeks99-03f-win7-64on64 - msvc9.0 - release
+ * teeks99-03g-win7-64on64 - msvc10.0 - release
+ * teeks99-03h-win7-64on64 - msvc11.0 - release
+
+*Wiggum05-BoostRegression06 - Windows 2008 Server - 64bit - 1cpu 4GB RAM - incremental
+  * teeks99-05-win7-64on64 - msvc11.0
+
+*Todd05-BoostRegression06 - Ubuntu 12.04 - 64bit - 1cpu 4GB RAM
+  * teeks99-06a - gcc-4.4
+  * teeks99-06b - gcc-4.5
+  * teeks99-06c - clang-3.0
+  * teeks99-06d - gcc-4.4 - release
+  * teeks99-06e - gcc-4.5 - release
+  * teeks99-06f - clang-3.0 - release
+
+*Todd06-BoostRegression02 - Ubuntu 12.04 - 64bit - 1cpu 4GB RAM
+  * teeks99-02a - gcc-4.6
+  * teeks99-02b - clang-3.1
+  * teeks99-02c - gcc-4.6 - release
+  * teeks99-02d - clang-3.1 - release
+
+*Todd07-BoostRegression04 - Ubuntu 12.04 - 64bit - 1cpu 4GB RAM
+  * teeks99-04a - gcc-4.7
+  * teeks99-04b - clang-3.2
+  * teeks99-04c - gcc-4.7 - release
+  * teeks99-04d - clang-3.2 - release
+
+Moe
+============
+*Kent house - charter 250GB cap
+*8x3.3 i5-2500
+*8GB RAM
+*2x1TB RAID0
+
+*Blinky-BoostRegression01 - Windows 7 - 64bit
+  * teeks99-01a-win7-32on64 msvc10,msvc11
+  * teeks99-01b-win7-32on64 msvc8,msvc9
+
+Future
+------------
+  * teeks99-01c-win7-32on64 msvc10,msvc11 - release
+  * teeks99-01d-win7-32on64 msvc8,msvc9 - release
+
+

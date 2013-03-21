@@ -1,2 +1,2 @@
 using gcc : 4.7 : g++-4.7 ;
-using clang : 3.2 ;
+using clang : 3.2 : clang-3.2 ;

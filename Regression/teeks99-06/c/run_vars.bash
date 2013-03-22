@@ -1,2 +1,2 @@
 export id=c
-export tools=gcc-4.6
+export tools=clang-3.0

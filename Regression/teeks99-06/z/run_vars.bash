@@ -1,2 +1,0 @@
-export id=
-export tools=

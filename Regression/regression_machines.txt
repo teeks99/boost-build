@@ -30,7 +30,15 @@ Future
  * teeks99-03f-win7-64on64 - msvc9.0 - release
  * teeks99-03g-win7-64on64 - msvc10.0 - release
  * teeks99-03h-win7-64on64 - msvc11.0 - release
-
+ * teeks99-03i-win7-32on64 - msvc8.0
+ * teeks99-03j-win7-32on64 - msvc9.0
+ * teeks99-03k-win7-32on64 - msvc10.0
+ * teeks99-03l-win7-32on64 - msvc11.0
+ * teeks99-03m-win7-32on64 - msvc8.0 - release
+ * teeks99-03n-win7-32on64 - msvc9.0 - release
+ * teeks99-03o-win7-32on64 - msvc10.0 - release
+ * teeks99-03p-win7-32on64 - msvc11.0 - release
+ 
 *Wiggum05-BoostRegression06 - Windows 2008 Server - 64bit - 1cpu 4GB RAM - incremental
   * teeks99-05-win7-64on64 - msvc11.0
 

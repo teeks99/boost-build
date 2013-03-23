@@ -14,15 +14,11 @@ do
    cd ..
 
    cd c
-   ./multi_start.bash
+   ./multi_start_release.bash
    cd ..
 
    cd d
-   ./multi_start.bash
-   cd ..
-
-   cd e
-   ./multi_start.bash
+   ./multi_start_release.bash
    cd ..
 
    echo `date` >> loop_finished.log

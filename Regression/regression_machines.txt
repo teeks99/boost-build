@@ -6,21 +6,6 @@ Lisa
 *480GB SSD
 *1TB HD
 
-*Blinky13-BoostRegression03 - Windows 7 - 64bit
-  * teeks99-03-win7-64on64 - msvc8.0,msvc9.0
-
-*Blinky15-BoostRegression05 - Windows 7 - 64bit
-  * teeks99-05-win7-64on64 - msvc10,msvc11
-
-*Todd05-BoostRegression06 - Ubuntu 12.04 - 64bit
-  * teeks99-06a - gcc-4.4
-  * teeks99-06b - gcc-4.5
-  * teeks99-06c - gcc-4.6
-  * teeks99-06d - gcc-4.7
-  * teeks99-06e - clang-3.0
-
-Future
---------
 *Wiggum04-BoostRegression03 - Windows 2008 Server - 64bit - 4cpu, 6GB RAM
  * teeks99-03a-win7-64on64 - msvc8.0
  * teeks99-03b-win7-64on64 - msvc9.0
@@ -41,6 +26,9 @@ Future
  
 *Wiggum05-BoostRegression06 - Windows 2008 Server - 64bit - 1cpu 4GB RAM - incremental
   * teeks99-05-win7-64on64 - msvc11.0
+
+*Blinky15-BoostRegression05 - Windows 7 - 64bit
+  * teeks99-05-win7-64on64 - msvc10,msvc11
 
 *Todd05-BoostRegression06 - Ubuntu 12.04 - 64bit - 1cpu 4GB RAM
   * teeks99-06a - gcc-4.4

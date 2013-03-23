@@ -1,2 +1,2 @@
-set id=
-set toolset=
+set id=a
+set toolset=msvc-8.0

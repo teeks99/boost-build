@@ -7,6 +7,7 @@ python run.py --runner=teeks99-03%id%-win7-64on64 --force-update --toolsets=%too
 
 rd /s/q results
 rd /s/q %TEMP%
+mkdir %TEMP%
 
 del last_run.log
 move run_started.log last_run.log

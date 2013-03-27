@@ -5,6 +5,10 @@ do
    svn up
    cd ..
 
+   cd boost-release
+   svn up
+   cd ..
+
    cd a
    ./multi_start.bash
    cd ..

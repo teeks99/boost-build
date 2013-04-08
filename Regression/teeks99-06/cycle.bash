@@ -21,5 +21,17 @@ do
    ./multi_start.bash
    cd ..
 
+   cd d
+   ./multi_start_release.bash
+   cd ..
+
+   cd e
+   ./multi_start_release.bash
+   cd ..
+
+   cd f
+   ./multi_start_release.bash
+   cd ..
+
    echo `date` >> loop_finished.log
 done

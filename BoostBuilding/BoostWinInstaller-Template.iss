@@ -3,11 +3,12 @@
 ;  The script should replace the following: FILL_VERSION FILL_CONFIG
 
 [Setup]
-AppName=BoostWindows
+AppName=Boost-Windows
 AppVerName=FILL_VERSION-FILL_CONFIG
 AppPublisher=FltSim-Behemoth
 DefaultDirName=C:\local\FILL_VERSION
 DefaultGroupName=none
+DirExistsWarning=no
 DisableStartupPrompt=yes
 DisableProgramGroupPage=yes
 DisableReadyMemo=yes
@@ -21,4 +22,7 @@ VersionInfoTextVersion=FILL_VERSION
 VersionInfoVersion=1.0
 
 [Files]
-Source: "FILL_VERSION/*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "FILL_VERSION/*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs ignoreversion
+
+[Messages]
+SelectDirLabel3=Setup will install [name] into the following folder. If you are installing multiple architectures of this version (e.g. msvc-8.0-32 and msvc-11.0-64 of boost_1_50_0) you can install them to the same directory and they will both work from there.

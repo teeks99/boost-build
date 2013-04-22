@@ -31,4 +31,4 @@ cd h
 rd /s/q results
 cd ..
 
-
+rd /s/q %TEMP%

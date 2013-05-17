@@ -21,5 +21,9 @@ do
    ./multi_start_release.bash
    cd ..
 
+   cd d
+   ./multi_start_release.bash
+   cd ..
+
    echo `date` >> loop_finished.log
 done

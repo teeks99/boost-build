@@ -1,10 +1,11 @@
 
 set boost_version=%1
-set buildRoot=C:\local\BoostBuilding
+set buildRoot=D:\BoostBuilding
 ::set bjam="%buildRoot%\boost-jam-3.1.18-1-ntx86\bjam.exe"
 set bjam=.\bjam
 set zip="%buildRoot%\7z465\7z.exe"
 set inno="C:\Program Files (x86)\Inno Setup 5\Compil32.exe"
+set sed="%buildRoot%\bin-sed\sed.exe"
 
 
 IF "_%boost_version%"=="_" (
@@ -95,8 +96,8 @@ xcopy /E/Z/Y/I %boost_version%_complete\lib%~2-msvc-%~1 %boost_version%\lib%~2-m
 ::echo %zip% a -tzip %boost_version%-msvc-%~1-%~2.zip %boost_version%
 ::%zip% a -tzip %boost_version%-msvc-%~1-%~2.zip %boost_version%
 
-sed s/FILL_VERSION/%boost_version%/g BoostWinInstaller-Template.iss > tmp1.iss
-sed s/FILL_CONFIG/msvc-%~1-%~2/g tmp1.iss > tmp2.iss
+%sed% s/FILL_VERSION/%boost_version%/g BoostWinInstaller-Template.iss > tmp1.iss
+%sed% s/FILL_CONFIG/msvc-%~1-%~2/g tmp1.iss > tmp2.iss
 del tmp1.iss
 move tmp2.iss BoostWinInstaller-msvc-%~1-%~2.iss
 %inno% /cc BoostWinInstaller-msvc-%~1-%~2.iss

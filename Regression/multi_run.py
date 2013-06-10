@@ -95,4 +95,5 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         r.run_one(sys.argv[1])
     else:
+        r.cleanup = True
         r.restart()

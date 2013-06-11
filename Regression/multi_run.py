@@ -30,8 +30,8 @@ class Runner(object):
             run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
             ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
 
-	if run['type'] == 'release':
-		command.append('--tag=branches/release')
+        if run['type'] == 'release':
+            command.append('--tag=branches/release')
 
         # Output the command to the screen before running it            
         cmd_str = ""

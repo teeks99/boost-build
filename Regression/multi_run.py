@@ -19,6 +19,10 @@ class Runner(object):
         run = self.runs[run_str]
     
         os.chdir(run["dir"])
+        print ""
+        print ""
+        print "Starting run: " + run["dir"]
+        print ""
         
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
@@ -32,6 +36,7 @@ class Runner(object):
             cmd_str += " " + s
         print "Runing command:"            
         print cmd_str[1:]            
+        print ""
             
         # Run
         proc = subprocess.Popen(command)#, 
@@ -53,8 +58,11 @@ class Runner(object):
                         log_file.write(line)      
 
         if self.cleanup:
-            shutil.rmtree('results')
-            #rmtree on temp???
+            try:
+                shutil.rmtree('results')
+                #rmtree on temp???
+            except OSError:
+		pass # dir wasn't there...may indicate previous failure
             
         os.chdir(self.start_dir)
         

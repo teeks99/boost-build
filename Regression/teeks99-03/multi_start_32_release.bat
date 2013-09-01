@@ -3,7 +3,7 @@ echo Starting at: %DATE% %TIME% > run_started.log
 
 call vars.bat
 
-python run.py --runner=teeks99-03%id%-win2008-64on64 --force-update --toolsets=%toolset% --tag=branches/release --bjam-options="-j4" --comment=..\info.html 2>&1 | ..\wtee output.log
+python run.py --runner=teeks99-03%id%-win2008-64on64 --force-update --toolsets=%toolset% --tag=branches/release --bjam-options="-j2" --comment=..\info.html 2>&1 | ..\wtee output.log
 
 
 rd /s/q results

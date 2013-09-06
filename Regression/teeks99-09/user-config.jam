@@ -1,4 +1,4 @@
 using gcc : 4.8 : g++-4.8 ;
 using gcc : 4.6 : g++-4.6 ;
-using clang : 3.3 ;
+using clang : 3.3 : clang++-3.3;
 

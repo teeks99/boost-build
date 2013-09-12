@@ -1,18 +1,3 @@
-Creating new installers
-
-- Build binaries by VC version, seperate into different lib dirs:
-   lib32-vc8
-   lib32-vc9
-   lib32-vc10
-   lib32-vc11
-   lib64-vc8
-   lib64-vc9
-   lib64-vc10
-   lib64-vc11
-
-- Create inno setup installer template
-- Create inno setup for each one of the arch/vc combinations, including the boost source and the binary
-  - make the boost source an optional install
-  - allow setting variables for the visual studio include and library directories
-
-- Add to sourceforge?
+Add scripting to make a complete .7z archive.
+Update python, zlib, bzip versions. 
+Document python, zlib, bzip2 versions.

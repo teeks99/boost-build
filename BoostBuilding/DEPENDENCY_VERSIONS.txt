@@ -1,0 +1,10 @@
+Python 2.7.5
+Python 2.7.5 amd64
+zlib 1.2.8
+bzip2 1.0.6
+
+Microsoft Visual Studio 2005 - Service Pack 1
+Microsoft Visual Studio 2008 - Service Pack 1
+Microsoft Visual Studio 2010 - Service Pack 1
+Microsoft Visual Studio 2012
+

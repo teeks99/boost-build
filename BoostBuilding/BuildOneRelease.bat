@@ -17,12 +17,14 @@ IF "_%boost_version%"=="_" (
 REM If you've already done this you can skip it (and the overwrite prompts)
 ::set SKIP_UNZIP=TRUE
 IF NOT "%SKIP_UNZIP%"=="TRUE" (
-	%zip% x Python26-32.tar.gz
-	%zip% x Python26-32.tar
-	%zip% x Python26-64.tar.gz
-	%zip% x Python26-64.tar
-	%zip% x zlib-1.2.6.tar.gz
-	%zip% x zlib-1.2.6.tar
+	::%zip% x Python26-32.tar.gz
+	::%zip% x Python26-32.tar
+	::%zip% x Python26-64.tar.gz
+	::%zip% x Python26-64.tar
+        %zip% x Python27-32.7z
+        %zip% x Python27-64.7z
+	%zip% x zlib-1.2.8.tar.gz
+	%zip% x zlib-1.2.8.tar
 	%zip% x bzip2-1.0.6.tar.gz
 	%zip% x bzip2-1.0.6.tar
 )
@@ -67,6 +69,8 @@ call:MakeInstaller 11.0 64
 rd /S/Q %boost_version%
 move %boost_version%_complete %boost_version%
 
+%zip% a %boost_version%-bin-msvc-all-32-64.7z %boost_version%
+
 start "Build Output" notepad %boost_version%/32bitlog.txt
 start "Build Output" notepad %boost_version%/64bitlog.txt
 
@@ -82,6 +86,7 @@ REM move stage\lib\* lib32-msvc-8.0\
 
 mkdir lib%~2-msvc-%~1
 move stage\lib\* lib%~2-msvc-%~1\
+copy ..\DEPENDENCY_VERSIONS.txt lib%~2-msvc-%~1\
 
 goto:EOF
 

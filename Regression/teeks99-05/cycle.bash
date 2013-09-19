@@ -17,6 +17,26 @@ do
    ./multi_start.bash
    cd ..
 
+   cd c
+   ./multi_start.bash
+   cd ..
+
+   cd d
+   ./multi_start.bash
+   cd ..
+
+   cd e
+   ./multi_start.bash
+   cd ..
+
+   cd f
+   ./multi_start.bash
+   cd ..
+
+   cd g
+   ./multi_start.bash
+   cd ..
+
    cd h
    ./multi_start.bash
    cd ..

@@ -83,6 +83,9 @@ REM mkdir lib32-msvc-8.0
 REM move stage\lib\* lib32-msvc-8.0\
 
 %bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 stage
+
+REM Build again to log any errors in the build process
+echo Build for msvc-%~1 >> %~2bitlog.txt
 %bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 stage >> %~2bitlog.txt 2<&1
 
 mkdir lib%~2-msvc-%~1

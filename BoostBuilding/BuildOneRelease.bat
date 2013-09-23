@@ -68,6 +68,7 @@ call:MakeInstaller 11.0 64
 
 rd /S/Q %boost_version%
 move %boost_version%_complete %boost_version%
+copy ..\DEPENDENCY_VERSIONS.txt %boost_version%
 
 %zip% a %boost_version%-bin-msvc-all-32-64.7z %boost_version%
 

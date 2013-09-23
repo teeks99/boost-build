@@ -10,6 +10,7 @@ Pre-requisites:
 
 To Setup Build Environment:
 1.  Copy the BoostBuilding directory to the place you want to build from. When I'm running on an Azure VM, I put this on the D: drive so I don't have to pay for the storage it uses (it will get big!). 
+2.  Update the DEPENDENCY\_VERSIONS.txt file to include the versions of msvc that are installed on the machine.
 2.  Update the buildRoot variable in BuildOneRelease.bat to point to the root of the build area.  (If you've installed everything to C:\BoostBuilding this isn't necessary)
 3.  Update the drive path in user-config.jam to point to the python interperters (If you've installed everything to C:\BoostBuilding this isn't necessary)
 4.  Copy user-config.jam to %USERPROFILE% (usually C:\Users\username)

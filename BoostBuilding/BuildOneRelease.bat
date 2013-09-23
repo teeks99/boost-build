@@ -1,6 +1,6 @@
 
 set boost_version=%1
-set buildRoot=D:\BoostBuilding
+set buildRoot=C:\BoostBuilding
 ::set bjam="%buildRoot%\boost-jam-3.1.18-1-ntx86\bjam.exe"
 set bjam=.\bjam
 set zip="%buildRoot%\7z465\7z.exe"

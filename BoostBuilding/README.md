@@ -5,6 +5,7 @@ Pre-requisites:
 *   Have MSVC (Microsoft Visual C++, usually Visual Studio), I'm currently using msvc-8.0 (Visual Studio 2005 Team Edition for Software Developers, with SP1 and Vista compatibility), msvc-9.0 (Visual Studio 2008 Team System Development Edition, with SP1), msvc-10.0 (Visual Studio 2010 Ultimate, with SP1), and msvc-11.0 (Visual Studio 2012 Ultimate) and building on Windows Server 2008 R2. 
     For some of the older versions of VS, you can use the free Express Edition (or even the compilier that comes with the platform development kit?), but as of VS 2012 that doesn't work anymore.
 *   Python (I have worked with python-2.6.4.msi and python-2.7.5.msi installers, both of which are x86), the version installed here is different from the one that will be used for building boost-python, which is in a zip file with the build scripts.
+*   Inno Setup should be installed if you wish to create the installers. Set its path in the top of BuildOneRelease.bat
 
 
 

@@ -54,6 +54,12 @@ call:BuildVersion 11.0 64
 
 cd ..
 
+copy %boost_version%\32bitlog.txt %boost_version%-32bitlog.txt
+copy %boost_version%\64bitlog.txt %boost_version%-64bitlog.txt
+
+start "Build Output" notepad %boost_version%-32bitlog.txt
+start "Build Output" notepad %boost_version%-64bitlog.txt
+
 move %boost_version% %boost_version%_complete
 %zip% x %boost_version%.tar
 
@@ -68,12 +74,13 @@ call:MakeInstaller 11.0 64
 
 rd /S/Q %boost_version%
 move %boost_version%_complete %boost_version%
-copy ..\DEPENDENCY_VERSIONS.txt %boost_version%
+copy DEPENDENCY_VERSIONS.txt %boost_version%
 
+move %boost_version%\bin.v2 .\
 %zip% a %boost_version%-bin-msvc-all-32-64.7z %boost_version%
+move bin.v2 %boost_version%\
 
-start "Build Output" notepad %boost_version%/32bitlog.txt
-start "Build Output" notepad %boost_version%/64bitlog.txt
+echo Build Complete
 
 goto:EOF
 

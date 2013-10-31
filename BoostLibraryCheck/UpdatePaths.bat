@@ -25,8 +25,8 @@ bin-sed\sed.exe -i "s/FILL_32_LINK_PATH/%BOOST_LIB32_PATH%-msvc-11.0/g" BoostLib
 bin-sed\sed.exe -i "s/FILL_64_LINK_PATH/%BOOST_LIB64_PATH%-msvc-11.0/g" BoostLibraryCheck-VC11.vcxproj
 
 bin-sed\sed.exe -i "s/FILL_INC_PATH/%BOOST_PATH%/g" BoostLibraryCheck-VC12.vcxproj
-bin-sed\sed.exe -i "s/FILL_32_LINK_PATH/%BOOST_LIB32_PATH%-msvc-11.0/g" BoostLibraryCheck-VC12.vcxproj
-bin-sed\sed.exe -i "s/FILL_64_LINK_PATH/%BOOST_LIB64_PATH%-msvc-11.0/g" BoostLibraryCheck-VC12.vcxproj
+bin-sed\sed.exe -i "s/FILL_32_LINK_PATH/%BOOST_LIB32_PATH%-msvc-12.0/g" BoostLibraryCheck-VC12.vcxproj
+bin-sed\sed.exe -i "s/FILL_64_LINK_PATH/%BOOST_LIB64_PATH%-msvc-12.0/g" BoostLibraryCheck-VC12.vcxproj
 
 REM Cleanup garbage leftover by sed
 del sed*

@@ -47,10 +47,12 @@ call:BuildVersion 8.0 32
 call:BuildVersion 9.0 32
 call:BuildVersion 10.0 32
 call:BuildVersion 11.0 32
+call:BuildVersion 12.0 32
 call:BuildVersion 8.0 64
 call:BuildVersion 9.0 64
 call:BuildVersion 10.0 64
 call:BuildVersion 11.0 64
+call:BuildVersion 12.0 64
 
 cd ..
 
@@ -67,10 +69,12 @@ call:MakeInstaller 8.0 32
 call:MakeInstaller 9.0 32
 call:MakeInstaller 10.0 32
 call:MakeInstaller 11.0 32
+call:MakeInstaller 12.0 32
 call:MakeInstaller 8.0 64
 call:MakeInstaller 9.0 64
 call:MakeInstaller 10.0 64
 call:MakeInstaller 11.0 64
+call:MakeInstaller 12.0 64
 
 rd /S/Q %boost_version%
 move %boost_version%_complete %boost_version%

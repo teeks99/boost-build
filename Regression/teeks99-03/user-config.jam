@@ -2,3 +2,4 @@ using msvc : 8.0 ;
 using msvc : 9.0 ;
 using msvc : 10.0 ;
 using msvc : 11.0 ;
+using msvc : 12.0 ;

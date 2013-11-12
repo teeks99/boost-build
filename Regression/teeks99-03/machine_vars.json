@@ -12,7 +12,7 @@
 		"f":{"dir":"f", "type":"release", "arch":"64", "compilers":"msvc-8.0"},
 		"g":{"dir":"g", "type":"release", "arch":"64", "compilers":"msvc-9.0"},
 		"h":{"dir":"h", "type":"release", "arch":"64", "compilers":"msvc-10.0"},
-		"i":{"dir":"i", "type":"release", "arch":"64", "compilers":"msvc-11.0"}
+		"i":{"dir":"i", "type":"release", "arch":"64", "compilers":"msvc-11.0"},
 		"j":{"dir":"j", "type":"release", "arch":"64", "compilers":"msvc-11.0"}
 	}
 }

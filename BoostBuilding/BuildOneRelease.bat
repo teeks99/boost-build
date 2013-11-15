@@ -30,7 +30,7 @@ IF NOT "%SKIP_UNZIP%"=="TRUE" (
 )
 
 REM Enables the zlib and bz2 libraries for the iostream library
-set ZLIB_SOURCE="%buildRoot%\zlib-1.2.6"
+set ZLIB_SOURCE="%buildRoot%\zlib-1.2.8"
 set BZIP2_SOURCE="%buildRoot%\bzip2-1.0.6"
 
 %zip% x %boost_version%.tar.*

@@ -1,2 +1,2 @@
 export id=a
-export tools=gcc-4.5
+export tools=gcc-4.4

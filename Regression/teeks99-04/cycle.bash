@@ -1,12 +1,12 @@
 rm loop_finished.log
 while true
 do
-   cd boost-trunk
-   svn up
+   cd boost_root-develop
+   git pull
    cd ..
 
-   cd boost-release
-   svn up
+   cd boost_root-master
+   git pull
    cd ..
 
    for ver in a b

@@ -1,1 +1,1 @@
-../multi_start_release.bash
+../multi_start.bash

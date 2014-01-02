@@ -1,2 +1,2 @@
 export id=e
-export tools=clang-2.9
+export tools=gcc-4.8

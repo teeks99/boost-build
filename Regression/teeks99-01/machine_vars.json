@@ -1,0 +1,9 @@
+{
+	"machine":"teeks99-01",
+	"os":"win2008",
+	"os_arch":"64",
+	"procs":4,
+	"runs":{
+		"a":{"dir":"a", "type":"trunk", "arch":"64", "compilers":"msvc-11.0"}
+	}
+}

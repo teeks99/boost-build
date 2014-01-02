@@ -41,9 +41,7 @@ Moe
 *2x1TB RAID0
 
 *Blinky-BoostRegression01 - Windows 7 - 64bit
-  * teeks99-01a-win7-32on64 msvc10,msvc11
-  * teeks99-01b-win7-32on64 msvc8,msvc9
-
+  * teeks99-01a-win7-32on64 msvc10
 
 Willie02
 ===========

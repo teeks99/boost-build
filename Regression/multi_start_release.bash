@@ -1,7 +1,7 @@
 rm output.log
 echo Starting at: `date` > run_started.log
 
-rsync -a ../boost-release/ boost/
+rsync -a ../boost_root-master/ boost_root/
 source vars.bash
 
 python run.py --runner=teeks99-02${id}-Ubuntu12.04-64 --toolsets=${tools} --force-update --tag=branches/release --bjam-options=-j2 --comment=../info.html 2>&1 | tee output.log

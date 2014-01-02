@@ -9,21 +9,12 @@ do
    svn up
    cd ..
 
-   cd a
-   ./multi_start.bash
-   cd ..
-
-   cd b
-   ./multi_start.bash
-   cd ..
-
-   cd c
-   ./multi_start_release.bash
-   cd ..
-
-   cd d
-   ./multi_start_release.bash
-   cd ..
+   for ver in a b
+   do
+      cd $ver
+      ./multi_start.bash
+      cd ..
+   done
 
    echo `date` >> loop_finished.log
 done

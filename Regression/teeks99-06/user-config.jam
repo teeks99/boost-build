@@ -1,7 +1,0 @@
-using gcc : 4.7 : g++-4.7 ;
-using gcc : 4.6 : g++-4.6 ;
-using gcc : 4.5 : g++-4.5 ;
-using gcc : 4.4 : g++-4.4 ;
-using clang : 3.0 ;
-using clang : 3.1 : /home/tomkent/src/clang+llvm-3.1-x86_64-linux-ubuntu_12.04/bin/clang ;
-using clang : 3.2 : /home/tomkent/src/clang+llvm-3.2-x86_64-linux-ubuntu-12.04/bin/clang ;

@@ -2,7 +2,7 @@
 for ver in a b c d e f g h i
 do
    cd $ver
-   rm -rf boost
+   rm -rf boost_root
    rm -rf results
    cd ..
 done

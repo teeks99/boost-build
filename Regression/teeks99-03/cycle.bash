@@ -2,7 +2,7 @@ rm loop_finished.log
 while true
 do
    cd boost_root-develop
-   git pull
+   git pull --recurse-submodules
    cd ..
 
    #cd boost_root-master

@@ -3,6 +3,23 @@ import os
 import subprocess
 import sys
 import json
+import io
+
+class TeeStream(io.StringIO):
+    def __init__(self, terminal_type, capture):
+        if terminal_type not in ['stdout', 'stderr']:
+            raise Exception('Invalid terminal type')
+        self.terminal_type = terminal_type
+        self.terminal = sys.__dict__[self.terminal_type]
+        self.capture = capture
+        io.StringIO.__init__(self)
+
+    def fileno(self):
+        return sys.__dict__[self.terminal_type].fileno()
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.capture.write(message)
 
 class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
@@ -40,25 +57,15 @@ class Runner(object):
         print "Runing command:"            
         print cmd_str[1:]            
         print ""
-            
-        # Run
-        proc = subprocess.Popen(command)#, 
-                                #stdout=subprocess.PIPE, 
-                                #stderr=subprocess.PIPE)
-        
-        # Tee the output to output.log as well as the screen
+
         with open("output.log", "w") as log_file:
-            while proc.poll() is None:
-                if proc.stderr:
-                    line = proc.stderr.readline()
-                    if line:
-                        sys.stderr.write(line)
-                        log_file.write(line)
-                if proc.stdout:
-                    line = proc.stdout.readline()
-                    if line:
-                        sys.stdout.write(line)
-                        log_file.write(line)      
+            tee_stdout = TeeStream('stdout', log_file)
+            tee_stderr = TeeStream('stderr', log_file)
+            
+            # Run
+            proc = subprocess.Popen(command)#, 
+                                stdout=tee_stdout, 
+                                stderr=tee_stderr)
 
         if self.cleanup:
             try:

@@ -43,6 +43,10 @@ class Runner(object):
         print ""
 
         with open("output.log", "w") as log_file:
+            log_file.write("Running command:\n:")
+            log_file.write(cmd_str[1:])
+            log_file.write("\n")
+
             # Run
             proc = subprocess.Popen(command, 
                                 stdout=subprocess.PIPE, 

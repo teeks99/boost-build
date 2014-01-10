@@ -28,9 +28,9 @@ def tee_pipe(pipe_stream, first_output, second_output):
     By making one of the outputs sys.stdout/stderr and the second a file
     you are reproducing the standard POSIX tee.
     """
-    available = bytes_available(stream)
+    available = bytes_available(pipe_stream)
     if available:
-        data = stream.read(available)
+        data = pipe_stream.read(available)
         if first_output and hasattr(first_output, 'write'):
             first_output.write(data)
         if second_output and hasattr(second_output, 'write'):

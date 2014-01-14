@@ -5,10 +5,6 @@ do
    git pull
    cd ..
 
-   cd boost_root-master
-   git pull
-   cd ..
-
    for ver in a b
    do
       cd $ver

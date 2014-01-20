@@ -31,8 +31,10 @@ class Runner(object):
             run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
             ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
 
-        if run['type'] == 'release':
-            command.append('--tag=branches/release')
+        if run['type'] == 'release' or run['type'] == 'branches/release':
+            command.append('--tag=master')
+        else: # type == develop or no type
+            command.append('--tag=develop')
 
         # Output the command to the screen before running it            
         cmd_str = ""
@@ -73,9 +75,17 @@ class Runner(object):
             start_at = None
 
         while True:
+            if self.check_for_stop():
+               print("Stopping runs because file: 'stop_runs.on' exists")
+               break
+
             r = sorted_runs[num % len(sorted_runs)]
             self.run_one(r)
             num += 1
+
+    def check_for_stop(self):
+        if os.path.exists(self.start_dir + "stop_runs.on"):
+            return True
         
     def restart(self):
         start_at = "a"

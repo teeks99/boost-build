@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import json
+import tee
 
 class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
@@ -30,8 +31,10 @@ class Runner(object):
             run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
             ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
 
-        if run['type'] == 'release':
-            command.append('--tag=branches/release')
+        if run['type'] == 'release' or run['type'] == 'branches/release':
+            command.append('--tag=master')
+        else: # type == develop or no type
+            command.append('--tag=develop')
 
         # Output the command to the screen before running it            
         cmd_str = ""
@@ -40,25 +43,18 @@ class Runner(object):
         print "Runing command:"            
         print cmd_str[1:]            
         print ""
-            
-        # Run
-        proc = subprocess.Popen(command)#, 
-                                #stdout=subprocess.PIPE, 
-                                #stderr=subprocess.PIPE)
-        
-        # Tee the output to output.log as well as the screen
+
         with open("output.log", "w") as log_file:
-            while proc.poll() is None:
-                if proc.stderr:
-                    line = proc.stderr.readline()
-                    if line:
-                        sys.stderr.write(line)
-                        log_file.write(line)
-                if proc.stdout:
-                    line = proc.stdout.readline()
-                    if line:
-                        sys.stdout.write(line)
-                        log_file.write(line)      
+            log_file.write("Running command:\n:")
+            log_file.write(cmd_str[1:])
+            log_file.write("\n")
+
+            # Run
+            proc = subprocess.Popen(command, 
+                                stdout=subprocess.PIPE, 
+                                stderr=subprocess.PIPE)
+            tee.tee_process(proc, log_file, log_file)
+
 
         if self.cleanup:
             try:
@@ -79,9 +75,17 @@ class Runner(object):
             start_at = None
 
         while True:
+            if self.check_for_stop():
+               print("Stopping runs because file: 'stop_runs.on' exists")
+               break
+
             r = sorted_runs[num % len(sorted_runs)]
             self.run_one(r)
             num += 1
+
+    def check_for_stop(self):
+        if os.path.exists(self.start_dir + "stop_runs.on"):
+            return True
         
     def restart(self):
         start_at = "a"

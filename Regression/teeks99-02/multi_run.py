@@ -84,7 +84,7 @@ class Runner(object):
             num += 1
 
     def check_for_stop(self):
-        if os.path.exists(self.start_dir + "stop_runs.on"):
+        if os.path.exists(self.start_dir + "/stop_runs.on"):
             return True
         
     def restart(self):

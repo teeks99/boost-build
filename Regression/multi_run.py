@@ -28,8 +28,9 @@ class Runner(object):
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
             self.mvs['os_arch'], '--force-update', '--toolsets=' + 
-            run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
-            ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
+            run['compilers'], '--bjam-options="-m5 -j' + 
+            str(self.mvs['procs']) + ' address-model=' + run['arch'] + 
+            '"', '--comment=..\info.html']
 
         if run['type'] == 'release' or run['type'] == 'branches/release':
             command.append('--tag=master')

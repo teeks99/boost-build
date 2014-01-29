@@ -4,7 +4,7 @@ echo Starting at: `date` > run_started.log
 rsync -a ../boost_root-master/ boost_root/
 source vars.bash
 
-python run.py --runner=teeks99-05${id}-Ubuntu12.04-64 --toolsets=${tools} --force-update --tag=master --bjam-options=-j2 --comment=../info.html 2>&1 | tee output.log
+python run.py --runner=teeks99-05${id}-Ubuntu12.04-64 --toolsets=${tools} --force-update --tag=master --bjam-options="-m5 -j2" --comment=../info.html 2>&1 | tee output.log
 
 rm -rf boost_root/ results/
 rm -rf /tmp/*.cpp

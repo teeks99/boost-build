@@ -6,7 +6,7 @@ source vars.bash
 
 python run.py --runner=teeks99-05${id}-Ubuntu12.04-64 --toolsets=${tools} --force-update --tag=master --bjam-options="-m5 -j2" --comment=../info.html 2>&1 | tee output.log
 
-rm -rf boost_root/ results/
+rm -rf boost/ results/
 rm -rf /tmp/*.cpp
 
 mv run_started.log last_run.log

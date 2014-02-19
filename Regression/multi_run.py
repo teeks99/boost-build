@@ -59,6 +59,8 @@ class Runner(object):
         if self.cleanup:
             try:
                 shutil.rmtree('results')
+                shutil.rmtree('boost_root/boost')
+                shutil.rmtree('boost_root/bin.v2')
                 #rmtree on temp???
             except OSError:
 		pass # dir wasn't there...may indicate previous failure

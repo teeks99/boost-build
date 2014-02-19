@@ -9,7 +9,7 @@ do
    #git pull
    #cd ..
 
-   for ver in a b
+   for ver in a b c d e f g h i j
    do
       cd $ver
       ./start.bash

@@ -50,10 +50,13 @@ class Runner(object):
             log_file.write("\n")
 
             # Run
-            proc = subprocess.Popen(command, 
-                                stdout=subprocess.PIPE, 
-                                stderr=subprocess.PIPE)
-            tee.tee_process(proc, log_file, log_file)
+            #proc = subprocess.Popen(command, 
+            #                    stdout=subprocess.PIPE, 
+            #                    stderr=subprocess.PIPE)
+            #tee.tee_process(proc, log_file, log_file)
+            proc = subprocess.Popen(command)
+            while proc.poll() is None:
+                pass
 
 
         if self.cleanup:

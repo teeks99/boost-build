@@ -31,6 +31,11 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
 
+    def copy_repo(self, origin="../boost_root"):
+        repo_name = "boost_root"
+        shutil.rmtree(repo_name)
+        shutil.copytree(origin, repo_name)
+
     def run_one(self, run_str):
         f = open("CurrentRun.json",'w')
         s = json.dump(run_str, f)
@@ -39,6 +44,7 @@ class Runner(object):
         run = self.runs[run_str]
     
         os.chdir(run["dir"])
+        self.copy_repo()
         print ""
         print ""
         print "Starting run: " + run["dir"]

@@ -47,7 +47,7 @@ class Runner(object):
         run = self.runs[self.current_run]
     
         os.chdir(run["dir"])
-        self.start_log()
+        self.log_start()
         self.copy_repo()
         print ""
         print ""
@@ -107,7 +107,7 @@ class Runner(object):
             except OSError:
                 pass # dir wasn't there...may indicate previous failure
         
-        self.stop_log()     
+        self.log_end()     
         os.chdir(self.start_dir)
         
     def loop(self, start_at=None):
@@ -146,12 +146,12 @@ class Runner(object):
         self.loop(start_at)
 
     def log_start(self):
-        with(open(self.multi_run_log,"a") as log):
+        with open(self.multi_run_log, "a") as log:
             log.write("Run " + self.current_run + " started at: " + 
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
     def log_end(self):
-        with(open(self.multi_run_log,"a") as log):
+        with(open(self.multi_run_log, "a") as log):
             log.write(" completed at: " + 
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 

@@ -6,6 +6,7 @@ import json
 import tee
 import threading
 import io
+import datetime
 
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
@@ -30,20 +31,23 @@ class Runner(object):
         self.runs = self.mvs['runs']
         self.cleanup = False
         self.start_dir = os.getcwd()
+        self.current_run = None
+        self.multi_run_logfile = "../all_runs.log"
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
         shutil.rmtree(repo_name)
         shutil.copytree(origin, repo_name)
 
-    def run_one(self, run_str):
+    def run_one(self):
         f = open("CurrentRun.json",'w')
-        s = json.dump(run_str, f)
+        s = json.dump(self.current_run, f)
         f.close()
         
-        run = self.runs[run_str]
+        run = self.runs[self.current_run]
     
         os.chdir(run["dir"])
+        self.start_log()
         self.copy_repo()
         print ""
         print ""
@@ -102,7 +106,8 @@ class Runner(object):
                 #rmtree on temp???
             except OSError:
                 pass # dir wasn't there...may indicate previous failure
-            
+        
+        self.stop_log()     
         os.chdir(self.start_dir)
         
     def loop(self, start_at=None):
@@ -119,8 +124,8 @@ class Runner(object):
                print("Stopping runs because file: 'stop_runs.on' exists")
                break
 
-            r = sorted_runs[num % len(sorted_runs)]
-            self.run_one(r)
+            self.current_run = sorted_runs[num % len(sorted_runs)]
+            self.run_one()
             num += 1
 
     def check_for_stop(self):
@@ -139,7 +144,16 @@ class Runner(object):
             pass #No file?
 
         self.loop(start_at)
-           
+
+    def log_start(self):
+        with(open(self.multi_run_log,"a") as log):
+            log.write("Run " + self.current_run + " started at: " + 
+                datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    def log_end(self):
+        with(open(self.multi_run_log,"a") as log):
+            log.write(" completed at: " + 
+                datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')
@@ -148,7 +162,8 @@ if __name__ == '__main__':
     
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
-        r.run_one(sys.argv[1])
+        r.current_run = sys.argv[1]
+        r.run_one()
     else:
         r.cleanup = True
         r.restart()

@@ -98,9 +98,7 @@ class Runner(object):
         if self.cleanup:
             try:
                 shutil.rmtree('results')
-                shutil.rmtree('boost_root/boost')
-                os.mkdir('boost_root/boost')
-                shutil.rmtree('boost_root/bin.v2')
+                shutil.rmtree('boost_root') # We're replacing the repo every run
                 #rmtree on temp???
             except OSError:
                 pass # dir wasn't there...may indicate previous failure

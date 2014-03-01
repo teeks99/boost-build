@@ -151,7 +151,7 @@ class Runner(object):
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
     def log_end(self):
-        with(open(self.multi_run_log, "a") as log):
+        with open(self.multi_run_log, "a") as log:
             log.write(" completed at: " + 
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 

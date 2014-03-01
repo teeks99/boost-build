@@ -4,6 +4,25 @@ import subprocess
 import sys
 import json
 import tee
+import threading
+import io
+
+class StreamThread ( threading.Thread ):
+    def __init__(self, source, sink1, sink2):
+        threading.Thread.__init__(self)
+        self.source = source
+        self.sink1 = sink1
+        self.sink2 = sink2
+
+    def run ( self ):
+        while 1:
+            line = self.source.readline()
+            if line == '':
+                break
+            self.sink1.write(line)
+            self.sink1.flush()
+            self.sink2.write(line)
+            self.sink2.flush()
 
 class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
@@ -27,7 +46,7 @@ class Runner(object):
         
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
-            self.mvs['os_arch'], '--force-update', '--toolsets=' + 
+            self.mvs['os_arch'], '--toolsets=' + 
             run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
             ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
 
@@ -54,19 +73,31 @@ class Runner(object):
             #                    stdout=subprocess.PIPE, 
             #                    stderr=subprocess.PIPE)
             #tee.tee_process(proc, log_file, log_file)
-            proc = subprocess.Popen(command)
-            while proc.poll() is None:
-                pass
 
+            proc = subprocess.Popen(command, 
+                                stdout=subprocess.PIPE, 
+                                stderr=subprocess.PIPE)
+            stdoutThread = StreamThread(proc.stdout, sys.stdout, log_file)
+            stderrThread = StreamThread(proc.stderr, sys.stderr, log_file)
+            stdoutThread.start()
+            stderrThread.start()
+            proc.wait()
+            stdoutThread.join()
+            stderrThread.join()
+
+            #proc = subprocess.Popen(command)
+            #while proc.poll() is None:
+            #    pass
 
         if self.cleanup:
             try:
                 shutil.rmtree('results')
                 shutil.rmtree('boost_root/boost')
+                os.mkdir('boost_root/boost')
                 shutil.rmtree('boost_root/bin.v2')
                 #rmtree on temp???
             except OSError:
-		pass # dir wasn't there...may indicate previous failure
+                pass # dir wasn't there...may indicate previous failure
             
         os.chdir(self.start_dir)
         

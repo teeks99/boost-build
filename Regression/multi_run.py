@@ -55,12 +55,12 @@ class Runner(object):
         run = self.runs[self.current_run]
     
         os.chdir(run["dir"])
-        self.log_start()
-        self.copy_repo()
         print("")
         print("")
         print("Starting run: " + run["dir"])
         print("")
+        self.log_start()
+        self.copy_repo()
         
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 

@@ -26,7 +26,8 @@ class StreamThread ( threading.Thread ):
             self.sink2.flush()
             
 def win_rmtree(directory):
-    os.system('rmdir /S /Q \"{}\"'.format(directory))
+    if os.path.isdir(directory):
+        os.system('rmdir /S /Q \"{}\"'.format(directory))
     if os.path.isdir(directory):
         os.system('rmdir /S /Q \"{}\"'.format(directory))
 
@@ -41,6 +42,7 @@ class Runner(object):
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
+        print("copying repo " + origin + " to " + repo_name)
         #shutil.rmtree(repo_name)
         win_rmtree(repo_name)
         shutil.copytree(origin, repo_name)
@@ -55,10 +57,10 @@ class Runner(object):
         os.chdir(run["dir"])
         self.log_start()
         self.copy_repo()
-        print ""
-        print ""
-        print "Starting run: " + run["dir"]
-        print ""
+        print("")
+        print("")
+        print("Starting run: " + run["dir"])
+        print("")
         
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
@@ -75,9 +77,9 @@ class Runner(object):
         cmd_str = ""
         for s in command:
             cmd_str += " " + s
-        print "Runing command:"            
-        print cmd_str[1:]            
-        print ""
+        print("Runing command:")     
+        print(cmd_str[1:])       
+        print("")
 
         with open("output.log", "w") as log_file:
             log_file.write("Running command:\n:")
@@ -162,6 +164,17 @@ class Runner(object):
         with open(self.multi_run_log, "a") as log:
             log.write(" completed at: " + 
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    def update_base_repo(self):
+        print("updating base repo")
+        os.chdir('boost_root')
+        subprocess.Popen(['git', 'checkout', 'master']).wait()
+        subprocess.Popen(['git', 'pull']).wait()
+        subprocess.Popen(['git', 'submodule', 'update']).wait()
+        subprocess.Popen(['git', 'checkout', 'develop']).wait()
+        subprocess.Popen(['git', 'pull']).wait()
+        subprocess.Popen(['git', 'submodule', 'update']).wait()        
+        os.chdir('..')
 
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')

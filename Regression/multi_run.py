@@ -24,6 +24,11 @@ class StreamThread ( threading.Thread ):
             self.sink1.flush()
             self.sink2.write(line)
             self.sink2.flush()
+            
+def win_rmtree(directory):
+    os.system('rmdir /S /Q \"{}\"'.format(directory))
+    if os.path.isdir(directory):
+        os.system('rmdir /S /Q \"{}\"'.format(directory))
 
 class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
@@ -36,7 +41,8 @@ class Runner(object):
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
-        shutil.rmtree(repo_name)
+        #shutil.rmtree(repo_name)
+        win_rmtree(repo_name)
         shutil.copytree(origin, repo_name)
 
     def run_one(self):
@@ -101,8 +107,10 @@ class Runner(object):
 
         if self.cleanup:
             try:
-                shutil.rmtree('results')
-                shutil.rmtree('boost_root') # We're replacing the repo every run
+                #shutil.rmtree('results')
+                #shutil.rmtree('boost_root') # We're replacing the repo every run
+                win_rmtree('results')
+                win_rmtree('boost_root')
                 #rmtree on temp???
             except OSError:
                 pass # dir wasn't there...may indicate previous failure

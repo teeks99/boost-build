@@ -66,7 +66,8 @@ class Runner(object):
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
             self.mvs['os_arch'], '--toolsets=' + 
             run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
-            ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
+            ' address-model=' + run['arch'] + ' --remove-test-targets"', 
+            '--comment=..\info.html']
 
         if run['type'] == 'release' or run['type'] == 'branches/release':
             command.append('--tag=master')

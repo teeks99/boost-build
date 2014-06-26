@@ -6,5 +6,5 @@ bzip2 1.0.6
 Microsoft Visual Studio 2005 - Service Pack 1
 Microsoft Visual Studio 2008 - Service Pack 1
 Microsoft Visual Studio 2010 - Service Pack 1
-Microsoft Visual Studio 2012
+Microsoft Visual Studio 2012 - Update 2
 

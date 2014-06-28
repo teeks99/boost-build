@@ -7,6 +7,7 @@ import tee
 import threading
 import io
 import datetime
+import tempfile
 
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
@@ -39,6 +40,7 @@ class Runner(object):
         self.start_dir = os.getcwd()
         self.current_run = None
         self.multi_run_log = "../all_runs.log"
+        self.sys_tmpdir = tempfile.gettempdir()
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
@@ -47,12 +49,32 @@ class Runner(object):
         win_rmtree(repo_name)
         shutil.copytree(origin, repo_name)
 
+    def clean_and_make_tmp(self):
+        self.tmpdir = self.sys_tmpdir
+        if tmpdir in self.mvs: 
+            self.tmpdir = self.mvs['tmpdir']
+        else:
+            self.tmpdir = os.path.join(self.tmpdir, "boost_regression")
+        
+        if os.path.exists(self.tmpdir):
+            if os.name == 'nt':
+                win_rmtree(self.tmpdir)
+            else:
+                shutil.rmtree(self.tmpdir)
+        os.makedirs(self.tmpdir)
+
+        os.environ['TMPDIR'] = self.tmpdir
+        os.environ['TMP'] = self.tmpdir
+        os.environ['TEMP'] = self.tmpdir
+
     def run_one(self):
         f = open("CurrentRun.json",'w')
         s = json.dump(self.current_run, f)
         f.close()
         
         run = self.runs[self.current_run]
+
+        self.clean_and_make_tmp()
     
         os.chdir(run["dir"])
         print("")

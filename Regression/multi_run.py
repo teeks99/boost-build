@@ -51,7 +51,7 @@ class Runner(object):
 
     def clean_and_make_tmp(self):
         self.tmpdir = self.sys_tmpdir
-        if tmpdir in self.mvs: 
+        if 'tmpdir' in self.mvs: 
             self.tmpdir = self.mvs['tmpdir']
         else:
             self.tmpdir = os.path.join(self.tmpdir, "boost_regression")
@@ -88,7 +88,7 @@ class Runner(object):
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
             self.mvs['os_arch'], '--toolsets=' + 
             run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
-            ' address-model=' + run['arch'] + '"', '--comment=..\info.html']
+            ' address-model=' + run['arch'] + ' --remove-test-targets"', '--comment=..\info.html']
 
         if run['type'] == 'release' or run['type'] == 'branches/release':
             command.append('--tag=master')

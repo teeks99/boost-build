@@ -62,6 +62,8 @@ copy %boost_version%\64bitlog.txt %boost_version%-64bitlog.txt
 start "Build Output" notepad %boost_version%-32bitlog.txt
 start "Build Output" notepad %boost_version%-64bitlog.txt
 
+rd /S/Q garbage_headers
+
 move %boost_version% %boost_version%_complete
 %zip% x %boost_version%.tar
 
@@ -93,14 +95,13 @@ REM %bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=
 REM mkdir lib32-msvc-8.0
 REM move stage\lib\* lib32-msvc-8.0\
 
-%bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 stage
+%bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install
 
 REM Build again to log any errors in the build process
 echo Build for msvc-%~1 >> %~2bitlog.txt
-%bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 stage >> %~2bitlog.txt 2<&1
+%bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 --prefix=.\ --lib
+dir=lib%~2-msvc-%~1 --includedir=garbage_headers install >> %~2bitlog.txt 2<&1
 
-mkdir lib%~2-msvc-%~1
-move stage\lib\* lib%~2-msvc-%~1\
 copy ..\DEPENDENCY_VERSIONS.txt lib%~2-msvc-%~1\
 
 goto:EOF

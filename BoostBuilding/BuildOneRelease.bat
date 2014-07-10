@@ -120,6 +120,7 @@ xcopy /E/Z/Y/I %boost_version%_complete\lib%~2-msvc-%~1 %boost_version%\lib%~2-m
 %sed% s/FILL_CONFIG/msvc-%~1-%~2/g tmp1.iss > tmp2.iss
 del tmp1.iss
 move tmp2.iss BoostWinInstaller-msvc-%~1-%~2.iss
+echo %inno% /cc BoostWinInstaller-msvc-%~1-%~2.iss
 %inno% /cc BoostWinInstaller-msvc-%~1-%~2.iss
 ::del BoostWinInstaller-msvc-%~1-%~2.iss
 

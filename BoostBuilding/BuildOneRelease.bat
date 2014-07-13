@@ -62,7 +62,7 @@ copy %boost_version%\64bitlog.txt %boost_version%-64bitlog.txt
 start "Build Output" notepad %boost_version%-32bitlog.txt
 start "Build Output" notepad %boost_version%-64bitlog.txt
 
-rd /S/Q garbage_headers
+rd /S/Q %boost_version%\garbage_headers
 
 move %boost_version% %boost_version%_complete
 %zip% x %boost_version%.tar

@@ -3,3 +3,20 @@ using msvc : 9.0 ;
 using msvc : 10.0 ;
 using msvc : 11.0 ;
 using msvc : 12.0 ;
+
+using python
+: 2.7 # version
+: # Interperter/path to dir
+: D:\\BoostBuilding\\Python27-32\\include # includes
+: D:\\BoostBuilding\\Python27-32\\libs # libs
+: # conditions
+;
+
+using python
+: 2.7 # version
+: # Interperter/path to dir
+: D:\\BoostBuilding\\Python27-64\\include # includes
+: D:\\BoostBuilding\\Python27-64\\libs # libs
+: <address-model>64 # conditions
+;
+

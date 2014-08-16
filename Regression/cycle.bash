@@ -1,20 +1,23 @@
 rm loop_finished.log
 while true
 do
-   cd boost_root-develop
+   pushd boost_root
+   git checkout develop
    git pull --recurse-submodules
-   cd ..
+   git submodule update --init
+   git submodule update
 
-   #cd boost_root-master
-   #git pull
-   #cd ..
-
-   for ver in a b
-   do
+   git checkout master
+   git pull --recurse-submodules
+   git submodule update --init
+   git submodule update
+   popd
+	
+   while read ver; do
       cd $ver
       ./start.bash
       cd ..
-   done
+   done < version_dirs.txt
 
    echo `date` >> loop_finished.log
 done

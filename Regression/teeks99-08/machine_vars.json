@@ -9,5 +9,6 @@
 		"c":{"dir":"c", "type":"trunk", "arch":"64", "compilers":"msvc-10.0"},
 		"d":{"dir":"d", "type":"trunk", "arch":"64", "compilers":"msvc-11.0"},
 		"e":{"dir":"e", "type":"trunk", "arch":"64", "compilers":"msvc-12.0"}
+		"f":{"dir":"f", "type":"trunk", "arch":"64", "compilers":"msvc-14.0"}
 	}
 }

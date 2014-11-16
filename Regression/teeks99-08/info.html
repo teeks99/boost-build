@@ -14,16 +14,45 @@ using msvc : 9.0 ;
 using msvc : 10.0 ;
 using msvc : 11.0 ;
 using msvc : 12.0 ;
+
+using python
+: 2.7 # version
+: # Interperter/path to dir
+: D:\\BoostBuilding\\Python27-32\\include # includes
+: D:\\BoostBuilding\\Python27-32\\libs # libs
+: # conditions
+;
+
+using python
+: 2.7 # version
+: # Interperter/path to dir
+: D:\\BoostBuilding\\Python27-64\\include # includes
+: D:\\BoostBuilding\\Python27-64\\libs # libs
+: <address-model>64 # conditions
+;
 </pre>
 </p><p>
 <h2>Software Versions</h2>
-</p><p>Visual Studio<pre>
-
+<pre>
+vc8        - 14.00.50727.762 - 80x86
+vc8-64     - 14.00.50727.762 - x64
+vc8-32-64  - 14.00.50727.762 - x64
+vc9        - 15.00.30729.01 - 80x86
+vc9-64     - 15.00.30729.01 - x64
+vc9-32-64  - 15.00.30729.01 - x64
+vc10       - 16.00.40219.01 - 80x86
+vc10-64    - 16.00.40219.01 - x64
+vc10-32-64 - 16.00.40219.01 - x64
+vc11       - 17.00.61030 - x86
+vc11-64    - 17.00.61030 - x64
+vc11-32-64 - 17.00.61030 - x64
+vc12       - 18.00.30501 - x86
+vc12-64    - 18.00.30501 - x64
+vc12-32-64 - 18.00.30501 - x64
 </pre>
 </p><p>Python<pre>
-</pre>
 > python --version
-Python 2.7.3
+Python 2.7.8
 </pre></p><p>Subversion<pre>
 > svn --version
 svn, version 1.7.5 (r1336830)

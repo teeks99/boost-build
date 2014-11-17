@@ -25,24 +25,9 @@ def make_default(number, id):
             base_path + "\\VC\\bin\\x86_amd64\\cl.exe",
             'sys_path_add':
             base_path + "\\Common7\\IDE"})
-    return versions    
+    return versions 
 
-def make_vc8():
-    return make_default('80','vc8')
-    
-def make_vc9():
-    return make_default('90','vc9')
-    
-def make_vc10():
-    return make_default('100','vc10')
-
-def make_vc11():
-    return make_default('110','vc11')
-
-def make_vc12():
-    number = '120'
-    id = 'vc12'
-    
+def make_modern(number, id):
     versions = []
 
     base_path = get_path(number)
@@ -58,7 +43,26 @@ def make_vc12():
             base_path + "\\VC\\bin\\x86_amd64\\cl.exe",
             'sys_path_add':
             base_path + "\\VC\\bin\\"})
-    return versions    
+    return versions
+
+
+def make_vc8():
+    return make_default('80','vc8')
+    
+def make_vc9():
+    return make_default('90','vc9')
+    
+def make_vc10():
+    return make_default('100','vc10')
+
+def make_vc11():
+    return make_default('110','vc11')
+
+def make_vc12():
+    return make_modern('120', 'vc12')
+
+def make_vc14():
+    return make_modern('140', 'vc14')
     
 def make_versions():
     versions = []
@@ -67,6 +71,7 @@ def make_versions():
     versions += make_vc10()
     versions += make_vc11()
     versions += make_vc12()
+    versions += make_vc14()
     return versions
     
 def parse_version_output(ver):

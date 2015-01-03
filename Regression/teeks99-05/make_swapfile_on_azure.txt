@@ -1,0 +1,12 @@
+Azure VMs come without a swap file, so we need to make one.
+
+sudo dd if=/dev/zero of=/mnt/swapfile1 bs=1024 count=4194304
+
+sudo chmod 0600 /mnt/swapfile1
+
+sudo mkswap /mnt/swapfile1
+
+# Add a line to /etc/fstab
+# /mnt/swapfile1 none swap sw 0 0
+
+sudo swapon -a 

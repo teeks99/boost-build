@@ -64,6 +64,12 @@ start "Build Output" notepad %boost_version%-64bitlog.txt
 
 rd /S/Q %boost_version%\garbage_headers
 
+copy DEPENDENCY_VERSIONS.txt %boost_version%
+
+move %boost_version%\bin.v2 .\
+%zip% a %boost_version%-bin-msvc-all-32-64.7z %boost_version%
+move bin.v2 %boost_version%\
+
 move %boost_version% %boost_version%_complete
 %zip% x %boost_version%.tar
 
@@ -80,11 +86,6 @@ call:MakeInstaller 12.0 64
 
 rd /S/Q %boost_version%
 move %boost_version%_complete %boost_version%
-copy DEPENDENCY_VERSIONS.txt %boost_version%
-
-move %boost_version%\bin.v2 .\
-%zip% a %boost_version%-bin-msvc-all-32-64.7z %boost_version%
-move bin.v2 %boost_version%\
 
 echo Build Complete
 
@@ -95,11 +96,11 @@ REM %bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=
 REM mkdir lib32-msvc-8.0
 REM move stage\lib\* lib32-msvc-8.0\
 
-%bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install
+%bjam% -j%NUMBER_OF_PROCESSORS% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 architecture=x86 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install
 
 REM Build again to log any errors in the build process
 echo Build for msvc-%~1 >> %~2bitlog.txt
-%bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install >> %~2bitlog.txt 2<&1
+%bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 architecture=x86 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install >> %~2bitlog.txt 2<&1
 
 copy ..\DEPENDENCY_VERSIONS.txt lib%~2-msvc-%~1\
 

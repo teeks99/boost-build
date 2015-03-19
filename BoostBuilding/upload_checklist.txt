@@ -1,0 +1,12 @@
+Go to sourceforge, make a directory, set it as staged.
+
+Make Checksums
+cd bin/RELEASEDIR
+sha256sum * > SHA256SUMS
+
+gpg --clearsign SHA256SUMS
+
+Use rsync to upload:
+rsync -aP bin/RELEASE_DIR teeks99@frs.sourceforge.net:/home/frs/project/boost/boost-binaries/
+
+

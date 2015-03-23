@@ -76,19 +76,24 @@ class Runner(object):
 
         self.clean_and_make_tmp()
     
-        os.chdir(run["dir"])
-        print("")
-        print("")
-        print("Starting run: " + run["dir"])
-        print("")
+        os.chdir(run['dir'])
+        print('')
+        print('')
+        print('Starting run: ' + run['dir'])
+        print('')
         self.log_start()
         self.copy_repo()
+
+        other_options = ''
+        if 'other_options' in run:
+            other_options = ' ' + run['other_options']
         
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
             run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
             self.mvs['os_arch'], '--toolsets=' + 
-            run['compilers'], '--bjam-options="-j' + str(self.mvs['procs']) + 
-            ' address-model=' + run['arch'] + ' --remove-test-targets"', '--comment=..\info.html']
+            run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) + 
+            ' address-model=' + run['arch'] + ' --abbreviate-paths' +
+            ' --remove-test-targets' + other_options, '--comment=..\info.html']
 
         if run['type'] == 'release' or run['type'] == 'branches/release':
             command.append('--tag=master')
@@ -99,20 +104,18 @@ class Runner(object):
         cmd_str = ""
         for s in command:
             cmd_str += " " + s
-        print("Runing command:")     
+        print('Runing command:')     
         print(cmd_str[1:])       
-        print("")
+        print('')
+        print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
+        print('')
 
-        with open("output.log", "w") as log_file:
-            log_file.write("Running command:\n:")
+        with open('output.log', 'w') as log_file:
+            log_file.write('Running command:\n:')
             log_file.write(cmd_str[1:])
-            log_file.write("\n")
-
-            # Run
-            #proc = subprocess.Popen(command, 
-            #                    stdout=subprocess.PIPE, 
-            #                    stderr=subprocess.PIPE)
-            #tee.tee_process(proc, log_file, log_file)
+            log_file.write('\n')
+            log_file.write('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
+            log_file.write('\n\n\n')
 
             proc = subprocess.Popen(command, 
                                 stdout=subprocess.PIPE, 
@@ -125,14 +128,10 @@ class Runner(object):
             stdoutThread.join()
             stderrThread.join()
 
-            #proc = subprocess.Popen(command)
-            #while proc.poll() is None:
-            #    pass
-
         if self.cleanup:
             try:
-                #shutil.rmtree('results')
-                #shutil.rmtree('boost_root') # We're replacing the repo every run
+                if os.path.isfile('results/bjam.log'):
+                    shutil.copy2('results/bjam.log', 'results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')
                 #rmtree on temp???

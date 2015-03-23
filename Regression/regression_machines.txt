@@ -7,7 +7,7 @@ Lisa
 *480GB SSD
 *1TB HD
 
-*Wiggum04-BoostRegression02 - Windows 2008 Server - 64bit - 4cpu, 6GB RAM
+*Quimby03-Boost08 - Windows 2012R2 - 64bit - 2cpu, 8GB RAM
  * teeks99-02a-win7-64on64 - msvc8.0
  * teeks99-02b-win7-64on64 - msvc9.0
  * teeks99-02c-win7-64on64 - msvc10.0
@@ -17,7 +17,7 @@ Lisa
  * teeks99-02g-win7-64on64 - msvc10.0 - release
  * teeks99-02h-win7-64on64 - msvc11.0 - release
  
-*Todd08-BoostRegression03 - Ubuntu 12.04 - 64bit - 1cpu 4GB RAM
+*Todd08-BoostRegression03 - Ubuntu 12.04 - 64bit - 2cpu 4GB RAM
   * teeks99-03a - gcc-4.4
   * teeks99-03b - gcc-4.5
   * teeks99-03c - gcc-4.6
@@ -27,20 +27,11 @@ Lisa
   * teeks99-03g - clang-3.1
   * teeks99-03h - clang-3.2
   * teeks99-03i - clang-3.3
+  * teeks99-03j - clang-3.4
 
-*Todd09-BoostRegression04 - Ubuntu 12.04 - 64bit - 1cpu 4GB RAM
+*Todd09-BoostRegression04 - Ubuntu 12.04 - 64bit - 2cpu 4GB RAM
   * teeks99-04a - gcc-4.8
   * teeks99-04b - clang-3.4
-
-Moe
-============
-*Cross trails - charter 250GB cap
-*8x3.3 i5-2500
-*8GB RAM
-*2x1TB RAID0
-
-*Blinky-BoostRegression01 - Windows 7 - 64bit
-  * teeks99-01a-win7-32on64 msvc10
 
 Willie02
 ===========
@@ -57,5 +48,6 @@ Willie02
  * teeks99-05g - clang-3.1 - release
  * teeks99-05h - clang-3.2 - release
  * teeks99-05i - clang-3.3 - release
+ * teeks99-05j - clang-3.4 - release
 
 

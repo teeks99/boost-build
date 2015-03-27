@@ -3,7 +3,6 @@ import os
 import subprocess
 import sys
 import json
-import tee
 import threading
 import io
 import datetime

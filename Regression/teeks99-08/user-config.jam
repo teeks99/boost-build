@@ -8,16 +8,16 @@ using msvc : 14.0 ;
 using python
 : 2.7 # version
 : # Interperter/path to dir
-: D:\\BoostBuilding\\Python27-32\\include # includes
-: D:\\BoostBuilding\\Python27-32\\libs # libs
+: D:\\Python27-32\\include # includes
+: D:\\Python27-32\\libs # libs
 : # conditions
 ;
 
 using python
 : 2.7 # version
 : # Interperter/path to dir
-: D:\\BoostBuilding\\Python27-64\\include # includes
-: D:\\BoostBuilding\\Python27-64\\libs # libs
+: D:\\Python27-64\\include # includes
+: D:\\Python27-64\\libs # libs
 : <address-model>64 # conditions
 ;
 

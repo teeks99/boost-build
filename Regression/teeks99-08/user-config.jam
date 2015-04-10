@@ -7,17 +7,17 @@ using msvc : 14.0 ;
 
 using python
 : 2.7 # version
-: D:\\Python27-32\\python # Interperter/path to dir
-: D:\\Python27-32\\include # includes
-: D:\\Python27-32\\libs # libs
+: C:\\Python27-32\\python.exe # Interperter/path to dir
+: C:\\Python27-32\\include # includes
+: C:\\Python27-32\\libs # libs
 : # conditions
 ;
 
 using python
 : 2.7 # version
-: D:\\Python27-64\\python # Interperter/path to dir
-: D:\\Python27-64\\include # includes
-: D:\\Python27-64\\libs # libs
+: C:\\Python27-64\\python.exe # Interperter/path to dir
+: C:\\Python27-64\\include # includes
+: C:\\Python27-64\\libs # libs
 : <address-model>64 # conditions
 ;
 

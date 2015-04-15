@@ -1,4 +1,4 @@
-import vc_versions
+import tool_versions
 
 import shutil
 import os
@@ -215,9 +215,9 @@ class Runner(object):
             'arch': self.mvs['os_arch'],
             'os': self.mvs['os'],
             'user-config': 'UNKNOWN',
-            'compiler_versions': vc_versions.build_version_string(),
-            'python_version': 'UNKNOWN',
-            'git_version': 'UNKNOWN'}
+            'compiler_versions': tool_versions.build_version_string(),
+            'python_version': tool_versions.python_version(),
+            'git_version': tool_versions.git_version()}
 
         index_str = index_template.substitute(mapping)
 

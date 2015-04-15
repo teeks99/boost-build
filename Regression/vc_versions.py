@@ -102,12 +102,16 @@ def get_version_info():
         v['full'], v['number'], v['arch'] = parse_version_output(err)
     return versions
 
-def print_version_info():
+def build_version_string():
     versions = get_version_info()
+    output = ""
     for version in versions:
-        print(version['version'] + " - " + version['number'] + " - " + 
-            version['arch'])
-        #print(version['full'])
+        output += version['version'] + " - " + version['number'] + " - " + \
+            version['arch'] + "\n"
+    
+
+def print_version_info():
+    print(build_version_string())
 
 if __name__ == "__main__":
     print_version_info()

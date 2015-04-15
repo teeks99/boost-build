@@ -3,12 +3,15 @@
 	"os":"win2008R2",
 	"os_arch":"64",
 	"procs":2,
+        "ram":"3.5GB",
+        "vm":"Microsoft Azure A2 VM",
         "tmpdir":"D:\\boost-tmp",
 	"runs":{
 		"a":{"dir":"a", "type":"release", "arch":"64", "compilers":"msvc-8.0"},
 		"b":{"dir":"b", "type":"release", "arch":"64", "compilers":"msvc-9.0"},
 		"c":{"dir":"c", "type":"release", "arch":"64", "compilers":"msvc-10.0"},
 		"d":{"dir":"d", "type":"release", "arch":"64", "compilers":"msvc-11.0"},
-		"e":{"dir":"e", "type":"release", "arch":"64", "compilers":"msvc-12.0"}
+		"e":{"dir":"e", "type":"release", "arch":"64", "compilers":"msvc-12.0"},
+		"f":{"dir":"f", "type":"release", "arch":"64", "compilers":"msvc-14.0"}
 	}
 }

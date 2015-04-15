@@ -7,21 +7,41 @@
 <p>This runner is an 4-core ARMv7 cpu with 2GB of ram.<br/>
 This is running the 32-bit ARM version of Ubuntu 14.04</p>
 <p>
-$ g++-4.8 --version
-g++-4.8 (Ubuntu/Linaro 4.8.2-19ubuntu1) 4.8.2
+$ g++-4.9 --version
+g++-4.9 (Ubuntu/Linaro 4.9.2-0ubuntu1~14.04) 4.9.2
 <br/>
-$ clang-3.4 --version
-Ubuntu clang version 3.4-1ubuntu3 (tags/RELEASE_34/final) (based on LLVM 3.4)
+$ clang++-3.5 --version
+Ubuntu clang version 3.5.0-4ubuntu2~trusty2 (tags/RELEASE_350/final) (based on LLVM 3.5.0)
 Target: arm-unknown-linux-gnueabihf
 Thread model: posix
 <br/>
 $ python --version
 Python 2.7.6
-<br/>
 $ git --version
 git version 1.9.1
 </p>
+user-config.jam:
+<pre>
+using gcc : 4.9 : g++-4.9 ;
+using clang : 3.5 : clang++-3.5 ;
 
+using python 
+: 2.7 
+: # Interpreter
+: /usr/include/python2.7 # Includes
+: /usr/lib/python2.7/config-arm-linux-gnueabihf # Libs
+: # Conditions
+;
+
+using python
+: 3.4 
+: # Interpreter
+: /usr/include/python3.4 # Includes
+: /usr/lib/config-3.4m-arm-linux-gnueabihf # Libs
+: # Conditions
+;
+
+</pre>
 
 </body>
 </html>

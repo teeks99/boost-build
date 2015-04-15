@@ -1,2 +1,2 @@
 export id=b
-export tools=clang-3.4
+export tools=clang-3.5

@@ -4,12 +4,12 @@
 <body>
 <h1>Tom Kent - machine: ${machine} runner: ${runner}</h1>
 <p>Contact me: teeks99@yahoo.com, 314-266-8359</p>
-<p>This runner is a VM on a ${vm_type}.  Its has ${ram} of ram and ${cores} cores.<br/>
-This is running the ${arch}-bit verison of i${os}. 
+<p>This runner is on a ${setup}.  Its has ${ram} of ram and ${cores} cores.<br/>
+This is running the ${arch}-bit version of ${os}. 
 </p><p>
 <h2>user-config.jam</h2>
 <pre>
-${user-config}
+${user_config}
 </pre>
 </p><p>
 <h2>Complier Versions</h2>

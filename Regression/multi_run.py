@@ -97,7 +97,7 @@ class Runner(object):
             self.mvs['os_arch'], '--toolsets=' + 
             run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) + 
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
-            ' --remove-test-targets' + other_options, '--comment=..\info.html']
+            ' --remove-test-targets' + other_options, '--comment=info.html']
 
         if run['type'] == 'release' or run['type'] == 'branches/release':
             command.append('--tag=master')
@@ -199,30 +199,30 @@ class Runner(object):
         subprocess.Popen(['git', 'checkout', 'develop']).wait()
         subprocess.Popen(['git', 'pull']).wait()
         subprocess.Popen(['git', 'submodule', 'update']).wait()        
-        os.chdir('..')a
+        os.chdir('..')
 
     def make_info(self):
-        index_template = None
-        with open('../index.html.template', 'r') as index_template_file:
-            index_template = string.Template(index_template_file.read())
+        info_template = None
+        with open('../info.html.template', 'r') as info_template_file:
+            info_template = string.Template(info_template_file.read())
 
         mapping = {
             'machine': self.mvs['machine'],
-            'runner': self.current_run['dir'],
-            'vm_type': self.mvs['vm'],
+            'runner': self.current_run,
+            'setup': self.mvs['setup'],
             'ram': self.mvs['ram'],
             'cores': self.mvs['procs'],
             'arch': self.mvs['os_arch'],
             'os': self.mvs['os'],
-            'user-config': 'UNKNOWN',
+            'user_config': 'UNKNOWN',
             'compiler_versions': tool_versions.build_version_string(),
             'python_version': tool_versions.python_version(),
             'git_version': tool_versions.git_version()}
 
-        index_str = index_template.substitute(mapping)
+        info_str = info_template.substitute(mapping)
 
-        with open('index.html', 'w') as index_file:
-            index_file.write(index_str)        
+        with open('info.html', 'w') as info_file:
+            info_file.write(info_str)        
         
 
 if __name__ == '__main__':

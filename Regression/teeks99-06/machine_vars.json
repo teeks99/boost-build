@@ -4,7 +4,7 @@
 	"os_arch":"64",
 	"procs":2,
         "ram":"3.5GB",
-        "vm":"Microsoft Azure A2 VM",
+        "setup":"Microsoft Azure A2 VM",
         "tmpdir":"D:\\boost-tmp",
 	"runs":{
 		"a":{"dir":"a", "type":"release", "arch":"64", "compilers":"msvc-8.0"},

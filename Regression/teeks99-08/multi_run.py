@@ -1,3 +1,5 @@
+import tool_versions
+
 import shutil
 import os
 import subprocess
@@ -7,6 +9,7 @@ import threading
 import io
 import datetime
 import tempfile
+import string
 
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
@@ -76,6 +79,8 @@ class Runner(object):
         self.clean_and_make_tmp()
     
         os.chdir(run['dir'])
+        self.make_info()
+        
         print('')
         print('')
         print('Starting run: ' + run['dir'])
@@ -92,7 +97,7 @@ class Runner(object):
             self.mvs['os_arch'], '--toolsets=' + 
             run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) + 
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
-            ' --remove-test-targets' + other_options, '--comment=..\info.html']
+            ' --remove-test-targets' + other_options, '--comment=info.html']
 
         if run['type'] == 'release' or run['type'] == 'branches/release':
             command.append('--tag=master')
@@ -195,6 +200,30 @@ class Runner(object):
         subprocess.Popen(['git', 'pull']).wait()
         subprocess.Popen(['git', 'submodule', 'update']).wait()        
         os.chdir('..')
+
+    def make_info(self):
+        info_template = None
+        with open('../info.html.template', 'r') as info_template_file:
+            info_template = string.Template(info_template_file.read())
+
+        mapping = {
+            'machine': self.mvs['machine'],
+            'runner': self.current_run,
+            'setup': self.mvs['setup'],
+            'ram': self.mvs['ram'],
+            'cores': self.mvs['procs'],
+            'arch': self.mvs['os_arch'],
+            'os': self.mvs['os'],
+            'user_config': 'UNKNOWN',
+            'compiler_versions': tool_versions.build_version_string(),
+            'python_version': tool_versions.python_version(),
+            'git_version': tool_versions.git_version()}
+
+        info_str = info_template.substitute(mapping)
+
+        with open('info.html', 'w') as info_file:
+            info_file.write(info_str)        
+        
 
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')

@@ -149,14 +149,14 @@ class ConfigFinder(object):
         # Since the boost-build isn't clear on which one is used if multiple are present, 
         # just going to concatenate all of them.
         if os.environ.get('HOME'):
-            self.try_read(os.path.join(os.environ.get('HOME'), fn)
+            self.try_read(os.path.join(os.environ.get('HOME'), fn))
         if os.environ.get('HOMEDRIVE') and os.environ.get('HOMEPATH'):
             home = os.path.join(os.environ.get('HOMEDRIVE'), os.environ.get('HOMEPATH'))
-            self.try_read(os.path.join(home, fn)
+            self.try_read(os.path.join(home, fn))
         if os.environ.get('BOOST_BUILD_PATH'):
-             self.try_read(os.path.join(os.environ.get('BOOST_BUILD_PATH'), fn)
+             self.try_read(os.path.join(os.environ.get('BOOST_BUILD_PATH'), fn))
 
-	if not self.value:
+        if not self.value:
             self.value = 'user-config.jam not found in search path'
 
         return self.value    
@@ -168,18 +168,18 @@ class ConfigFinder(object):
 
         # Since the boost-build isn't clear on which one is used if multiple are present, 
         # just going to concatenate all of them.
-        self.try_read(os.path.join('/etc', fn)
+        self.try_read(os.path.join('/etc', fn))
         if os.environ.get('SystemRoot'):
-            self.try_read(os.path.join(os.environ.get('SystemRoot'), fn)
+            self.try_read(os.path.join(os.environ.get('SystemRoot'), fn))
         if os.environ.get('HOME'):
-            self.try_read(os.path.join(os.environ.get('HOME'), fn)
+            self.try_read(os.path.join(os.environ.get('HOME'), fn))
         if os.environ.get('HOMEDRIVE') and os.environ.get('HOMEPATH'):
             home = os.path.join(os.environ.get('HOMEDRIVE'), os.environ.get('HOMEPATH'))
-            self.try_read(os.path.join(home, fn)
+            self.try_read(os.path.join(home, fn))
         if os.environ.get('BOOST_BUILD_PATH'):
-             self.try_read(os.path.join(os.environ.get('BOOST_BUILD_PATH'), fn)
+             self.try_read(os.path.join(os.environ.get('BOOST_BUILD_PATH'), fn))
 
-	if not self.value:
+        if not self.value:
             self.value = 'site-config.jam not found in search path'
 
         return self.value    

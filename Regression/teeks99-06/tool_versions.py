@@ -52,11 +52,14 @@ def parse_msvc_version_output(ver):
 def get_msvc_info(version):
     existing_path = os.getenv('PATH')
     os.environ['PATH'] = version['sys_path_add'] + ";" + existing_path
-    p = subprocess.Popen(version['command'], stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    version['full'], version['number'], version['arch'] = \
-        parse_msvc_version_output(err)       
+    try:
+        p = subprocess.Popen(version['command'], stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+        out, err = p.communicate()
+        version['full'], version['number'], version['arch'] = \
+            parse_msvc_version_output(err)
+    finally:
+        os.environ['PATH'] = existing_path
 
 def get_path(version_num):
     p = os.getenv('VS' + str(version_num) + 'COMNTOOLS')
@@ -132,6 +135,64 @@ def build_version_string():
 
 def print_version_info():
     print(build_version_string())
+
+class ConfigFinder(object):
+    def __init__(self):
+        pass
+
+    def try_read(self, fname):
+        if os.path.isfile(fname):
+            with open(fname, 'r') as f:
+                self.value += f.read()
+
+    def user_config(self):
+        fn = 'user-config.jam'
+        self.value = ''
+
+        # Since the boost-build isn't clear on which one is used if multiple are present, 
+        # just going to concatenate all of them.
+        if os.environ.get('HOME'):
+            self.try_read(os.path.join(os.environ.get('HOME'), fn))
+        if os.environ.get('HOMEDRIVE') and os.environ.get('HOMEPATH'):
+            home = os.path.join(os.environ.get('HOMEDRIVE'), os.environ.get('HOMEPATH'))
+            self.try_read(os.path.join(home, fn))
+        if os.environ.get('BOOST_BUILD_PATH'):
+             self.try_read(os.path.join(os.environ.get('BOOST_BUILD_PATH'), fn))
+
+        if not self.value:
+            self.value = 'user-config.jam not found in search path'
+
+        return self.value    
+
+
+    def site_config(self):
+        fn = 'site-config.jam'
+        self.value = ''
+
+        # Since the boost-build isn't clear on which one is used if multiple are present, 
+        # just going to concatenate all of them.
+        self.try_read(os.path.join('/etc', fn))
+        if os.environ.get('SystemRoot'):
+            self.try_read(os.path.join(os.environ.get('SystemRoot'), fn))
+        if os.environ.get('HOME'):
+            self.try_read(os.path.join(os.environ.get('HOME'), fn))
+        if os.environ.get('HOMEDRIVE') and os.environ.get('HOMEPATH'):
+            home = os.path.join(os.environ.get('HOMEDRIVE'), os.environ.get('HOMEPATH'))
+            self.try_read(os.path.join(home, fn))
+        if os.environ.get('BOOST_BUILD_PATH'):
+             self.try_read(os.path.join(os.environ.get('BOOST_BUILD_PATH'), fn))
+
+        if not self.value:
+            self.value = 'site-config.jam not found in search path'
+
+        return self.value    
+
+
+def user_config():
+    return ConfigFinder().user_config()
+
+def site_config():
+    return ConfigFinder().site_config()
 
 def python_version():
     p = subprocess.Popen('python --version', stdout=subprocess.PIPE,

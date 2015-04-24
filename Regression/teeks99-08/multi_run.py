@@ -214,7 +214,8 @@ class Runner(object):
             'cores': self.mvs['procs'],
             'arch': self.mvs['os_arch'],
             'os': self.mvs['os'],
-            'user_config': 'UNKNOWN',
+            'user_config': tool_versions.user_config(),
+            'site_config': tool_versions.site_config(),
             'compiler_versions': tool_versions.build_version_string(),
             'python_version': tool_versions.python_version(),
             'git_version': tool_versions.git_version()}

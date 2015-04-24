@@ -52,11 +52,14 @@ def parse_msvc_version_output(ver):
 def get_msvc_info(version):
     existing_path = os.getenv('PATH')
     os.environ['PATH'] = version['sys_path_add'] + ";" + existing_path
-    p = subprocess.Popen(version['command'], stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    version['full'], version['number'], version['arch'] = \
-        parse_msvc_version_output(err)       
+    try:
+        p = subprocess.Popen(version['command'], stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+        out, err = p.communicate()
+        version['full'], version['number'], version['arch'] = \
+            parse_msvc_version_output(err)
+    finally:
+        os.environ['PATH'] = existing_path
 
 def get_path(version_num):
     p = os.getenv('VS' + str(version_num) + 'COMNTOOLS')

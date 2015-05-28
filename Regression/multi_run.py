@@ -99,7 +99,8 @@ class Runner(object):
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
             ' --remove-test-targets' + other_options, '--comment=info.html']
 
-        if run['type'] == 'release' or run['type'] == 'branches/release':
+        if run['type'] == 'release' or run['type'] == 'branches/release' or \
+                run['type'] == 'master':
             command.append('--tag=master')
         else: # type == develop or no type
             command.append('--tag=develop')

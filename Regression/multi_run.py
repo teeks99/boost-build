@@ -45,7 +45,7 @@ class Runner(object):
 
     @property
     def multi_run_log(self):
-        return os.path.join(self.start_dir, 'all_runs.log')
+        return os.path.join(self.start_dir, 'logs/all_runs.log')
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
@@ -141,7 +141,7 @@ class Runner(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        with open('../' + run['dir'] + '-output.log', 'w') as log_file:
+        with open('../logs/' + run['dir'] + '-output.log', 'w') as log_file:
             log_file.write('Running command:\n:')
             log_file.write(cmd_str[1:])
             log_file.write('\n')
@@ -162,7 +162,7 @@ class Runner(object):
         if self.cleanup:
             try:
                 if os.path.isfile('results/bjam.log'):
-                    shutil.copy2('results/bjam.log', '../' + run['dir'] +
+                    shutil.copy2('results/bjam.log', '../logs/' + run['dir'] +
                                  '-results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')

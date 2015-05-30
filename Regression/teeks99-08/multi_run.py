@@ -41,8 +41,11 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run = None
-        self.multi_run_log = "../all_runs.log"
         self.sys_tmpdir = tempfile.gettempdir()
+
+    @property
+    def multi_run_log(self):
+        return os.path.join(self.start_dir, 'all_runs.log')
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"

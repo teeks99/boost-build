@@ -129,7 +129,7 @@ class Runner(object):
             run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) +
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
             ' --remove-test-targets' + other_options, '--comment=info.html',
-            ' --tag=' + self.branch()]
+            '--tag=' + self.branch()]
 
         # Output the command to the screen before running it            
         cmd_str = ""

@@ -4,5 +4,8 @@ do
    cd $ver
    rm -rf boost_root
    rm -rf results
+   rm -rf boost_bb
+   rm -rf boost_regression
+   rm -rf boost_regression_src
    cd ..
 done

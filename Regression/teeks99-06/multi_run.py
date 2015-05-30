@@ -27,7 +27,7 @@ class StreamThread ( threading.Thread ):
             self.sink1.flush()
             self.sink2.write(line)
             self.sink2.flush()
-            
+
 def win_rmtree(directory):
     if os.path.isdir(directory):
         os.system('rmdir /S /Q \"{}\"'.format(directory))
@@ -53,11 +53,11 @@ class Runner(object):
 
     def clean_and_make_tmp(self):
         self.tmpdir = self.sys_tmpdir
-        if 'tmpdir' in self.mvs: 
+        if 'tmpdir' in self.mvs:
             self.tmpdir = self.mvs['tmpdir']
         else:
             self.tmpdir = os.path.join(self.tmpdir, "boost_regression")
-        
+
         if os.path.exists(self.tmpdir):
             if os.name == 'nt':
                 win_rmtree(self.tmpdir)
@@ -73,14 +73,15 @@ class Runner(object):
         f = open("CurrentRun.json",'w')
         s = json.dump(self.current_run, f)
         f.close()
-        
+
         run = self.runs[self.current_run]
 
         self.clean_and_make_tmp()
-    
+        shutil.copy2('run.py', run['dir'])
+
         os.chdir(run['dir'])
         self.make_info()
-        
+
         print('')
         print('')
         print('Starting run: ' + run['dir'])
@@ -91,15 +92,16 @@ class Runner(object):
         other_options = ''
         if 'other_options' in run:
             other_options = ' ' + run['other_options']
-        
-        command = ['python', 'run.py', '--runner=' + self.mvs['machine'] + 
-            run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" + 
-            self.mvs['os_arch'], '--toolsets=' + 
-            run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) + 
+
+        command = ['python', 'run.py', '--runner=' + self.mvs['machine'] +
+            run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" +
+            self.mvs['os_arch'], '--toolsets=' +
+            run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) +
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
             ' --remove-test-targets' + other_options, '--comment=info.html']
 
-        if run['type'] == 'release' or run['type'] == 'branches/release':
+        if run['type'] == 'release' or run['type'] == 'branches/release' or \
+                run['type'] == 'master':
             command.append('--tag=master')
         else: # type == develop or no type
             command.append('--tag=develop')
@@ -108,8 +110,8 @@ class Runner(object):
         cmd_str = ""
         for s in command:
             cmd_str += " " + s
-        print('Runing command:')     
-        print(cmd_str[1:])       
+        print('Runing command:')
+        print(cmd_str[1:])
         print('')
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
@@ -121,8 +123,8 @@ class Runner(object):
             log_file.write('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
             log_file.write('\n\n\n')
 
-            proc = subprocess.Popen(command, 
-                                stdout=subprocess.PIPE, 
+            proc = subprocess.Popen(command,
+                                stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
             stdoutThread = StreamThread(proc.stdout, sys.stdout, log_file)
             stderrThread = StreamThread(proc.stderr, sys.stderr, log_file)
@@ -141,13 +143,13 @@ class Runner(object):
                 #rmtree on temp???
             except OSError:
                 pass # dir wasn't there...may indicate previous failure
-        
-        self.log_end()     
+
+        self.log_end()
         os.chdir(self.start_dir)
-        
+
     def loop(self, start_at=None):
         sorted_runs = sorted(self.runs.keys())
-        
+
         num = 0
         if start_at:
             # Jump to that run
@@ -166,7 +168,7 @@ class Runner(object):
     def check_for_stop(self):
         if os.path.exists(self.start_dir + "/stop_runs.on"):
             return True
-        
+
     def restart(self):
         start_at = "a"
         try:
@@ -180,14 +182,19 @@ class Runner(object):
 
         self.loop(start_at)
 
+    def log_startup(self):
+        with open(self.multi_run_log, "a") as log:
+            log.write("\nStarting Runs at: " +
+                datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
+
     def log_start(self):
         with open(self.multi_run_log, "a") as log:
-            log.write("Run " + self.current_run + " started at: " + 
+            log.write("Run " + self.current_run + " started at: " +
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
     def log_end(self):
         with open(self.multi_run_log, "a") as log:
-            log.write(" completed at: " + 
+            log.write(" completed at: " +
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
 
     def update_base_repo(self):
@@ -198,7 +205,7 @@ class Runner(object):
         subprocess.Popen(['git', 'submodule', 'update']).wait()
         subprocess.Popen(['git', 'checkout', 'develop']).wait()
         subprocess.Popen(['git', 'pull']).wait()
-        subprocess.Popen(['git', 'submodule', 'update']).wait()        
+        subprocess.Popen(['git', 'submodule', 'update']).wait()
         os.chdir('..')
 
     def make_info(self):
@@ -223,14 +230,14 @@ class Runner(object):
         info_str = info_template.substitute(mapping)
 
         with open('info.html', 'w') as info_file:
-            info_file.write(info_str)        
-        
+            info_file.write(info_str)
+
 
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')
     machine_vars = json.load(f)
     f.close()
-    
+
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
         r.current_run = sys.argv[1]

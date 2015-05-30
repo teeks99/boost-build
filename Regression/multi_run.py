@@ -81,14 +81,20 @@ class Runner(object):
         os.environ['TEMP'] = self.tmpdir
 
     def branch(self):
-        return run['type']
+        return self.runs[self.current_run]['type']
 
     def run_one(self):
+        run = self.runs[self.current_run]
+
+        print('')
+        print('')
+        print('Starting run: ' + run['dir'])
+        print('')
+        self.log_start()
+
         f = open("CurrentRun.json",'w')
         s = json.dump(self.current_run, f)
         f.close()
-
-        run = self.runs[self.current_run]
 
         self.clean_and_make_tmp()
         self.update_base_repo(self.branch())
@@ -100,11 +106,6 @@ class Runner(object):
 
         self.make_info()
 
-        print('')
-        print('')
-        print('Starting run: ' + run['dir'])
-        print('')
-        self.log_start()
         self.copy_repo()
         shutil.copy2('../run.py', './')
 
@@ -130,7 +131,7 @@ class Runner(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        with open('output.log', 'w') as log_file:
+        with open('../' + run['dir'] + 'output.log', 'w') as log_file:
             log_file.write('Running command:\n:')
             log_file.write(cmd_str[1:])
             log_file.write('\n')
@@ -151,7 +152,8 @@ class Runner(object):
         if self.cleanup:
             try:
                 if os.path.isfile('results/bjam.log'):
-                    shutil.copy2('results/bjam.log', 'results-bjam.log')
+                    shutil.copy2('results/bjam.log', '../' + run['dir'] +
+                                 'results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')
                 #rmtree on temp???
@@ -162,6 +164,7 @@ class Runner(object):
         os.chdir(self.start_dir)
 
     def loop(self, start_at=None):
+        self.log_startup()
         sorted_runs = sorted(self.runs.keys())
 
         num = 0
@@ -210,17 +213,6 @@ class Runner(object):
         with open(self.multi_run_log, "a") as log:
             log.write(" completed at: " +
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
-
-    def update_base_repo(self):
-        print("updating base repo")
-        os.chdir('boost_root')
-        subprocess.Popen(['git', 'checkout', 'master']).wait()
-        subprocess.Popen(['git', 'pull']).wait()
-        subprocess.Popen(['git', 'submodule', 'update']).wait()
-        subprocess.Popen(['git', 'checkout', 'develop']).wait()
-        subprocess.Popen(['git', 'pull']).wait()
-        subprocess.Popen(['git', 'submodule', 'update']).wait()
-        os.chdir('..')
 
     def make_info(self):
         info_template = None

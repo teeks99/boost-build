@@ -45,7 +45,7 @@ class Runner(object):
 
     @property
     def multi_run_log(self):
-        return os.path.join(self.start_dir, 'logs/all_runs.log')
+        return os.path.join(self.start_dir, 'logs', 'all_runs.log')
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"

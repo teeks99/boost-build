@@ -54,11 +54,18 @@ class Runner(object):
     def update_base_repo(self, branch):
         orig_dir = os.getcwd()
         try:
+            print('cd boost_root')
             os.chdir('boost_root')
+
+            print('git checkout' + branch)
             os.system('git checkout ' + branch)
+            print('git pull')
             os.system('git pull')
+            print('git submodule init')
             os.system('git submodule init')
+            print('git submodule update')
             os.system('git submodule update')
+
         finally:
             os.chdir(orig_dir)
 
@@ -131,7 +138,7 @@ class Runner(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        with open('../' + run['dir'] + 'output.log', 'w') as log_file:
+        with open('../' + run['dir'] + '-output.log', 'w') as log_file:
             log_file.write('Running command:\n:')
             log_file.write(cmd_str[1:])
             log_file.write('\n')
@@ -153,7 +160,7 @@ class Runner(object):
             try:
                 if os.path.isfile('results/bjam.log'):
                     shutil.copy2('results/bjam.log', '../' + run['dir'] +
-                                 'results-bjam.log')
+                                 '-results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')
                 #rmtree on temp???

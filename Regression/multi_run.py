@@ -77,9 +77,12 @@ class Runner(object):
         run = self.runs[self.current_run]
 
         self.clean_and_make_tmp()
-        shutil.copy2('run.py', run['dir'])
 
-        os.chdir(run['dir'])
+        run_dir = 'run'
+        win_rmtree(run_dir)
+        os.mkdir(run_dir)
+        os.chdir(run_dir)
+
         self.make_info()
 
         print('')
@@ -88,6 +91,7 @@ class Runner(object):
         print('')
         self.log_start()
         self.copy_repo()
+        shutil.copy2('../run.py', './')
 
         other_options = ''
         if 'other_options' in run:

@@ -51,6 +51,17 @@ class Runner(object):
         win_rmtree(repo_name)
         shutil.copytree(origin, repo_name)
 
+    def update_base_repo(self, branch):
+        orig_dir = os.getcwd()
+        try:
+            os.chdir('boost_root')
+            os.system('git checkout ' + branch)
+            os.system('git pull')
+            os.system('git submodule init')
+            os.system('git submodule update')
+        finally:
+            os.chdir(orig_dir)
+
     def clean_and_make_tmp(self):
         self.tmpdir = self.sys_tmpdir
         if 'tmpdir' in self.mvs:
@@ -69,6 +80,9 @@ class Runner(object):
         os.environ['TMP'] = self.tmpdir
         os.environ['TEMP'] = self.tmpdir
 
+    def branch(self):
+        return run['type']
+
     def run_one(self):
         f = open("CurrentRun.json",'w')
         s = json.dump(self.current_run, f)
@@ -77,6 +91,7 @@ class Runner(object):
         run = self.runs[self.current_run]
 
         self.clean_and_make_tmp()
+        self.update_base_repo(self.branch())
 
         run_dir = 'run'
         win_rmtree(run_dir)
@@ -102,13 +117,8 @@ class Runner(object):
             self.mvs['os_arch'], '--toolsets=' +
             run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) +
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
-            ' --remove-test-targets' + other_options, '--comment=info.html']
-
-        if run['type'] == 'release' or run['type'] == 'branches/release' or \
-                run['type'] == 'master':
-            command.append('--tag=master')
-        else: # type == develop or no type
-            command.append('--tag=develop')
+            ' --remove-test-targets' + other_options, '--comment=info.html',
+            ' --tag=' + self.branch()]
 
         # Output the command to the screen before running it            
         cmd_str = ""

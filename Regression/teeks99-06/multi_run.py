@@ -41,8 +41,14 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run = None
-        self.multi_run_log = "../all_runs.log"
         self.sys_tmpdir = tempfile.gettempdir()
+
+    @property
+    def multi_run_log(self):
+        log_dir = os.path.join(self.start_dir, 'logs')
+        if not os.path.exists(log_dir):
+            os.mkdir(log_dir)
+        return os.path.join(log_dir, 'all_runs.log')
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
@@ -50,6 +56,24 @@ class Runner(object):
         #shutil.rmtree(repo_name)
         win_rmtree(repo_name)
         shutil.copytree(origin, repo_name)
+
+    def update_base_repo(self, branch):
+        orig_dir = os.getcwd()
+        try:
+            print('cd boost_root')
+            os.chdir('boost_root')
+
+            print('git checkout' + branch)
+            os.system('git checkout ' + branch)
+            print('git pull')
+            os.system('git pull')
+            print('git submodule init')
+            os.system('git submodule init')
+            print('git submodule update')
+            os.system('git submodule update')
+
+        finally:
+            os.chdir(orig_dir)
 
     def clean_and_make_tmp(self):
         self.tmpdir = self.sys_tmpdir
@@ -69,25 +93,34 @@ class Runner(object):
         os.environ['TMP'] = self.tmpdir
         os.environ['TEMP'] = self.tmpdir
 
+    def branch(self):
+        return self.runs[self.current_run]['type']
+
     def run_one(self):
-        f = open("CurrentRun.json",'w')
-        s = json.dump(self.current_run, f)
-        f.close()
-
         run = self.runs[self.current_run]
-
-        self.clean_and_make_tmp()
-        shutil.copy2('run.py', run['dir'])
-
-        os.chdir(run['dir'])
-        self.make_info()
 
         print('')
         print('')
         print('Starting run: ' + run['dir'])
         print('')
         self.log_start()
+
+        f = open("CurrentRun.json",'w')
+        s = json.dump(self.current_run, f)
+        f.close()
+
+        self.clean_and_make_tmp()
+        self.update_base_repo(self.branch())
+
+        run_dir = 'run'
+        win_rmtree(run_dir)
+        os.mkdir(run_dir)
+        os.chdir(run_dir)
+
+        self.make_info()
+
         self.copy_repo()
+        shutil.copy2('../run.py', './')
 
         other_options = ''
         if 'other_options' in run:
@@ -98,13 +131,8 @@ class Runner(object):
             self.mvs['os_arch'], '--toolsets=' +
             run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) +
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
-            ' --remove-test-targets' + other_options, '--comment=info.html']
-
-        if run['type'] == 'release' or run['type'] == 'branches/release' or \
-                run['type'] == 'master':
-            command.append('--tag=master')
-        else: # type == develop or no type
-            command.append('--tag=develop')
+            ' --remove-test-targets' + other_options, '--comment=info.html',
+            '--tag=' + self.branch()]
 
         # Output the command to the screen before running it            
         cmd_str = ""
@@ -116,7 +144,7 @@ class Runner(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        with open('output.log', 'w') as log_file:
+        with open('../logs/' + run['dir'] + '-output.log', 'w') as log_file:
             log_file.write('Running command:\n:')
             log_file.write(cmd_str[1:])
             log_file.write('\n')
@@ -137,7 +165,8 @@ class Runner(object):
         if self.cleanup:
             try:
                 if os.path.isfile('results/bjam.log'):
-                    shutil.copy2('results/bjam.log', 'results-bjam.log')
+                    shutil.copy2('results/bjam.log', '../logs/' + run['dir'] +
+                                 '-results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')
                 #rmtree on temp???
@@ -148,6 +177,7 @@ class Runner(object):
         os.chdir(self.start_dir)
 
     def loop(self, start_at=None):
+        self.log_startup()
         sorted_runs = sorted(self.runs.keys())
 
         num = 0
@@ -196,17 +226,6 @@ class Runner(object):
         with open(self.multi_run_log, "a") as log:
             log.write(" completed at: " +
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
-
-    def update_base_repo(self):
-        print("updating base repo")
-        os.chdir('boost_root')
-        subprocess.Popen(['git', 'checkout', 'master']).wait()
-        subprocess.Popen(['git', 'pull']).wait()
-        subprocess.Popen(['git', 'submodule', 'update']).wait()
-        subprocess.Popen(['git', 'checkout', 'develop']).wait()
-        subprocess.Popen(['git', 'pull']).wait()
-        subprocess.Popen(['git', 'submodule', 'update']).wait()
-        os.chdir('..')
 
     def make_info(self):
         info_template = None

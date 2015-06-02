@@ -63,7 +63,7 @@ class Runner(object):
             print('cd boost_root')
             os.chdir('boost_root')
 
-            print('git checkout' + branch)
+            print('git checkout ' + branch)
             os.system('git checkout ' + branch)
             print('git pull')
             os.system('git pull')

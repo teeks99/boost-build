@@ -6,11 +6,12 @@
 	"ram":"8GB",
 	"setup":"QEMU/KVM VM",
 	"runs":{
-		"a":{"dir":"a", "type":"develop", "arch":"64", "compilers":"msvc-8.0"},
-		"b":{"dir":"b", "type":"develop", "arch":"64", "compilers":"msvc-9.0"},
-		"c":{"dir":"c", "type":"develop", "arch":"64", "compilers":"msvc-10.0"},
-		"d":{"dir":"d", "type":"develop", "arch":"64", "compilers":"msvc-11.0"},
-		"e":{"dir":"e", "type":"develop", "arch":"64", "compilers":"msvc-12.0"},
-		"f":{"dir":"f", "type":"develop", "arch":"64", "compilers":"msvc-14.0"}
-	}
+		"a":{"id":"a", "branch":"develop", "arch":"64", "compilers":"msvc-8.0"},
+		"b":{"id":"b", "branch":"develop", "arch":"64", "compilers":"msvc-9.0"},
+		"c":{"id":"c", "branch":"develop", "arch":"64", "compilers":"msvc-10.0"},
+		"d":{"id":"d", "branch":"develop", "arch":"64", "compilers":"msvc-11.0"},
+		"e":{"id":"e", "branch":"develop", "arch":"64", "compilers":"msvc-12.0"},
+		"f":{"id":"f", "branch":"develop", "arch":"64", "compilers":"msvc-14.0"}
+	},
+    "run_order":["a","b","e","c","d","e","f"]
 }

@@ -218,7 +218,7 @@ class Runner(object):
             json.dump(status, status_file)
 
         with open(self.multi_run_log, "a") as log:
-            log.write("Run " + str(order_index) + " " + config_name +
+            log.write("Run " + str(order_index) + "-" + config_name +
                       " started at: " + start_time)
 
     def log_end(self):

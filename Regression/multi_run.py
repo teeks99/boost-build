@@ -178,6 +178,9 @@ class Runner(object):
                print("Stopping runs because file: 'stop_runs.on' exists")
                break
 
+            if order_index >= len(self.run_order):
+                order_index = 0
+
             self.current_run = self.run_order[order_index]
             self.log_start(order_index, self.current_run)
             self.run_one(self.runs[self.current_run])

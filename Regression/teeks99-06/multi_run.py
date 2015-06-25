@@ -38,6 +38,10 @@ class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
         self.mvs = machine_vars
         self.runs = self.mvs['runs']
+        if 'run_order' in self.mvs:
+            self.run_order = self.mvs['run_order']
+        else:
+            self.run_order = sorted(self.runs.keys())
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run = None
@@ -94,21 +98,9 @@ class Runner(object):
         os.environ['TEMP'] = self.tmpdir
 
     def branch(self):
-        return self.runs[self.current_run]['type']
+        return self.runs[self.current_run]['branch']
 
-    def run_one(self):
-        run = self.runs[self.current_run]
-
-        print('')
-        print('')
-        print('Starting run: ' + run['dir'])
-        print('')
-        self.log_start()
-
-        f = open("CurrentRun.json",'w')
-        s = json.dump(self.current_run, f)
-        f.close()
-
+    def run_one(self, run):
         self.clean_and_make_tmp()
         self.update_base_repo(self.branch())
 
@@ -127,7 +119,7 @@ class Runner(object):
             other_options = ' ' + run['other_options']
 
         command = ['python', 'run.py', '--runner=' + self.mvs['machine'] +
-            run['dir'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" +
+            run['id'] + '-' + self.mvs['os'] + '-' + run['arch'] + "on" +
             self.mvs['os_arch'], '--toolsets=' +
             run['compilers'], '--bjam-options=-j' + str(self.mvs['procs']) +
             ' address-model=' + run['arch'] + ' --abbreviate-paths' +
@@ -144,7 +136,7 @@ class Runner(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        with open('../logs/' + run['dir'] + '-output.log', 'w') as log_file:
+        with open('../logs/' + run['id'] + '-output.log', 'w') as log_file:
             log_file.write('Running command:\n:')
             log_file.write(cmd_str[1:])
             log_file.write('\n')
@@ -165,7 +157,7 @@ class Runner(object):
         if self.cleanup:
             try:
                 if os.path.isfile('results/bjam.log'):
-                    shutil.copy2('results/bjam.log', '../logs/' + run['dir'] +
+                    shutil.copy2('results/bjam.log', '../logs/' + run['id'] +
                                  '-results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')
@@ -176,37 +168,32 @@ class Runner(object):
         self.log_end()
         os.chdir(self.start_dir)
 
-    def loop(self, start_at=None):
+    def loop(self, start_at=0):
         self.log_startup()
-        sorted_runs = sorted(self.runs.keys())
 
-        num = 0
-        if start_at:
-            # Jump to that run
-            num = sorted_runs.index(start_at)
-            start_at = None
+        order_index = start_at
 
         while True:
             if self.check_for_stop():
                print("Stopping runs because file: 'stop_runs.on' exists")
                break
 
-            self.current_run = sorted_runs[num % len(sorted_runs)]
-            self.run_one()
-            num += 1
+            self.current_run = self.run_order[order_index]
+            self.log_start(order_index, self.current_run)
+            self.run_one(self.runs[self.current_run])
+            order_index += 1
 
     def check_for_stop(self):
         if os.path.exists(self.start_dir + "/stop_runs.on"):
             return True
 
     def restart(self):
-        start_at = "a"
+        start_at = 0
         try:
             f = open("CurrentRun.json",'r')
-            at = json.load(f)
+            status = json.load(f)
             f.close
-            if isinstance(at, basestring):
-                start_at = at
+            start_at = status['order_index']
         except IOError:
             pass #No file?
 
@@ -217,10 +204,22 @@ class Runner(object):
             log.write("\nStarting Runs at: " +
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
 
-    def log_start(self):
+    def log_start(self, order_index, config_name):
+        print('')
+        print('')
+        print('Starting run: ' + config_name)
+        print('')
+
+        start_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        with open("CurrentRun.json",'w') as status_file:
+            status = {'order_index': order_index, 'run_config': config_name,
+                      'start_time': start_time}
+            json.dump(status, status_file)
+
         with open(self.multi_run_log, "a") as log:
-            log.write("Run " + self.current_run + " started at: " +
-                datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+            log.write("Run " + str(order_index) + "-" + config_name +
+                      " started at: " + start_time)
 
     def log_end(self):
         with open(self.multi_run_log, "a") as log:
@@ -260,7 +259,7 @@ if __name__ == '__main__':
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
         r.current_run = sys.argv[1]
-        r.run_one()
+        r.run_one(r.runs[r.current_run])
     else:
         r.cleanup = True
         r.restart()

@@ -1,17 +1,17 @@
 {
-	"machine":"teeks99-06",
-	"os":"win2008R2",
-	"os_arch":"64",
-	"procs":2,
-        "ram":"3.5GB",
-        "setup":"Microsoft Azure A2 VM",
-        "tmpdir":"D:\\boost-tmp",
-	"runs":{
-		"a":{"id":"a", "branch":"master", "arch":"64", "compilers":"msvc-8.0"},
-		"b":{"id":"b", "branch":"master", "arch":"64", "compilers":"msvc-9.0"},
-		"c":{"id":"c", "branch":"master", "arch":"64", "compilers":"msvc-10.0"},
-		"d":{"id":"d", "branch":"master", "arch":"64", "compilers":"msvc-11.0"},
-		"e":{"id":"e", "branch":"master", "arch":"64", "compilers":"msvc-12.0"}
+    "machine":"teeks99-06",
+    "os":"win2008R2",
+    "os_arch":"64",
+    "procs":2,
+    "ram":"3.5GB",
+    "setup":"Microsoft Azure A2 VM",
+    "tmpdir":"D:\\boost-tmp",
+    "runs":{
+        "a":{"id":"a", "branch":"master", "arch":"64", "compilers":"msvc-8.0"},
+        "b":{"id":"b", "branch":"master", "arch":"64", "compilers":"msvc-9.0"},
+        "c":{"id":"c", "branch":"master", "arch":"64", "compilers":"msvc-10.0"},
+        "d":{"id":"d", "branch":"master", "arch":"64", "compilers":"msvc-11.0"},
+        "e":{"id":"e", "branch":"master", "arch":"64", "compilers":"msvc-12.0"}
     },
-	"run_order":["a", "b", "c", "d", "e"]
+    "run_order":["a", "b", "c", "d", "e"]
 }

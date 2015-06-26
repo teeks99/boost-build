@@ -223,7 +223,7 @@ class Runner(object):
 
         with open(self.multi_run_log, "a") as log:
             log.write("Run " + str(order_index) + "-" + config_name +
-                      " start: " + start_time)
+                      " start: " + start_str)
 
     def log_end(self):
         end = datetime.datetime.now()

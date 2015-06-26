@@ -218,7 +218,7 @@ class Runner(object):
 
         with open("CurrentRun.json",'w') as status_file:
             status = {'order_index': order_index, 'run_config': config_name,
-                      'start_time': self.start_time}
+                      'start_time': start_str}
             json.dump(status, status_file)
 
         with open(self.multi_run_log, "a") as log:

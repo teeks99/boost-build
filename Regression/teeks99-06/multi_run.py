@@ -213,21 +213,26 @@ class Runner(object):
         print('Starting run: ' + config_name)
         print('')
 
-        start_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.start_time = datetime.datetime.now()
+        start_str = self.start_time.strftime('%m-%d %H:%M:%S')
 
         with open("CurrentRun.json",'w') as status_file:
             status = {'order_index': order_index, 'run_config': config_name,
-                      'start_time': start_time}
+                      'start_time': start_str}
             json.dump(status, status_file)
 
         with open(self.multi_run_log, "a") as log:
             log.write("Run " + str(order_index) + "-" + config_name +
-                      " started at: " + start_time)
+                      " start: " + start_time)
 
     def log_end(self):
+        end = datetime.datetime.now()
+        end_str = end.strftime('%m-%d %H:%M:%S')
+        duration_hrs = (end - self.start_time).total_seconds() / 3600.0
         with open(self.multi_run_log, "a") as log:
-            log.write(" completed at: " +
-                datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
+            log.write(" complete: " +
+                datetime.datetime.now().strftime('%m-%d %H:%M:%S') + "in: " +
+                str(duration_hrs) + "hrs\n")
 
     def make_info(self):
         info_template = None

@@ -229,10 +229,11 @@ class Runner(object):
         end = datetime.datetime.now()
         end_str = end.strftime('%m-%d %H:%M:%S')
         duration_hrs = (end - self.start_time).total_seconds() / 3600.0
+        duration_hrs_str = '%.2f' % duration_hrs
         with open(self.multi_run_log, "a") as log:
             log.write(" complete: " +
                 datetime.datetime.now().strftime('%m-%d %H:%M:%S') + "in: " +
-                str(duration_hrs) + "hrs\n")
+                duration_hrs_str + "hrs\n")
 
     def make_info(self):
         info_template = None

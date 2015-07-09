@@ -12,24 +12,24 @@ tools = {
         ('14.0', {'dir_type': 'modern', 'number': '140'})
     ]),
     'gcc': {
-        '4.4': None,
-        '4.5': None,
-        '4.6': None,
-        '4.7': None,
-        '4.8': None,
-        '4.9': None,
-        '5.0': None
+        '4.4': {},
+        '4.5': {},
+        '4.6': {},
+        '4.7': {},
+        '4.8': {},
+        '4.9': {},
+        '5.1': {'exe': 'g++-5'},
     },
     'clang': {
-        '2.8': None,
-        '2.9': None,
-        '3.0': None,
-        '3.1': None,
-        '3.2': None,
-        '3.3': None,
-        '3.4': None,
-        '3.5': None,
-        '3.6': None
+        '2.8': {},
+        '2.9': {},
+        '3.0': {},
+        '3.1': {},
+        '3.2': {},
+        '3.3': {},
+        '3.4': {},
+        '3.5': {},
+        '3.6': {}
     },
 }
 def parse_msvc_version_output(ver):
@@ -85,7 +85,7 @@ def make_default(number, id):
             base_path + "\\VC\\bin\\x86_amd64\\cl.exe",
             'sys_path_add':
             base_path + "\\Common7\\IDE"})
-            
+
     for v in versions:
         get_msvc_info(v)
     return versions
@@ -106,11 +106,11 @@ def make_modern(number, id):
             base_path + "\\VC\\bin\\x86_amd64\\cl.exe",
             'sys_path_add':
             base_path + "\\VC\\bin\\"})
-            
+
     for v in versions:
         get_msvc_info(v)
     return versions
-    
+
 def make_msvc_versions():
     versions = []
     for name, data in tools['msvc'].items():
@@ -120,9 +120,52 @@ def make_msvc_versions():
             versions += make_modern(data['number'], 'msvc-' + name)
     return versions
 
+def get_parse_gcc_output(output):
+    return output.split('\n')[0]
+
+def make_gcc_versions():
+    versions = []
+    for name, data in tools['gcc'].items():
+        exe = 'g++-' + name
+        if 'exe' in data:
+            exe = data['exe']
+        cmd = exe + ' --version'
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, shell=True)
+        out, err = p.communicate()
+        if not out:
+            continue
+        v = {'version':'gcc-'+name, 'arch':''}
+        v['number'] = get_parse_gcc_output(out)
+        versions.append(v)
+    return versions
+
+def get_parse_clang_output(output):
+    lines = output.split('\n')
+    return lines[0], lines[1] + ' ' + lines[2]
+
+def make_clang_versions():
+    versions = []
+    for name, data in tools['clang'].items():
+        exe = 'clang-' + name
+        if 'exe' in data:
+            exe = data['exe']
+        cmd = exe + ' --version'
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, shell=True)
+        out, err = p.communicate()
+        if not out:
+            continue
+        v = {'version':'clang-'+name}
+        v['number'], v['arch'] = get_parse_clang_output(out)
+        versions.append(v)
+    return versions
+
 def make_versions():
     versions = []
     versions += make_msvc_versions()
+    versions += make_gcc_versions()
+    versions += make_clang_versions()
     return versions
 
 def build_version_string():
@@ -162,7 +205,7 @@ class ConfigFinder(object):
         if not self.value:
             self.value = 'user-config.jam not found in search path'
 
-        return self.value    
+        return self.value
 
 
     def site_config(self):
@@ -185,7 +228,7 @@ class ConfigFinder(object):
         if not self.value:
             self.value = 'site-config.jam not found in search path'
 
-        return self.value    
+        return self.value
 
 
 def user_config():
@@ -196,21 +239,21 @@ def site_config():
 
 def python_version():
     p = subprocess.Popen('python --version', stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
+        stderr=subprocess.PIPE, shell=True)
     out, err = p.communicate()
     return err
-    
+
 def git_version():
     p = subprocess.Popen('git --version', stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
+        stderr=subprocess.PIPE, shell=True)
     out, err = p.communicate()
     return out
-    
+
 def print_all():
     print_version_info()
     print(python_version())
     print(git_version())
-    
+
 if __name__ == "__main__":
     print_all()
 

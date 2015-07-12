@@ -178,6 +178,7 @@ class Runner(object):
                 order_index = 0
 
             self.current_run = self.run_order[order_index]
+            run_dir = 'run'
 
             self.start_time = datetime.datetime.now()
             start_str = self.start_time.strftime('%m-%d %H:%M:%S')
@@ -188,7 +189,6 @@ class Runner(object):
             run_config['run_dir'] = run
 
             self.update_base_repo(run_config['branch'])
-            run_dir = 'run'
             win_rmtree(run_dir)
             os.mkdir(run_dir)
 

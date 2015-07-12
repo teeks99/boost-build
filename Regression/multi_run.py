@@ -186,7 +186,7 @@ class Runner(object):
             run_config = self.runs[self.current_run].copy()
             run_config['order_index'] = order_index
             run_config['start_time'] = start_str
-            run_config['run_dir'] = run
+            run_config['run_dir'] = run_dir
 
             self.update_base_repo(run_config['branch'])
             win_rmtree(run_dir)

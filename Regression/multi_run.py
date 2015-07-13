@@ -225,8 +225,8 @@ class Runner(object):
         print('')
 
         with open(self.multi_run_log, "a") as log:
-            log.write("Run " + str(config['order_index']) + 
-                      " - start: " + config['start_time'])
+            log.write("Run " + str(config['order_index']) + '-' +
+                      config['id'] + " - start: " + config['start_time'])
 
     def write_run_config(self, config):
         with open("CurrentRun.json",'w') as status_file:

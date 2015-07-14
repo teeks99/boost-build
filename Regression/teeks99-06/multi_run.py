@@ -101,14 +101,9 @@ class Runner(object):
         return self.runs[self.current_run]['branch']
 
     def run_one(self, run):
+        os.chdir(run['run_dir'])
+
         self.clean_and_make_tmp()
-        self.update_base_repo(self.branch())
-
-        run_dir = 'run'
-        win_rmtree(run_dir)
-        os.mkdir(run_dir)
-        os.chdir(run_dir)
-
         self.make_info()
 
         self.copy_repo()
@@ -154,11 +149,12 @@ class Runner(object):
             stdoutThread.join()
             stderrThread.join()
 
+        if os.path.isfile('results/bjam.log'):
+            shutil.copy2('results/bjam.log', '../logs/' + run['id'] +
+                         '-results-bjam.log')
+
         if self.cleanup:
             try:
-                if os.path.isfile('results/bjam.log'):
-                    shutil.copy2('results/bjam.log', '../logs/' + run['id'] +
-                                 '-results-bjam.log')
                 win_rmtree('results')
                 win_rmtree('boost_root')
                 #rmtree on temp???
@@ -182,8 +178,23 @@ class Runner(object):
                 order_index = 0
 
             self.current_run = self.run_order[order_index]
-            self.log_start(order_index, self.current_run)
-            self.run_one(self.runs[self.current_run])
+            run_dir = 'run'
+
+            self.start_time = datetime.datetime.now()
+            start_str = self.start_time.strftime('%m-%d %H:%M:%S')
+
+            run_config = self.runs[self.current_run].copy()
+            run_config['order_index'] = order_index
+            run_config['start_time'] = start_str
+            run_config['run_dir'] = run_dir
+
+            self.update_base_repo(run_config['branch'])
+            win_rmtree(run_dir)
+            os.mkdir(run_dir)
+
+            self.write_run_config(run_config)
+            self.log_start(run_config)
+            self.run_one(run_config)
             order_index += 1
 
     def check_for_stop(self):
@@ -207,23 +218,19 @@ class Runner(object):
             log.write("\nStarting Runs at: " +
                 datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n")
 
-    def log_start(self, order_index, config_name):
+    def log_start(self, config):
         print('')
         print('')
-        print('Starting run: ' + config_name)
+        print('Starting run: ' + config['id'])
         print('')
-
-        self.start_time = datetime.datetime.now()
-        start_str = self.start_time.strftime('%m-%d %H:%M:%S')
-
-        with open("CurrentRun.json",'w') as status_file:
-            status = {'order_index': order_index, 'run_config': config_name,
-                      'start_time': start_str}
-            json.dump(status, status_file)
 
         with open(self.multi_run_log, "a") as log:
-            log.write("Run " + str(order_index) + "-" + config_name +
-                      " start: " + start_str)
+            log.write("Run " + str(config['order_index']) + '-' +
+                      config['id'] + " - start: " + config['start_time'])
+
+    def write_run_config(self, config):
+        with open("CurrentRun.json",'w') as status_file:
+            json.dump(config, status_file)
 
     def log_end(self):
         end = datetime.datetime.now()

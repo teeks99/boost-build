@@ -1,4 +1,10 @@
 
+pushd gcc-4.4
+docker build -t teeks99/gcc-4.4 .
+popd
+pushd gcc-4.6
+docker build -t teeks99/gcc-4.6 .
+popd
 pushd gcc-4.8
 docker build -t teeks99/gcc-4.8 .
 popd
@@ -10,6 +16,9 @@ docker build -t teeks99/gcc-5.1 .
 popd
 
 
+pushd clang-3.0
+docker build -t teeks99/clang-3.0 .
+popd
 pushd clang-3.3
 docker build -t teeks99/clang-3.3 .
 popd

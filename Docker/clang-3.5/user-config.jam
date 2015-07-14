@@ -10,9 +10,9 @@ using python
 ;
 
 using python 
-: 3.2 # version
+: 3.4 # version
 : # Interpreter/path to dir
-: /usr/include/python3.2 # includes
+: /usr/include/python3.4 # includes
 : /usr/lib # libs
 : # conditions
 ;

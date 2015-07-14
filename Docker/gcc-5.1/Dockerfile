@@ -1,7 +1,7 @@
 FROM ubuntu:trusty
 MAINTAINER Thomas Kent <teeks99@yahoo.com>
 
-# Enable future toolchain PPA
+# Enable PPA
 RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:ubuntu-toolchain-r/test
 
 # Install pre-reqs
@@ -17,7 +17,10 @@ RUN apt-get update && apt-get install -y \
  zlib1g-dev
 
 # Install Tool
-RUN apt-get update && apt-get install -y gcc-5 g++-5
+RUN apt-get update && apt-get install -y gcc-5g++-5
+
+# Symlink tools
+
 
 # Add the tool configs
 ADD user-config.jam /

@@ -1,18 +1,19 @@
-using gcc : 5.1 : g++-5 : <cxxflags>-Wno-c99-extensions ;
+using gcc : 5.1 : g++-5 : ; 
+
 
 using python
 : 2.7 # version
 : # Interpreter/path to dir
 : /usr/include/python2.7 # includes
-: /usr/lib # libs
+: /usr/lib/x86_64-linux-gnu # libs
 : # conditions
 ;
 
 using python 
-: 3.2 # version
+: 3.4 # version
 : # Interpreter/path to dir
-: /usr/include/python3.2 # includes
-: /usr/lib # libs
+: /usr/include/python3.4 # includes
+: /usr/lib/x86_64-linux-gnu # libs
 : # conditions
 ;
 

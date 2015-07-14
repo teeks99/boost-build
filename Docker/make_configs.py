@@ -40,10 +40,10 @@ def packages(version):
         number = version['number']
         if 'pkg_num' in version:
             number = version['pkg_num']
-        packages+= 'gcc-' + number
-        packages+= 'g++-' + number
+        packages+= 'gcc-' + number + ' '
+        packages+= 'g++-' + number + ' '
     elif version['type'] == 'clang':
-        packages+= 'clang-' + version['number']
+        packages+= 'clang-' + version['number'] + ' '
     return packages
 
 def ppa_line(version):

@@ -2,8 +2,8 @@
     "machine":"teeks99-08",
     "os":"win2012R2",
     "os_arch":"64",
-    "procs":2,
-    "ram":"8GB",
+    "procs":3,
+    "ram":"24GB",
     "setup":"QEMU/KVM VM",
     "runs":{
         "a":{"id":"a", "branch":"develop", "arch":"64", "compilers":"msvc-8.0"},

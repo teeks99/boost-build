@@ -3,15 +3,15 @@ import toolset : using ;
 using python 
 : 2.7 # version
 : # Interperter/path to dir
-: C:\\BoostBuilding\\Python27-32\\include # includes
-: C:\\BoostBuilding\\Python27-32\\libs # libs 
+: C:\\ReleaseBuild\\Python27-32\\include # includes
+: C:\\ReleaseBuild\\Python27-32\\libs # libs 
 : # conditions 
 ;
 
 using python
 : 2.7 # version
 : # Interperter/path to dir
-: C:\\BoostBuilding\\Python27-64\\include # includes
-: C:\\BoostBuilding\\Python27-64\\libs # libs 
+: C:\\ReleaseBuild\\Python27-64\\include # includes
+: C:\\ReleaseBuild\\Python27-64\\libs # libs 
 : <address-model>64 # conditions 
 ;

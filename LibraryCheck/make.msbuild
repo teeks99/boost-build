@@ -18,38 +18,38 @@ at: C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
         "MSVC-80-D-32;MSVC-80-R-32;MSVC-80-D-64;MSVC-80-R-64" />
     <Target Name="MSVC-80-D-32">
         <Exec Command="&quot;$(VS80COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC8.vcproj /Rebuild &quot;Debug|Win32&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Debug" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="Debug" />
     </Target>
     <Target Name="MSVC-80-R-32">
         <Exec Command="&quot;$(VS80COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC8.vcproj /Rebuild &quot;Release|Win32&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Release" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="Release" />
     </Target>
     <Target Name="MSVC-80-D-64">
         <Exec Command="&quot;$(VS80COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC8.vcproj /Rebuild &quot;Debug|x64&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Debug" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="x64\Debug" />
     </Target>
     <Target Name="MSVC-80-R-64">
         <Exec Command="&quot;$(VS80COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC8.vcproj /Rebuild &quot;Release|x64&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Release" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="x64\Release" />
     </Target>
 
     <Target Name="MSVC-90" DependsOnTargets=
         "MSVC-90-D-32;MSVC-90-R-32;MSVC-90-D-64;MSVC-90-R-64" />
     <Target Name="MSVC-90-D-32">
         <Exec Command="&quot;$(VS90COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC9.vcproj /Rebuild &quot;Debug|Win32&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Debug" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="Debug" />
     </Target>
     <Target Name="MSVC-90-R-32">
         <Exec Command="&quot;$(VS90COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC9.vcproj /Rebuild &quot;Release|Win32&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Release" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="Release" />
     </Target>
     <Target Name="MSVC-90-D-64">
         <Exec Command="&quot;$(VS90COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC9.vcproj /Rebuild &quot;Debug|x64&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Debug" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="x64\Debug" />
     </Target>
     <Target Name="MSVC-90-R-64">
         <Exec Command="&quot;$(VS90COMNTOOLS)..\IDE\devenv.com&quot; BoostLibraryCheck-VC9.vcproj /Rebuild &quot;Release|x64&quot;" />
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Release" />
+        <Exec Command="BoostLibraryCheck-VC8.exe" WorkingDirectory="x64\Release" />
     </Target>
     
     <Target Name="MSVC-100" DependsOnTargets=
@@ -57,22 +57,22 @@ at: C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
     <Target Name="MSVC-100-D-32">
 		<MSBuild Projects="BoostLibraryCheck-VC10.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Debug;Platform=Win32;PlatformToolset=v100" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Debug" />
+        <Exec Command="BoostLibraryCheck-VC10.exe" WorkingDirectory="Debug" />
     </Target>
     <Target Name="MSVC-100-R-32">
 		<MSBuild Projects="BoostLibraryCheck-VC10.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Release;Platform=Win32;PlatformToolset=v100" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Release" />
+        <Exec Command="BoostLibraryCheck-VC10.exe" WorkingDirectory="Release" />
     </Target>
     <Target Name="MSVC-100-D-64">
 		<MSBuild Projects="BoostLibraryCheck-VC10.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Debug;Platform=x64;PlatformToolset=v100" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Debug" />
+        <Exec Command="BoostLibraryCheck-VC10.exe" WorkingDirectory="x64\Debug" />
     </Target>
     <Target Name="MSVC-100-R-64">
 		<MSBuild Projects="BoostLibraryCheck-VC10.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Release;Platform=x64;PlatformToolset=v100" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Release" />
+        <Exec Command="BoostLibraryCheck-VC10.exe" WorkingDirectory="x64\Release" />
     </Target>    
 
     <Target Name="MSVC-110" DependsOnTargets=
@@ -80,22 +80,22 @@ at: C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
     <Target Name="MSVC-110-D-32">
 		<MSBuild Projects="BoostLibraryCheck-VC11.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Debug;Platform=Win32;VisualStudioVersion=11.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Debug" />
+        <Exec Command="BoostLibraryCheck-VC11.exe" WorkingDirectory="Debug" />
     </Target>
     <Target Name="MSVC-110-R-32">
 		<MSBuild Projects="BoostLibraryCheck-VC11.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Release;Platform=Win32;VisualStudioVersion=11.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Release" />
+        <Exec Command="BoostLibraryCheck-VC11.exe" WorkingDirectory="Release" />
     </Target>
     <Target Name="MSVC-110-D-64">
 		<MSBuild Projects="BoostLibraryCheck-VC11.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Debug;Platform=x64;VisualStudioVersion=11.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Debug" />
+        <Exec Command="BoostLibraryCheck-VC11.exe" WorkingDirectory="x64\Debug" />
     </Target>
     <Target Name="MSVC-110-R-64">
 		<MSBuild Projects="BoostLibraryCheck-VC11.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Release;Platform=x64;VisualStudioVersion=11.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Release" />
+        <Exec Command="BoostLibraryCheck-VC11.exe" WorkingDirectory="x64\Release" />
     </Target>    
 
     <Target Name="MSVC-120" DependsOnTargets=
@@ -103,22 +103,46 @@ at: C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
     <Target Name="MSVC-120-D-32">
 		<MSBuild Projects="BoostLibraryCheck-VC12.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Debug;Platform=Win32;VisualStudioVersion=12.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Debug" />
+        <Exec Command="BoostLibraryCheck-VC12.exe" WorkingDirectory="Debug" />
     </Target>
     <Target Name="MSVC-120-R-32">
 		<MSBuild Projects="BoostLibraryCheck-VC12.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Release;Platform=Win32;VisualStudioVersion=12.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="Release" />
+        <Exec Command="BoostLibraryCheck-VC12.exe" WorkingDirectory="Release" />
     </Target>
     <Target Name="MSVC-120-D-64">
 		<MSBuild Projects="BoostLibraryCheck-VC12.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Debug;Platform=x64;VisualStudioVersion=12.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Debug" />
+        <Exec Command="BoostLibraryCheck-VC12.exe" WorkingDirectory="x64\Debug" />
     </Target>
     <Target Name="MSVC-120-R-64">
 		<MSBuild Projects="BoostLibraryCheck-VC12.vcxproj" Targets="Clean;Build" 
             Properties="Configuration=Release;Platform=x64;VisualStudioVersion=12.0" /> 
-        <Exec Command="BoostLibraryCheck.exe" WorkingDirectory="x64\Release" />
+        <Exec Command="BoostLibraryCheck-VC12.exe" WorkingDirectory="x64\Release" />
+    </Target>    
+    
+
+    <Target Name="MSVC-140" DependsOnTargets=
+        "MSVC-140-D-32;MSVC-140-R-32;MSVC-140-D-64;MSVC-140-R-64" />
+    <Target Name="MSVC-140-D-32">
+		<MSBuild Projects="BoostLibraryCheck-VC14.vcxproj" Targets="Clean;Build" 
+            Properties="Configuration=Debug;Platform=Win32;VisualStudioVersion=14.0" /> 
+        <Exec Command="BoostLibraryCheck-VC14.exe" WorkingDirectory="Debug" />
+    </Target>
+    <Target Name="MSVC-140-R-32">
+		<MSBuild Projects="BoostLibraryCheck-VC14.vcxproj" Targets="Clean;Build" 
+            Properties="Configuration=Release;Platform=Win32;VisualStudioVersion=14.0" /> 
+        <Exec Command="BoostLibraryCheck-VC14.exe" WorkingDirectory="Release" />
+    </Target>
+    <Target Name="MSVC-140-D-64">
+		<MSBuild Projects="BoostLibraryCheck-VC14.vcxproj" Targets="Clean;Build" 
+            Properties="Configuration=Debug;Platform=x64;VisualStudioVersion=14.0" /> 
+        <Exec Command="BoostLibraryCheck-VC14.exe" WorkingDirectory="x64\Debug" />
+    </Target>
+    <Target Name="MSVC-140-R-64">
+		<MSBuild Projects="BoostLibraryCheck-VC14.vcxproj" Targets="Clean;Build" 
+            Properties="Configuration=Release;Platform=x64;VisualStudioVersion=14.0" /> 
+        <Exec Command="BoostLibraryCheck-VC14.exe" WorkingDirectory="x64\Release" />
     </Target>    
     
 </Project> 

@@ -104,6 +104,7 @@ REM move stage\lib\* lib32-msvc-8.0\
 
 REM Build again to log any errors in the build process
 echo Build for msvc-%~1 >> %~2bitlog.txt
+echo %bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 architecture=x86 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install >> %~2bitlog.txt
 %bjam% --without-mpi --build-type=complete toolset=msvc-%~1 address-model=%~2 architecture=x86 --prefix=.\ --libdir=lib%~2-msvc-%~1 --includedir=garbage_headers install >> %~2bitlog.txt 2<&1
 
 copy ..\DEPENDENCY_VERSIONS.txt lib%~2-msvc-%~1\

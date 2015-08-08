@@ -12,7 +12,7 @@ at: C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 <Project DefaultTargets="All" 
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003">   
 
-	<Target Name="All" DependsOnTargets="MSVC-80;MSVC-90;MSVC-100;MSVC-100;MSVC-110;MSVC-120" />
+	<Target Name="All" DependsOnTargets="MSVC-80;MSVC-90;MSVC-100;MSVC-100;MSVC-110;MSVC-120;MSVC-140" />
     
     <Target Name="MSVC-80" DependsOnTargets=
         "MSVC-80-D-32;MSVC-80-R-32;MSVC-80-D-64;MSVC-80-R-64" />

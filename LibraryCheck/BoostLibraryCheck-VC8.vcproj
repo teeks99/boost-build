@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="BoostLibraryCheck"
+	Name="BoostLibraryCheck-VC8"
 	ProjectGUID="{8BA04E63-4439-40C4-A1EB-8F1587932980}"
 	RootNamespace="BoostLibraryCheck"
 	Keyword="Win32Proj"

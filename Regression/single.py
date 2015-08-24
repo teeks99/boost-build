@@ -78,7 +78,7 @@ class Run(object):
 
     def clean_and_make_tmp(self):
         self.tmpdir = self.sys_tmpdir
-        if 'tmpdir' in self.machine['machine']:
+        if 'tmpdir' in self.machine:
             self.tmpdir = self.machine['tmpdir']
         else:
             self.tmpdir = os.path.join(self.tmpdir, "boost_regression")

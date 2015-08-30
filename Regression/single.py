@@ -3,9 +3,15 @@
 # This will perform a run of a single set of boost tests
 import tool_versions
 
-import threading
-import json
+import shutil
 import os
+import subprocess
+import sys
+import json
+import threading
+import datetime
+import tempfile
+import string
 
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
@@ -49,7 +55,7 @@ class Run(object):
         self.config = config
         self.machine = machine
         self.start_dir = os.getcwd()
-        self.run_dir = os.join(self.start_dir, 'run')
+        self.run_dir = os.path.join(self.start_dir, 'run')
 
 
     def copy_repo(self, origin="../boost_root"):

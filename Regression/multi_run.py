@@ -5,12 +5,18 @@ import os
 import sys
 import json
 import datetime
+import time
 
 def win_rmtree(directory):
     if os.path.isdir(directory):
         os.system('rmdir /S /Q \"{}\"'.format(directory))
-    if os.path.isdir(directory):
+    passes = 1
+    while os.path.isdir(directory):
+        time.sleep(15.0)
         os.system('rmdir /S /Q \"{}\"'.format(directory))
+        passes += 1
+        if passes > 20:
+            raise IOError("Could not delete windows directory: " + directory)
 
 def my_rmtree(directory):
     if os.path.exists(directory):

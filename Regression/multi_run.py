@@ -6,6 +6,7 @@ import sys
 import json
 import datetime
 import time
+import subprocess
 
 def win_rmtree(directory):
     if os.path.isdir(directory):
@@ -67,8 +68,12 @@ class Runner(object):
 
             self.write_run_config(run_config)
             self.log_start(run_config)
-            run = single.Run(config=run_config, machine=self.machine)
-            run.process()
+            if 'docker_img' in run_config:
+                subprocess.call('docker run -v ./ /var/boost -rm -i -t ' +
+                    run_config['docker_img'] + ' /bin/bash /var/boost/run/run_a.bash')
+            else
+                run = single.Run(config=run_config, machine=self.machine)
+                run.process()
             self.log_end()
             order_index += 1
 

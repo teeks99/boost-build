@@ -1,0 +1,13 @@
+{
+    "machine":"teeks99-01",
+    "os":"Ubuntu14.04",
+    "os_arch":"64",
+    "procs":8,
+    "ram":"6GB",
+    "setup":"Docker",
+    "runs":{
+        "a":{"id":"a", "branch":"develop", "arch":"64", "compilers":"gcc-5.1", "docker_img":"teeks99/gcc-5.1"},
+        "b":{"id":"b", "branch":"master", "arch":"64", "compilers":"gcc-5.1", "docker_img":"teeks99/gcc-5.1"}
+    },
+    "run_order":["a","b"]
+}

@@ -63,15 +63,19 @@ class Runner(object):
             run_config['run_dir'] = run_dir
 
             self.update_base_repo(run_config['branch'])
-            win_rmtree(run_dir)
+            my_rmtree(run_dir)
             os.mkdir(run_dir)
 
             self.write_run_config(run_config)
             self.log_start(run_config)
             if 'docker_img' in run_config:
-                subprocess.call('docker run -v ./ /var/boost -rm -i -t ' +
-                    run_config['docker_img'] + ' /bin/bash /var/boost/run/run_a.bash')
-            else
+                docker_cmd = 'docker run -v ' + os.getcwd()
+                docker_cmd += ':/var/boost --rm -i -t '
+                docker_cmd += run_config['docker_img']
+                docker_cmd += ' /bin/bash /var/boost/inside.bash'
+                print(docker_cmd)
+                subprocess.call(docker_cmd, shell=True)
+            else:
                 run = single.Run(config=run_config, machine=self.machine)
                 run.process()
             self.log_end()

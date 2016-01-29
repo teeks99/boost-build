@@ -1,4 +1,4 @@
-using gcc : 4.8 : g++-4.8 : <cxxflags>-Wno-c99-extensions ;
+using gcc : 4.8: g++-4.8 : <cxxflags>-Wno-c99-extensions ;
 
 using python
 : 2.7 # version
@@ -9,9 +9,9 @@ using python
 ;
 
 using python 
-: 3.4 # version
+: 3.2 # version
 : # Interpreter/path to dir
-: /usr/include/python3.4 # includes
+: /usr/include/python3.2 # includes
 : /usr/lib # libs
 : # conditions
 ;

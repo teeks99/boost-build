@@ -1,23 +1,16 @@
 Lisa
 ============
-*Moore Place - charter 250GB cap
-*8x3.4 i7-3770
-*32GB RAM
-*480GB SSD
-*480GB SSD
-*1TB HD
+* Moore Place - charter 250GB cap
+* 8x3.4 i7-3770
+* 32GB RAM
+* 1TB SSD
+* 480GB SSD
+* 2TB HD
 
-*Quimby03-Boost08 - Windows 2012R2 - 64bit - 2cpu, 8GB RAM
- * teeks99-02a-win7-64on64 - msvc8.0
- * teeks99-02b-win7-64on64 - msvc9.0
- * teeks99-02c-win7-64on64 - msvc10.0
- * teeks99-02d-win7-64on64 - msvc11.0
- * teeks99-02e-win7-64on64 - msvc8.0 - release
- * teeks99-02f-win7-64on64 - msvc9.0 - release
- * teeks99-02g-win7-64on64 - msvc10.0 - release
- * teeks99-02h-win7-64on64 - msvc11.0 - release
+teeks99-01 - Docker - limited to 6GB
+see machine_vars.json for updated runs. gcc 5.1, clang 3.6, develop and release
  
-*Todd08-BoostRegression03 - Ubuntu 12.04 - 64bit - 2cpu 4GB RAM
+teeks99-03 - Todd08-BoostRegression03 - Ubuntu 12.04 - 64bit - 2cpu 4GB RAM
   * teeks99-03a - gcc-4.4
   * teeks99-03b - gcc-4.5
   * teeks99-03c - gcc-4.6
@@ -29,13 +22,19 @@ Lisa
   * teeks99-03i - clang-3.3
   * teeks99-03j - clang-3.4
 
-*Todd09-BoostRegression04 - Ubuntu 12.04 - 64bit - 2cpu 4GB RAM
-  * teeks99-04a - gcc-4.8
-  * teeks99-04b - clang-3.4
+Homer
+=====
+* Moore Place - charter 250GB cap
+* 4Cores * Intel(R) Core(TM) i5-4590 CPU @ 3.30GHz
+* 32GB RAM
+* 480GB SSD
+
+teeks99-08 - Quimby KVM - Windows 2012R2 3Cores, 24GB RAM, 80GB System Drive, 100GB Data Drive
+see machine_vars.json for updated runs. MSVC 8-14 64bit develop and release, MSVC 12 32bit develop.
 
 Willie02
 ===========
-*Azure - 
+*Azure - Basic_A2
 *3.5GB RAM
 
 *BoostRegression05 - Ubuntu 12.04 - 64 Bit 2cpu, 3.5GB RAM

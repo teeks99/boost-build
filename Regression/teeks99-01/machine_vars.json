@@ -6,8 +6,14 @@
     "ram":"6GB",
     "setup":"Docker",
     "runs":{
-        "a":{"id":"a", "branch":"develop", "arch":"64", "compilers":"gcc-5.1", "docker_img":"teeks99/gcc-5.1"},
-        "b":{"id":"b", "branch":"master", "arch":"64", "compilers":"gcc-5.1", "docker_img":"teeks99/gcc-5.1"}
+        "a":{"id":"a", "branch":"develop", "arch":"64", "compilers":"gcc-4.8", "docker_img":"teeks99/gcc-4.8"},
+        "b":{"id":"b", "branch":"master", "arch":"64", "compilers":"gcc-4.8", "docker_img":"teeks99/gcc-4.8"},
+        "c":{"id":"a", "branch":"develop", "arch":"64", "compilers":"gcc-5", "docker_img":"teeks99/gcc-5"},
+        "d":{"id":"b", "branch":"master", "arch":"64", "compilers":"gcc-5", "docker_img":"teeks99/gcc-5"},
+        "e":{"id":"c", "branch":"develop", "arch":"64", "compilers":"clang-3.3", "docker_img":"teeks99/clang-3.3"},
+        "f":{"id":"d", "branch":"master", "arch":"64", "compilers":"clang-3.3", "docker_img":"teeks99/clang-3.3"},
+        "g":{"id":"c", "branch":"develop", "arch":"64", "compilers":"clang-3.6", "docker_img":"teeks99/clang-3.6"},
+        "h":{"id":"d", "branch":"master", "arch":"64", "compilers":"clang-3.6", "docker_img":"teeks99/clang-3.6"}
     },
-    "run_order":["a","b"]
+    "run_order":["a","b","c","d","e","f","g","h"]
 }

@@ -5,12 +5,19 @@ import os
 import sys
 import json
 import datetime
+import time
+import subprocess
 
 def win_rmtree(directory):
     if os.path.isdir(directory):
         os.system('rmdir /S /Q \"{}\"'.format(directory))
-    if os.path.isdir(directory):
+    passes = 1
+    while os.path.isdir(directory):
+        time.sleep(15.0)
         os.system('rmdir /S /Q \"{}\"'.format(directory))
+        passes += 1
+        if passes > 20:
+            raise IOError("Could not delete windows directory: " + directory)
 
 def my_rmtree(directory):
     if os.path.exists(directory):
@@ -56,13 +63,21 @@ class Runner(object):
             run_config['run_dir'] = run_dir
 
             self.update_base_repo(run_config['branch'])
-            win_rmtree(run_dir)
+            my_rmtree(run_dir)
             os.mkdir(run_dir)
 
             self.write_run_config(run_config)
             self.log_start(run_config)
-            run = single.Run(config=run_config, machine=self.machine)
-            run.process()
+            if 'docker_img' in run_config:
+                docker_cmd = 'docker run -v ' + os.getcwd()
+                docker_cmd += ':/var/boost --rm -i -t '
+                docker_cmd += run_config['docker_img']
+                docker_cmd += ' /bin/bash /var/boost/inside.bash'
+                print(docker_cmd)
+                subprocess.call(docker_cmd, shell=True)
+            else:
+                run = single.Run(config=run_config, machine=self.machine)
+                run.process()
             self.log_end()
             order_index += 1
 

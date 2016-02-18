@@ -1,0 +1,1 @@
+tail -f logs\all_runs.log

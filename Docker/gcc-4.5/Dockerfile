@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
  zlib1g-dev
 
 # Install Tool
-RUN apt-get update && apt-get install -y gcc-4.4 g++-4.4
+RUN apt-get update && apt-get install -y gcc-4.5 g++-4.5
 
 # Add the tool configs
 ADD user-config.jam /

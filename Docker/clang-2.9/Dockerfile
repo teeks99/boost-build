@@ -2,10 +2,11 @@ FROM ubuntu:trusty
 MAINTAINER Thomas Kent <teeks99@yahoo.com>
 
 # Enable future toolchain PPA
-RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository -y ppa:git-core/ppa #&& add-apt-repository -y ppa:ubuntu-toolchain-r/test
+RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:h-rayflood/llvm
 
 # Install pre-reqs
 RUN apt-get update && apt-get install -y \
+ ca-certificates \
  build-essential \
  git \
  wget \
@@ -15,9 +16,13 @@ RUN apt-get update && apt-get install -y \
  python3.4-dev \
  libbz2-dev \
  zlib1g-dev
+RUN cd /usr/bin && ln -s python2.7 python
 
 # Install Tool
-RUN apt-get update && apt-get install -y gcc-4.6 g++-4.6
+RUN apt-get update && apt-get install -y clang-2.9
+
+# Symlink tools
+
 
 # Add the tool configs
 ADD user-config.jam /

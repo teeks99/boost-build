@@ -1,8 +1,8 @@
-FROM ubuntu:precise
+FROM ubuntu:trusty
 MAINTAINER Thomas Kent <teeks99@yahoo.com>
 
 # Enable future toolchain PPA
-RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository -y ppa:git-core/ppa #&& add-apt-repository -y ppa:ubuntu-toolchain-r/test
+RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository -y ppa:git-core/ppa && add-apt-repository -y ppa:ubuntu-toolchain-r/test
 
 # Install pre-reqs
 RUN apt-get update && apt-get install -y \
@@ -11,13 +11,13 @@ RUN apt-get update && apt-get install -y \
  wget \
  python2.7 \
  python2.7-dev \
- python3.2 \
- python3.2-dev \
+ python3.4 \
+ python3.4-dev \
  libbz2-dev \
  zlib1g-dev
 
 # Install Tool
-RUN apt-get update && apt-get install -y gcc-4.4 g++-4.4
+RUN apt-get update && apt-get install -y gcc-4.7 g++-4.7
 
 # Add the tool configs
 ADD user-config.jam /

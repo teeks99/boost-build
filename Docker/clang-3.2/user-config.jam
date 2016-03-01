@@ -1,4 +1,4 @@
-using clang : 3.0 : clang++-3.0 : <cxxflags>-Wno-c99-extensions ; 
+using clang : 3.2 : clang++-3.2 : <cxxflags>-Wno-c99-extensions ; 
 
 
 using python

@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:precise
 MAINTAINER Thomas Kent <teeks99@yahoo.com>
 
 # Enable future toolchain PPA

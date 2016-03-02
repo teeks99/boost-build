@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
  wget \
  python2.7 \
  python2.7-dev \
- python3.4 \
- python3.4-dev \
+ python3.2 \
+ python3.2-dev \
  libbz2-dev \
  zlib1g-dev
 

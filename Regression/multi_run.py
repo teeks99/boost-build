@@ -148,6 +148,8 @@ class Runner(object):
             os.system('git submodule init')
             print('git submodule update')
             os.system('git submodule update')
+            print('git fetch --recurse-submodules')
+            os.system('git fetch --recurse-submodules')
 
         finally:
             os.chdir(orig_dir)

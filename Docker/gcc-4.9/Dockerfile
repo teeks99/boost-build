@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
  python3.4-dev \
  libbz2-dev \
  zlib1g-dev
+RUN cd /usr/bin && ln -s python2.7 python                                                                              
 
 # Install Tool
 RUN apt-get update && apt-get install -y gcc-4.9 g++-4.9

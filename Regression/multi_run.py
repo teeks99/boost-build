@@ -71,7 +71,10 @@ class Runner(object):
             if 'docker_img' in run_config:
                 docker_cmd = 'docker run -v ' + os.getcwd()
                 docker_cmd += ':/var/boost'
-                docker_cmd += ' --cpu-quota 400000 --rm -i -t '
+                if "docker_cpu_quota" in self.machine:
+                    docker_cmd += ' --cpu-quota '
+                    docker_cmd += str(self.machine['docker_cpu_quota'])
+                docker_cmd += ' --rm -i -t '
                 docker_cmd += run_config['docker_img']
                 docker_cmd += ' /bin/bash /var/boost/inside.bash'
                 print(docker_cmd)

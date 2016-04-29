@@ -2,6 +2,7 @@
 
 # This will perform a run of a single set of boost tests
 import tool_versions
+import rel_git_submodules
 
 import shutil
 import os
@@ -57,11 +58,11 @@ class Run(object):
         self.start_dir = os.getcwd()
         self.run_dir = os.path.join(self.start_dir, 'run')
 
-
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
         print("copying repo " + origin + " to " + repo_name)
         shutil.copytree(origin, repo_name)
+        rel_git_submodules.relative_submodules(repo_name)
 
     def clean_and_make_tmp(self):
         tmpdir = tempfile.gettempdir()

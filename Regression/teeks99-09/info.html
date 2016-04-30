@@ -1,0 +1,68 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Tom Kent - runner: teeks99-02</h1>
+<p>Contact me: teeks99@yahoo.com, 314-266-8359</p>
+<p>This runner is a VM on a KVM/QEMU Virtual Machine.  Its has 6GB of ram and 2 CPU Cores.<br/>
+This is running the 64-bit verison of Windows Server 2008r2. 
+</p>
+<h2>user-config.jam</h2>
+<pre>
+using msvc : 8.0 ;
+using msvc : 9.0 ;
+using msvc : 10.0 ;
+using msvc : 11.0 ;
+using msvc : 12.0 ;
+
+using python
+: 2.7 # version
+: # Interperter/path to dir
+: D:\\BoostBuilding\\Python27-32\\include # includes
+: D:\\BoostBuilding\\Python27-32\\libs # libs
+: # conditions
+;
+
+using python
+: 2.7 # version
+: # Interperter/path to dir
+: D:\\BoostBuilding\\Python27-64\\include # includes
+: D:\\BoostBuilding\\Python27-64\\libs # libs
+: <address-model>64 # conditions
+;
+</pre>
+</p><p>
+<h2>Software Versions</h2>
+<pre>
+vc8        - 14.00.50727.762 - 80x86
+vc8-64     - 14.00.50727.762 - x64
+vc8-32-64  - 14.00.50727.762 - x64
+vc9        - 15.00.30729.01 - 80x86
+vc9-64     - 15.00.30729.01 - x64
+vc9-32-64  - 15.00.30729.01 - x64
+vc10       - 16.00.40219.01 - 80x86
+vc10-64    - 16.00.40219.01 - x64
+vc10-32-64 - 16.00.40219.01 - x64
+vc11       - 17.00.61030 - x86
+vc11-64    - 17.00.61030 - x64
+vc11-32-64 - 17.00.61030 - x64
+vc12       - 18.00.30501 - x86
+vc12-64    - 18.00.30501 - x64
+vc12-32-64 - 18.00.30501 - x64
+vc14       - 19.00.22310.1 - x86
+vc14-64    - 19.00.22310.1 - x64
+vc14-32-64 - 19.00.22310.1 - x64
+</pre>
+</p><p>Python<pre>
+> python --version
+Python 2.7.8
+</pre></p><p>Subversion<pre>
+> svn --version
+svn, version 1.7.5 (r1336830)
+   compiled May 11 2012, 13:51:05
+<!--svn, version 1.6.16 (SlikSvn/1.6.16) X64
+   compiled Mar  3 2011, 22:35:47-->
+</pre></p>
+
+</body>
+</html>

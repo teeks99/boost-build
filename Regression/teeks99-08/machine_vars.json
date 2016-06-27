@@ -5,6 +5,7 @@
     "procs":3,
     "ram":"24GB",
     "setup":"QEMU/KVM VM",
+    "other_options":"--abbreviate-paths",
     "runs":{
         "a":{"id":"a", "branch":"develop", "arch":"64", "compilers":"msvc-8.0"},
         "b":{"id":"b", "branch":"develop", "arch":"64", "compilers":"msvc-9.0"},

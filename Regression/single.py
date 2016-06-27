@@ -114,14 +114,16 @@ class Run(object):
         other_options = ''
         if 'other_options' in self.config:
             other_options = ' ' + self.config['other_options']
+        if 'other_options' in self.machine:
+            other_options += ' ' + self.machine['other_options']
 
         command = ['python', 'run.py', '--runner=' + self.machine['machine'] +
             self.config['id'] + '-' + self.machine['os'] + '-' +
             self.config['arch'] + "on" + self.machine['os_arch'], '--toolsets=' +
             self.config['compilers'], '--bjam-options=-j' +
             str(self.machine['procs']) + ' address-model=' + self.config['arch'] +
-            ' --abbreviate-paths' + ' --remove-test-targets' + other_options,
-            '--comment=info.html', '--tag=' + self.config['branch']]
+            ' --remove-test-targets' + other_options, '--comment=info.html',
+            '--tag=' + self.config['branch']]
 
         # Output the command to the screen before running it            
         cmd_str = ""

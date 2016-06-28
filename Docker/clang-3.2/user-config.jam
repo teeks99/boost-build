@@ -1,4 +1,13 @@
-using clang : 3.2 : clang++-3.2 : <cxxflags>-Wno-c99-extensions ; 
+using clang : 3.2 : clang++-3.2 : <cxxflags>-Wno-c99-extensions ;  #default same as 3.2~c++98
+using clang : 3.2~c++98 : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=c++98 ;
+using clang : 3.2~gnu98 : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=gnu++98 ;
+using clang : 3.2~c++11 : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=c++11 ;
+using clang : 3.2~gnu11 : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=gnu++11 ;
+using clang : 3.2~c++1y : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=c++1y ;
+using clang : 3.2~gnu1y : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=gnu++1y ;
+using clang : 3.2~c++1y~O2 : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=c++1y -O2 ;
+using clang : 3.2~c++1y~warn : clang++-3.2 : <cxxflags>-Wno-c99-extensions -std=c++1y -Wall -Wextra ;
+
 
 
 using python

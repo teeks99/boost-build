@@ -29,6 +29,7 @@ def my_rmtree(directory):
 class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
         self.machine = machine_vars
+        self._set_ids()
         self.runs = self.machine['runs']
         if 'run_order' in self.machine:
             self.run_order = self.machine['run_order']
@@ -37,6 +38,10 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run_id = None
+
+    def _set_ids(self):
+        for key, val in self.machine['runs'].items():
+            val["id"] = key
 
     def loop(self, start_at=0):
         self.log_startup()

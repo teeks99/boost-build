@@ -1,10 +1,10 @@
 {
     "machine":"teeks99-01",
-    "os":"Ubuntu16.04",
+    "os":"Docker",
     "os_arch":"64",
     "procs":8,
     "ram":"14GB",
-    "setup":"Azure-Docker",
+    "setup":"Azure-Docker Ubuntu 16.04",
     "runs":{
         "dg4.4-98":{"branch":"develop", "arch":"64", "compilers":"gcc-4.4~c++98", "docker_img":"teeks99/boost-build:gcc-4.4"},
         "mg4.4-98":{"branch":"master", "arch":"64", "compilers":"gcc-4.4~c++98", "docker_img":"teeks99/boost-build:gcc-4.4"},

@@ -8,5 +8,5 @@ Microsoft Visual Studio 2008 - msvc-9.0 - Service Pack 1
 Microsoft Visual Studio 2010 - msvc-10.0 - Service Pack 1
 Microsoft Visual Studio 2012 - msvc-11.0 - Update 4
 Microsoft Visual Studio 2013 - msvc-12.0 - Update 5
-Microsoft Visual Studio 2015 - msvc-14.0 - Update 2
+Microsoft Visual Studio 2015 - msvc-14.0 - Update 3
 

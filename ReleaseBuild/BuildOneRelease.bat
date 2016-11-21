@@ -17,52 +17,58 @@ IF "_%boost_version%"=="_" (
 REM If you've already done this you can skip it (and the overwrite prompts)
 ::set SKIP_UNZIP=TRUE
 IF NOT "%SKIP_UNZIP%"=="TRUE" (
-	::%zip% x Python26-32.tar.gz
-	::%zip% x Python26-32.tar
-	::%zip% x Python26-64.tar.gz
-	::%zip% x Python26-64.tar
-        %zip% x Python27-32.7z
-        %zip% x Python27-64.7z
-	%zip% x zlib-1.2.8.tar.gz
-	%zip% x zlib-1.2.8.tar
-	%zip% x bzip2-1.0.6.tar.gz
-	%zip% x bzip2-1.0.6.tar
+    ::%zip% x Python26-32.tar.gz
+    ::%zip% x Python26-32.tar
+    ::%zip% x Python26-64.tar.gz
+    ::%zip% x Python26-64.tar
+    %zip% x Python27-32.7z
+    %zip% x Python27-64.7z
+    %zip% x zlib-1.2.8.tar.gz
+    %zip% x zlib-1.2.8.tar
+    %zip% x bzip2-1.0.6.tar.gz
+    %zip% x bzip2-1.0.6.tar
 )
 
 REM Enables the zlib and bz2 libraries for the iostream library
 set ZLIB_SOURCE="%buildRoot%\zlib-1.2.8"
 set BZIP2_SOURCE="%buildRoot%\bzip2-1.0.6"
 
-%zip% x %boost_version%.tar.*
-%zip% x %boost_version%.tar
+::set SKIP_UNPACK=TRUE
+IF NOT "%SKIP_UNPACK%"=="TRUE" (
+    %zip% x %boost_version%.tar.*
+    %zip% x %boost_version%.tar
+)
 
-cd %boost_version%
+::set SKIP_BUILD=TRUE
+IF NOT "%SKIP_BUILD%"=="TRUE" (
+    cd %boost_version%
 
-call .\bootstrap.bat
+    call .\bootstrap.bat
 
-del %boost_version%\32bitlog.txt
-del %boost_version%\64bitlog.txt
+    del %boost_version%\32bitlog.txt
+    del %boost_version%\64bitlog.txt
 
-call:BuildVersion 8.0 32
-call:BuildVersion 9.0 32
-call:BuildVersion 10.0 32
-call:BuildVersion 11.0 32
-call:BuildVersion 12.0 32
-call:BuildVersion 14.0 32
-call:BuildVersion 8.0 64
-call:BuildVersion 9.0 64
-call:BuildVersion 10.0 64
-call:BuildVersion 11.0 64
-call:BuildVersion 12.0 64
-call:BuildVersion 14.0 64
+    call:BuildVersion 8.0 32
+    call:BuildVersion 9.0 32
+    call:BuildVersion 10.0 32
+    call:BuildVersion 11.0 32
+    call:BuildVersion 12.0 32
+    call:BuildVersion 14.0 32
+    call:BuildVersion 8.0 64
+    call:BuildVersion 9.0 64
+    call:BuildVersion 10.0 64
+    call:BuildVersion 11.0 64
+    call:BuildVersion 12.0 64
+    call:BuildVersion 14.0 64
 
-cd ..
+    cd ..
 
-copy %boost_version%\32bitlog.txt %boost_version%-32bitlog.txt
-copy %boost_version%\64bitlog.txt %boost_version%-64bitlog.txt
+    copy %boost_version%\32bitlog.txt %boost_version%-32bitlog.txt
+    copy %boost_version%\64bitlog.txt %boost_version%-64bitlog.txt
 
-start "Build Output" notepad %boost_version%-32bitlog.txt
-start "Build Output" notepad %boost_version%-64bitlog.txt
+    start "Build Output" notepad %boost_version%-32bitlog.txt
+    start "Build Output" notepad %boost_version%-64bitlog.txt
+)
 
 rd /S/Q %boost_version%\garbage_headers
 

@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
  wget \
  python2.7 \
  python2.7-dev \
- python3.4 \
- python3.4-dev \
+ python3.5 \
+ python3.5-dev \
  libbz2-dev \
  zlib1g-dev
 RUN cd /usr/bin && ln -s python2.7 python

@@ -1,6 +1,7 @@
 import json
 import re
 from string import Template
+from collections import OrderedDict
 
 linux_flags = {
     'c++98': '-std=c++98',
@@ -23,7 +24,7 @@ linux_flags = {
 def make_linux_table():
     configs = None
     with open('linux_docker_configs.json', 'r') as configs_file:
-        configs = json.load(configs_file)
+        configs = json.load(configs_file, object_pairs_hook=OrderedDict)
 
     table = ""
     header = "| Name | Branch | Compiler | Version | Flags | Docker Image |\n"

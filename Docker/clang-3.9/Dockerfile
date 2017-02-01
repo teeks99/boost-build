@@ -1,6 +1,9 @@
 FROM ubuntu:xenial
 MAINTAINER Thomas Kent <docker@teeks99.com>
 
+# Pre-Req Repos
+RUN add-apt-repository -y ppa:git-core/ppa
+
 # Install pre-reqs
 RUN apt-get update && apt-get install -y \
  ca-certificates \
@@ -15,7 +18,7 @@ RUN apt-get update && apt-get install -y \
  zlib1g-dev
 RUN cd /usr/bin && ln -s python2.7 python
 
-# Enable Repo
+# Enable Compiler Repo
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 6084F3CF814B57C1CF12EFD515CF4D18AF4F7421
 ADD llvm.list /etc/apt/sources.list.d/
 

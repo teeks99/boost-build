@@ -29,6 +29,7 @@ def my_rmtree(directory):
 class Runner(object):
     def __init__(self, machine_vars, cleanup=False):
         self.machine = machine_vars
+        self._set_ids()
         self.runs = self.machine['runs']
         if 'run_order' in self.machine:
             self.run_order = self.machine['run_order']
@@ -37,6 +38,10 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run_id = None
+
+    def _set_ids(self):
+        for key, val in self.machine['runs'].items():
+            val["id"] = key
 
     def loop(self, start_at=0):
         self.log_startup()
@@ -70,7 +75,11 @@ class Runner(object):
             self.log_start(run_config)
             if 'docker_img' in run_config:
                 docker_cmd = 'docker run -v ' + os.getcwd()
-                docker_cmd += ':/var/boost --rm -i -t '
+                docker_cmd += ':/var/boost'
+                if "docker_cpu_quota" in self.machine:
+                    docker_cmd += ' --cpu-quota '
+                    docker_cmd += str(self.machine['docker_cpu_quota'])
+                docker_cmd += ' --rm -i -t '
                 docker_cmd += run_config['docker_img']
                 docker_cmd += ' /bin/bash /var/boost/inside.bash'
                 print(docker_cmd)
@@ -117,7 +126,8 @@ class Runner(object):
 
         with open(self.multi_run_log, "a") as log:
             log.write("Run " + str(config['order_index']) + '-' +
-                      config['id'] + " - start: " + config['start_time'])
+                      config['id'].ljust(12) + " - start: " +
+                      config['start_time'])
 
     def write_run_config(self, config):
         with open("CurrentRun.json",'w') as status_file:
@@ -147,6 +157,8 @@ class Runner(object):
             os.system('git submodule init')
             print('git submodule update')
             os.system('git submodule update')
+            print('git fetch --recurse-submodules')
+            os.system('git fetch --recurse-submodules')
 
         finally:
             os.chdir(orig_dir)

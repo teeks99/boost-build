@@ -2,7 +2,7 @@ FROM ubuntu:xenial
 MAINTAINER Thomas Kent <docker@teeks99.com>
 
 # Pre-Req Repos
-RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository -y ppa:git-core/ppa
+RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:git-core/ppa
 
 # Install pre-reqs
 RUN apt-get update && apt-get install -y \

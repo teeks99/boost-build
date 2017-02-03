@@ -74,6 +74,8 @@ class Runner(object):
             self.write_run_config(run_config)
             self.log_start(run_config)
             if 'docker_img' in run_config:
+                subprocess.call('docker pull ' + run_config['docker_img'],
+                                shell=True)
                 docker_cmd = 'docker run -v ' + os.getcwd()
                 docker_cmd += ':/var/boost'
                 if "docker_cpu_quota" in self.machine:

@@ -166,10 +166,18 @@ class Runner(object):
             os.chdir(orig_dir)
 
 
+def add_external_runs(machine_vars):
+    if isinstance(machine_vars['runs'], basestring):
+        with open(machine_vars['runs'], 'r') as external_runs_file:
+            external_runs = json.load(external_runs_file)
+            machine_vars['runs'] = external_runs['runs']
+
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')
     machine_vars = json.load(f)
     f.close()
+
+    add_external_runs(machine_vars)
 
     r = Runner(machine_vars)
     if len(sys.argv) > 1:

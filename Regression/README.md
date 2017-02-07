@@ -115,3 +115,7 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 
 Windows Regression Configurations
 ---------------------------------
+
+On windows we run the versions of Visual Studio since Visual Studio 2005 (msvc-8.0), these are all run with the default flags.
+
+These are all run on 64-bit virtual machines (running on top of Linxu QEMU/KVM). 

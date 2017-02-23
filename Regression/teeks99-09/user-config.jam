@@ -10,7 +10,7 @@ using python
 : C:\\Python27-32\\python.exe # Interperter/path to dir
 : C:\\Python27-32\\include # includes
 : C:\\Python27-32\\libs # libs
-: <address-model>32 # conditions
+: <address-model>32 <address-model> # conditions
 ;
 
 using python

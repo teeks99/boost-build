@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y \
  python3.4 \
  python3.4-dev \
  libbz2-dev \
- zlib1g-dev
+ zlib1g-dev \
+ libstdc++-6-dev
+ 
 RUN cd /usr/bin && ln -s python2.7 python
 
 # Enable Repo

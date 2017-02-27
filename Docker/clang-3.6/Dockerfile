@@ -1,8 +1,8 @@
 FROM ubuntu:trusty
 MAINTAINER Thomas Kent <teeks99@yahoo.com>
 
-# Enable PPA
-
+# Enable future toolchain PPA
+RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:ubuntu-toolchain-r/test
 
 # Install pre-reqs
 RUN apt-get update && apt-get install -y \
@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y \
  python3.4 \
  python3.4-dev \
  libbz2-dev \
- zlib1g-dev
-RUN cd /usr/bin && ln -s python2.7 python
+ zlib1g-dev \
+ libstdc++-6-dev
 
 # Install Tool
 RUN apt-get update && apt-get install -y clang-3.6 

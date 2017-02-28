@@ -92,6 +92,8 @@
         "dc3.9-opt":{"branch":"develop", "arch":"64", "compilers":"clang-3.9~c++1z~O2", "docker_img":"teeks99/boost-build:clang-3.9"},
         "mc3.9-opt":{"branch":"master", "arch":"64", "compilers":"clang-3.9~c++1z~O2", "docker_img":"teeks99/boost-build:clang-3.9"},
         "dc3.9-warn":{"branch":"develop", "arch":"64", "compilers":"clang-3.9~c++1z~warn", "docker_img":"teeks99/boost-build:clang-3.9"},
-        "mc3.9-warn":{"branch":"master", "arch":"64", "compilers":"clang-3.9~c++1z~warn", "docker_img":"teeks99/boost-build:clang-3.9"}
+        "mc3.9-warn":{"branch":"master", "arch":"64", "compilers":"clang-3.9~c++1z~warn", "docker_img":"teeks99/boost-build:clang-3.9"},
+        "dc4-1z":{"branch":"develop", "arch":"64", "compilers":"clang-4.0~c++1z", "docker_img":"teeks99/boost-build:clang-4"},
+        "mc4-1z":{"branch":"master", "arch":"64", "compilers":"clang-4.0~c++1z", "docker_img":"teeks99/boost-build:clang-4"}
     }
 }

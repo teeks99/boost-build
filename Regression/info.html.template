@@ -25,6 +25,8 @@ ${compiler_versions}
 ${python_version}
 </p><p>
 ${git_version}
+</p><p>
+${docker_image_info}
 </p>
 
 </body>

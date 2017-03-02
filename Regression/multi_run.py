@@ -71,11 +71,11 @@ class Runner(object):
             my_rmtree(run_dir)
             os.mkdir(run_dir)
 
+            self.update_docker_img(run_config)
+
             self.write_run_config(run_config)
             self.log_start(run_config)
             if 'docker_img' in run_config:
-                subprocess.call('docker pull ' + run_config['docker_img'],
-                                shell=True)
                 docker_cmd = 'docker run -v ' + os.getcwd()
                 docker_cmd += ':/var/boost'
                 if "docker_cpu_quota" in self.machine:
@@ -91,6 +91,15 @@ class Runner(object):
                 run.process()
             self.log_end()
             order_index += 1
+
+    def update_docker_img(self, run_config):
+        if 'docker_img' in run_config:
+            subprocess.call('docker pull ' + run_config['docker_img'],
+                            shell=True)
+
+            p = subprocess.Popen('docker images ' + run_config['docker_img'] + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - {{.ID}}" --no-trunc', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            out, err = p.communicate()
+            run_config['docker_image_info'] = out
 
     def check_for_stop(self):
         if os.path.exists(self.start_dir + "/stop_runs.on"):

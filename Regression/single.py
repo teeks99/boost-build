@@ -98,6 +98,10 @@ class Run(object):
             'python_version': cgi.escape(tool_versions.python_version()),
             'git_version': cgi.escape(tool_versions.git_version())}
 
+        if 'docker_image_info' in self.config:
+            info = "Docker image: " + self.config['docker_image_info']
+            mapping['docker_image_info'] = info
+
         info_str = info_template.substitute(mapping)
 
         with open('info.html', 'w') as info_file:

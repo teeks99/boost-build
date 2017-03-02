@@ -10,6 +10,8 @@ tools = {
         ('11.0', {'dir_type': 'default', 'number': '110'}),
         ('12.0', {'dir_type': 'modern', 'number': '120'}),
         ('14.0', {'dir_type': 'modern', 'number': '140'}),
+        ('14.1', {'dir_type': 'modern', 'number': '141'}),
+        ('15.0', {'dir_type': 'modern', 'number': '150'}),
     ]),
     'gcc': {
         '4.4': {},
@@ -20,6 +22,7 @@ tools = {
         '4.9': {},
         '5': {},
         '6': {},
+        '7': {},
     },
     'clang': {
         '2.8': {},
@@ -34,6 +37,8 @@ tools = {
         '3.7': {},
         '3.8': {},
         '3.9': {},
+        '4.0': {}
+        '5.0': {},
     },
 }
 def parse_msvc_version_output(ver):

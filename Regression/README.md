@@ -110,12 +110,30 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mc3.9-opt | master | clang | 3.9 | -std=c++1z -O2 | teeks99/boost-build:clang-3.9 |
 | dc3.9-warn | develop | clang | 3.9 | -std=c++1z -Wall -Wextra | teeks99/boost-build:clang-3.9 |
 | mc3.9-warn | master | clang | 3.9 | -std=c++1z -Wall -Wextra | teeks99/boost-build:clang-3.9 |
+| dc3.9-14-lc | develop | clang | 3.9 | -std=c++14 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-14-lc | master | clang | 3.9 | -std=c++14 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-g14-lc | develop | clang | 3.9 | -std=gnu++14 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-g14-lc | master | clang | 3.9 | -std=gnu++14 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-1z-lc | develop | clang | 3.9 | -std=c++1z -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-1z-lc | master | clang | 3.9 | -std=c++1z -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-g1z-lc | develop | clang | 3.9 | -std=gnu++1z -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-g1z-lc | master | clang | 3.9 | -std=gnu++1z -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-11-lc | develop | clang | 3.9 | -std=c++11 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-11-lc | master | clang | 3.9 | -std=c++11 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-g11-lc | develop | clang | 3.9 | -std=gnu++11 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-g11-lc | master | clang | 3.9 | -std=gnu++11 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-98-lc | develop | clang | 3.9 | -std=c++98 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-98-lc | master | clang | 3.9 | -std=c++98 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-g98-lc | develop | clang | 3.9 | -std=gnu++98 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| mc3.9-g98-lc | master | clang | 3.9 | -std=gnu++98 -stdlib=libc++ | teeks99/boost-build:clang-3.9 |
+| dc3.9-opt-lc | develop | clang | 3.9 | -std=c++1z -stdlib=libc++ -O2 | teeks99/boost-build:clang-3.9 |
+| mc3.9-opt-lc | master | clang | 3.9 | -std=c++1z -stdlib=libc++ -O2 | teeks99/boost-build:clang-3.9 |
+| dc3.9-warn-lc | develop | clang | 3.9 | -std=c++1z -stdlib=libc++ -Wall -Wextra | teeks99/boost-build:clang-3.9 |
+| mc3.9-warn-lc | master | clang | 3.9 | -std=c++1z -stdlib=libc++ -Wall -Wextra | teeks99/boost-build:clang-3.9 |
+| dc4-1z | develop | clang | 4.0 | -std=c++1z | teeks99/boost-build:clang-4 |
+| mc4-1z | master | clang | 4.0 | -std=c++1z | teeks99/boost-build:clang-4 |
 
 
 
 Windows Regression Configurations
 ---------------------------------
-
-On windows we run the versions of Visual Studio since Visual Studio 2005 (msvc-8.0), these are all run with the default flags.
-
-These are all run on 64-bit virtual machines (running on top of Linxu QEMU/KVM). 

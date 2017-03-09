@@ -96,7 +96,8 @@ class Run(object):
             'site_config': cgi.escape(tool_versions.site_config()),
             'compiler_versions': cgi.escape(tool_versions.build_version_string()),
             'python_version': cgi.escape(tool_versions.python_version()),
-            'git_version': cgi.escape(tool_versions.git_version())}
+            'git_version': cgi.escape(tool_versions.git_version()),
+            'docker_image_info': ''}
 
         if 'docker_image_info' in self.config:
             info = "Docker image: " + self.config['docker_image_info']

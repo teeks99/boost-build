@@ -13,6 +13,7 @@ import threading
 import datetime
 import tempfile
 import string
+import cgi
 
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
@@ -91,11 +92,16 @@ class Run(object):
             'cores': self.machine['procs'],
             'arch': self.machine['os_arch'],
             'os': self.machine['os'],
-            'user_config': tool_versions.user_config(),
-            'site_config': tool_versions.site_config(),
-            'compiler_versions': tool_versions.build_version_string(),
-            'python_version': tool_versions.python_version(),
-            'git_version': tool_versions.git_version()}
+            'user_config': cgi.escape(tool_versions.user_config()),
+            'site_config': cgi.escape(tool_versions.site_config()),
+            'compiler_versions': cgi.escape(tool_versions.build_version_string()),
+            'python_version': cgi.escape(tool_versions.python_version()),
+            'git_version': cgi.escape(tool_versions.git_version()),
+            'docker_image_info': ''}
+
+        if 'docker_image_info' in self.config:
+            info = "Docker image: " + self.config['docker_image_info']
+            mapping['docker_image_info'] = info
 
         info_str = info_template.substitute(mapping)
 
@@ -118,7 +124,7 @@ class Run(object):
             other_options += ' ' + self.machine['other_options']
 
         command = ['python', 'run.py', '--runner=' + self.machine['machine'] +
-            self.config['id'] + '-' + self.machine['os'] + '-' +
+            '-' + self.config['id'] + '-' + self.machine['os'] + '-' +
             self.config['arch'] + "on" + self.machine['os_arch'], '--toolsets=' +
             self.config['compilers'], '--bjam-options=-j' +
             str(self.machine['procs']) + ' address-model=' + self.config['arch'] +

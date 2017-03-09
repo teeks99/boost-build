@@ -21,7 +21,7 @@
         "k":{"id":"k", "branch":"master", "arch":"64", "compilers":"msvc-12.0"},
         "l":{"id":"l", "branch":"master", "arch":"64", "compilers":"msvc-14.0"},
         "m":{"id":"m", "branch":"develop", "arch":"32", "compilers":"msvc-12.0"},
-        "n":{"id":"l", "branch":"develop", "arch":"64", "compilers":"msvc-15.0"}
+        "n":{"id":"n", "branch":"develop", "arch":"64", "compilers":"msvc-15.0"}
     },
     "run_order":["a","b","c","e","d","f","g","e","h","i","j","e","k","l","m","n","e"]
 }

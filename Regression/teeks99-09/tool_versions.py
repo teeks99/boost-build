@@ -9,7 +9,9 @@ tools = {
         ('10.0', {'dir_type': 'default', 'number': '100'}),
         ('11.0', {'dir_type': 'default', 'number': '110'}),
         ('12.0', {'dir_type': 'modern', 'number': '120'}),
-        ('14.0', {'dir_type': 'modern', 'number': '140'})
+        ('14.0', {'dir_type': 'modern', 'number': '140'}),
+        ('14.1', {'dir_type': 'modern', 'number': '141'}),
+        ('15.0', {'dir_type': 'modern', 'number': '150'}),
     ]),
     'gcc': {
         '4.4': {},
@@ -18,7 +20,9 @@ tools = {
         '4.7': {},
         '4.8': {},
         '4.9': {},
-        '5.1': {'exe': 'g++-5'},
+        '5': {},
+        '6': {},
+        '7': {},
     },
     'clang': {
         '2.8': {},
@@ -29,8 +33,29 @@ tools = {
         '3.3': {},
         '3.4': {},
         '3.5': {},
-        '3.6': {}
+        '3.6': {},
+        '3.7': {},
+        '3.8': {},
+        '3.9': {},
+        '4.0': {},
+        '5.0': {},
     },
+    'python': [
+        'python',
+        'python3', 
+        'C:\Python27\python.exe',
+        'C:\Python27-32\python.exe',
+        'C:\Python27-64\python.exe',
+        'C:\Python34\python.exe',
+        'C:\Python34-32\python.exe',
+        'C:\Python34-64\python.exe',
+        'C:\Python35\python.exe',
+        'C:\Python35-32\python.exe',
+        'C:\Python35-64\python.exe',
+        'C:\Python36\python.exe',
+        'C:\Python36-32\python.exe',
+        'C:\Python36-64\python.exe',
+    ],
 }
 def parse_msvc_version_output(ver):
     #example: b'Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.762 for 80x86\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n'
@@ -238,10 +263,16 @@ def site_config():
     return ConfigFinder().site_config()
 
 def python_version():
-    p = subprocess.Popen('python --version', stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE, shell=True)
-    out, err = p.communicate()
-    return err
+    versions = ''
+    for processor in tools['python']:
+        command = '-c "import sys ; print(sys.version)"'
+        p = subprocess.Popen(processor + " " + command, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, shell=True)
+        out, err = p.communicate()
+        if out:
+            versions += processor + ':\n'
+            versions += out
+    return versions
 
 def git_version():
     p = subprocess.Popen('git --version', stdout=subprocess.PIPE,

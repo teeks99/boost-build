@@ -11,6 +11,10 @@ This is running the ${arch}-bit version of ${os}.
 <pre>
 ${user_config}
 </pre>
+<h2>site-config.jam</h2>
+<pre>
+${site_config}
+</pre>
 </p><p>
 <h2>Complier Versions</h2>
 <pre>
@@ -18,9 +22,17 @@ ${compiler_versions}
 </pre>
 </p><p>
 <h2> Support Versions </h2>
+<pre>
 ${python_version}
+</pre>
 </p><p>
+<pre>
 ${git_version}
+</pre>
+</p><p>
+<pre>
+${docker_image_info}
+</pre>
 </p>
 
 </body>

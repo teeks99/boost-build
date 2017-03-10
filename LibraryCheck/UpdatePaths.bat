@@ -3,7 +3,7 @@
 REM --- Enter Paths Here ---
 REM The paths must use the windows format '\' backslash, and they must be escaped (a.k.a use
 REM two of them in a row any time you would ordinarily use one)
-set BOOST_PATH=C:\\local\\boost_1_54_0_beta1
+set BOOST_PATH=D:\\ReleaseBuild\\boost_1_
 set BOOST_LIB32_PATH=%BOOST_PATH%\\lib32
 set BOOST_LIB64_PATH=%BOOST_PATH%\\lib64
 

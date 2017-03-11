@@ -23,7 +23,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 6084F3CF814B57C1CF12EFD5
 ADD llvm.list /etc/apt/sources.list.d/
 
 # Install Tool
-RUN apt-get update && apt-get install -y clang-3.9 libc++-dev
+RUN apt-get update && apt-get install -y clang-3.9 libc++-dev libc++abi-dev
 
 # Symlink tools
 

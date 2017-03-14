@@ -20,6 +20,8 @@ bzip2_base_path = "http://www.bzip.org/"
 vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.10"]
 vc_archs = ["32", "64"]
 
+inno="C:\Program Files (x86)\Inno Setup 5\Compil32.exe"
+
 class Builder(object):
     def __init__(self):
         self.version = "64"
@@ -109,7 +111,16 @@ class Builder(object):
         shutil.move("bin.v2", os.path.join(self.source_path, "bin.v2"))
 
     def make_installer(self, arch, vc):
-        pass
+        build_dir = "build-msvc-" + vc + "-" + arch
+        os.mkdir(build_dir)
+        os.chdir(build_dir)
+        subprocess.call(self.zip_cmd + " x " + self.source_path + ".tar")        
+        shutil.move("boost_1_" + self.version + "_0", self.source)
+        libs = "lib" + arch + "-msvc-" + vc
+        shutil.copytree(os.path.join(self.source_path, libs), os.path.join(self.sourc, libs))
+        config = "msvc-" + vc + "-" + arch
+        with open(os.path.join(self.build_path, BoostWinInstaller-Template.iss), "r") as installer_template:
+            
 
     def run_build(self):
         # Load comamd arguments

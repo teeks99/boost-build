@@ -117,7 +117,7 @@ class Builder(object):
     def copy_logs(self, arch):
         shutil.copy(arch + "bitlog.txt", "../" + self.source + "-" + arch + "bitlog.txt")
         cmd = "start \"Build Output\" notepad " + self.build_path + "\\" + self.source + "-" + arch + "bitlog.txt"
-        subprocess.call(cmd)
+        subprocess.call(cmd, shell=True)
 
     def midway_cleanup(self):
         shutil.rmtree(os.path.join(self.source_path, "garbage_headers"))

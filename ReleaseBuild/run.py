@@ -2,6 +2,10 @@
 import os
 import shutil
 import subprocess
+import itertools
+import threading
+import multiprocessing
+import datetime
 from string import Template
 try:
     from urllib.request import urlretrieve
@@ -24,6 +28,68 @@ inno_ver = "5.5.9"
 vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.10"]
 vc_archs = ["32", "64"]
 
+class Archive(object):
+    def __init__(self, zip_cmd, base_url, package, extensions=[], local_file=None):
+        self.zip_cmd = zip_cmd
+        self.base_url = base_url
+        self.package = package
+        self.extensions = extensions
+        if not self.extensions:
+            base, ext = os.path.splitext(self.package)
+            while ext in [".tar", ".bz2", ".xz", ".gz", ".7z", ".zip"]:
+                self.package = base
+                self.extensions.append(ext)
+                base, ext = os.path.splitext(self.package)
+            self.extensions.reverse()
+            
+        if local_file:
+            self.local_file = local_file
+        else:
+            self.local_file = self.package
+        self.download_name = self.package
+
+        for extension in extensions:
+            self.download_name += extension
+            self.local_file += extension
+
+    def download(self):
+        url = self.base_url + self.download_name
+        print("Downloading: " + url)
+        urlretrieve(url, self.local_file)
+        with open(self.local_file, "r") as f:
+            pass
+
+    def extract(self):
+        unzip_name = self.local_file
+        for extension in reversed(self.extensions):
+            subprocess.call(self.zip_cmd + " x " + unzip_name)
+            unzip_name = unzip_name[:-len(extension)]        
+
+    def get(self):
+        self.download()
+        self.extract()
+
+    def params(self):
+        return [
+            self.zip_cmd, self.base_url, self.package, self.extensions,
+            self.local_file, self.download_name
+        ]
+
+
+class RemoteArchive(Archive):
+    def __init__(self, params):
+        self.zip_cmd = params[0]
+        self.base_url = params[1]
+        self.package = params[2]
+        self.extensions = params[3]
+        self.local_file = params[4]
+        self.download_name = params[5]
+
+
+def run_remote_archive(params):
+    a = RemoteArchive(params)
+    a.get()
+
 
 class Builder(object):
     def __init__(self):
@@ -31,9 +97,11 @@ class Builder(object):
         self.type = "master-snapshot"
         self.repo = "bintray"
         self.url = None
+        self.file = None
         self.build_drive = "D:" + os.sep
         self.build_dir = "ReleaseBuild"
         self.lib_check_dir = "LibraryCheck"
+        self.archives = []
 
     def make_vars(self):
         self.build_path = os.path.join("/", self.build_drive, self.build_dir)
@@ -46,45 +114,76 @@ class Builder(object):
         self.zip_cmd = os.path.join(self.build_path, "7z1604/7za.exe")
         self.inno_cmd = os.path.join(self.build_path, "Inno Setup 5/Compil32.exe")
 
+    def make_user_config(self):
+        usrcfg_file = os.path.expanduser("~/user-config.jam")
+        if not os.path.exists(usrcfg_file):
+            self.py_config_replace = {}
+            for version, arch, end in itertools.product(
+                    ["27", "36"], ["32", "64"], ["include", "libs"]):
+                self.make_python_config_path(version, arch, end)
+
+            with open("user-config.jam.template", "r") as uctemp:
+                stemplate = Template(uctemp.read())
+                with open(usrcfg_file, "w") as usrcfg:
+                    usrcfg.write(stemplate.safe_substitute(self.py_config_replace))            
+
+    def make_python_config_path(self, version, arch, end):
+        key = "PY" + version + "_" + arch + end
+        path = os.path.join(self.build_path, "Python" + version + "-" + arch, end)
+        escaped = os.path.normpath(path).replace("\\", "\\\\")
+        self.py_config_replace[key] = escaped
+
     def make_dirs(self):
         shutil.copytree("../ReleaseBuild", self.build_path)
         shutil.copytree("../LibraryCheck", self.lib_check_path)
  
-    def get_source(self):
+    def make_source_archive(self):
+        # https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
         if not self.url:
             if self.repo == "bintray":
                 if self.type == "master-snapshot":
-                    # https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
-                    self.url = "https://dl.bintray.com/boostorg/master/boost_1_" + self.version + "_0-snapshot.tar.bz2"
-        print("Downloading: " + self.url + " to: " + self.source_path + ".tar.bz2")
-        urlretrieve(self.url, self.source_path + ".tar.bz2")
+                    self.url = "https://dl.bintray.com/boostorg/master/"
 
-    def get_and_extract_deps(self):
-        self.py_extract("Python" + python2_ver + "-32.7z")
-        self.py_extract("Python" + python2_ver + "-64.7z")
-        self.py_extract("Python" + python3_ver + "-32.7z")
-        self.py_extract("Python" + python3_ver + "-64.7z")
-        self.standard_extract(zlib_base_path, "zlib-" + zlib_ver, [".tar", ".gz"])
-        self.standard_extract(bzip2_base_path + bzip2_ver + "/", "bzip2-" + bzip2_ver, [".tar", ".gz"])
-        self.standard_extract(tk_boost_deps, "InnoSetup-" + inno_ver, [".7z"])
+        if not self.file:
+            if self.type == "master-snapshot":
+                self.file = "boost_1_" + self.version + "_0-snapshot.tar.bz2"
 
-    def py_extract(self, file_name):
-        urlretrieve(tk_boost_deps + file_name, file_name)
-        subprocess.call(self.zip_cmd + " x " + file_name)
+        self.archives.append(Archive(self.zip_cmd, self.url, self.file, local_file=self.source))        
 
-    def standard_extract(self, base_url, archive_name, extensions):
-        download_name = archive_name
-        for extension in extensions:
-            download_name += extension
-        urlretrieve(base_url + download_name, download_name)
-        for extension in reversed(extensions):
-            subprocess.call(self.zip_cmd + " x " + download_name)
-            download_name = download_name[:-len(extension)]        
+    def make_dep_archives(self):
+        z = self.zip_cmd
+        a = self.archives
+        a.append(Archive(z, tk_boost_deps, "Python" + python2_ver + "-32", [".7z"]))
+        a.append(Archive(z, tk_boost_deps, "Python" + python2_ver + "-64", [".7z"]))
+        a.append(Archive(z, tk_boost_deps, "Python" + python3_ver + "-32", [".7z"]))
+        a.append(Archive(z, tk_boost_deps, "Python" + python3_ver + "-64", [".7z"]))
+        a.append(Archive(z, zlib_base_path, "zlib-" + zlib_ver, [".tar", ".gz"]))
+        a.append(Archive(z, bzip2_base_path + bzip2_ver + "/", "bzip2-" + bzip2_ver, [".tar", ".gz"]))
+        a.append(Archive(z, tk_boost_deps, "InnoSetup-" + inno_ver, [".7z"]))
 
-    def extract_source(self):
-        subprocess.call(self.zip_cmd + " x " + self.source + ".tar.bz2")
-        subprocess.call(self.zip_cmd + " x " + self.source + ".tar")
+    def get_and_extract_archives(self):
+        for a in self.archives:
+            a.get()
+
+    def get_and_extract_archives_threaded(self):
+        workers = [ threading.Thread(target=a.get) for a in self.archives ]
+        for worker in workers: worker.start()
+        for worker in workers: worker.join()
+
+    def get_and_extract_archives_process(self):
+        workers = [ multiprocessing.Process(target=run_remote_archive, args=(a.params(),)) for a in self.archives ]
+        for worker in workers: worker.start()
+        for worker in workers: worker.join()
+
+    def move_source(self):
         shutil.move("boost_1_" + self.version + "_0", self.source)
+
+    def set_env_vars(self):
+        zlib = os.path.join(self.build_path, "zlib-" + zlib_ver)
+        os.environ["ZLIB_SOURCE"] = os.path.normalize(zlib)
+
+        bzip2 = os.path.join(self.build_path, "bzip2-" + bzip2_ver)
+        os.environ["BZIP2_SOURCE"] = os.path.normalize(bzip2)
 
     def make_dependency_versions(self):
         with open("VS_DEPENDENCY_VERSIONS.txt", "r") as vs_versions:
@@ -156,14 +255,20 @@ class Builder(object):
         self.make_vars()
 
     def prepare(self):
+        self.prepare_start = datetime.datetime.now()
+        self.make_user_config()
         self.make_dirs()
-        self.get_source() # Do this in a thread
         os.chdir(self.build_path)
-        self.make_dependency_versions()
-        self.get_and_extract_deps()
-        self.extract_source()       
+        self.make_source_archive()
+        self.make_dep_archives()
+        #self.get_and_extract_archives()
+        #self.get_and_extract_archives_threaded()
+        self.get_and_extract_archives_process()
+        self.move_source()       
+        self.prepare_stop = datetime.datetime.now()
 
     def build(self):
+        self.build_start = datetime.datetime.now()
         os.chdir(self.source_path)
         self.bootstrap()
         for vc_arch in vc_archs:
@@ -173,13 +278,27 @@ class Builder(object):
 
         os.chdir(self.build_path)
         self.midway_cleanup()
+        self.build_stop = datetime.datetime.now()
 
     def package(self):
+        self.package_start = datetime.datetime.now()
         self.make_archive()
 
-        for vc_arch in vc_archs:
-            for vc_ver in vc_versions:
-                self.make_installer(vc_arch, vc_ver)
+        for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
+            self.make_installer(vc_arch, vc_ver)
+        self.package_stop = datetime.datetime.now()
+
+    def package_threaded(self):
+        self.package_start = datetime.datetime.now()
+        workers = []
+        workers.append(threading.Thread(target=self.make_archive))
+
+        for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
+            workers.append(threading.Thread(target=self.make_installer, args=(vc_arch, vc_ver)))
+
+        for worker in workers: worker.start()
+        for worker in workers: worker.join()
+        self.package_stop = datetime.datetime.now()
 
     def run_build(self):
         self.initialize()

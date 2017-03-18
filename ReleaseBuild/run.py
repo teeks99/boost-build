@@ -91,6 +91,27 @@ def run_remote_archive(params):
     a.get()
 
 
+def make_installer(options):
+    o = options
+    os.mkdir(o['tmp_build_dir'])
+    os.chdir(o['tmp_build_dir'])
+    subprocess.call(o['zip_cmd'] + " x " + o['source_path'] + ".tar")        
+    shutil.move(o['source_archive_output'], o['source'])
+    shutil.copytree(os.path.join(o['source_path'], o['libs']), os.path.join(o['source'], o['libs']))
+
+    replace = {"FILL_VERSION": o['source'], "FILL_CONFIG": o['config']}
+    with open(os.path.join(o['build_path'], "BoostWinInstaller-PyTemplate.iss"), "r") as installer_template:
+        stemplate = Template(installer_template.read())
+        with open("installer_" + o['config'] + ".iss", "w") as installer:
+            installer.write(stemplate.safe_substitute(replace))
+
+    subprocess.call('"' + o['inno_cmd'] + '" /cc installer_' + o['config'] + ".iss", shell=True)
+    os.chdir(o['build_path'])
+    installer_file = o['source'] + "-" + o['config'] + ".exe"
+    shutil.move(os.path.join(o['tmp_build_dir'], installer_file), installer_file)
+    shutil.rmtree(o['tmp_build_dir'])    
+
+
 class Builder(object):
     def __init__(self):
         self.version = "64"
@@ -98,6 +119,7 @@ class Builder(object):
         self.repo = "bintray"
         self.url = None
         self.file = None
+        self.source_archive_output = None
         self.build_drive = "D:" + os.sep
         self.build_dir = "ReleaseBuild"
         self.lib_check_dir = "LibraryCheck"
@@ -113,6 +135,22 @@ class Builder(object):
         self.source_path = os.path.join(self.build_path, self.source)
         self.zip_cmd = os.path.join(self.build_path, "7z1604/7za.exe")
         self.inno_cmd = os.path.join(self.build_path, "Inno Setup 5/Compil32.exe")
+        self.set_source_info()
+
+    def set_source_info(self):
+        # https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
+        if not self.url:
+            if self.repo == "bintray":
+                if self.type == "master-snapshot":
+                    self.url = "https://dl.bintray.com/boostorg/master/"
+
+        if not self.file:
+            if self.type == "master-snapshot":
+                self.file = "boost_1_" + self.version + "_0-snapshot.tar.bz2"
+
+        if not self.source_archive_output:
+            if self.type == "master-snapshot":
+                self.source_archive_output = "boost_1_" + self.version + "_0"
 
     def make_user_config(self):
         usrcfg_file = os.path.expanduser("~/user-config.jam")
@@ -138,16 +176,6 @@ class Builder(object):
         shutil.copytree("../LibraryCheck", self.lib_check_path)
  
     def make_source_archive(self):
-        # https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
-        if not self.url:
-            if self.repo == "bintray":
-                if self.type == "master-snapshot":
-                    self.url = "https://dl.bintray.com/boostorg/master/"
-
-        if not self.file:
-            if self.type == "master-snapshot":
-                self.file = "boost_1_" + self.version + "_0-snapshot.tar.bz2"
-
         self.archives.append(Archive(self.zip_cmd, self.url, self.file, local_file=self.source))        
 
     def make_dep_archives(self):
@@ -176,7 +204,7 @@ class Builder(object):
         for worker in workers: worker.join()
 
     def move_source(self):
-        shutil.move("boost_1_" + self.version + "_0", self.source)
+        shutil.move(self.source_archive_output, self.source)
 
     def set_env_vars(self):
         zlib = os.path.join(self.build_path, "zlib-" + zlib_ver)
@@ -228,27 +256,19 @@ class Builder(object):
         subprocess.call(self.zip_cmd + " a " + archive + " " + self.source_path)
         shutil.move("bin.v2", os.path.join(self.source_path, "bin.v2"))
 
-    def make_installer(self, arch, vc):
-        build_dir = "build-msvc-" + vc + "-" + arch
-        os.mkdir(build_dir)
-        os.chdir(build_dir)
-        subprocess.call(self.zip_cmd + " x " + self.source_path + ".tar")        
-        shutil.move("boost_1_" + self.version + "_0", self.source)
-        libs = "lib" + arch + "-msvc-" + vc
-        shutil.copytree(os.path.join(self.source_path, libs), os.path.join(self.source, libs))
-
-        config = "msvc-" + vc + "-" + arch
-        replace = {"FILL_VERSION": self.source, "FILL_CONFIG": config}
-        with open(os.path.join(self.build_path, "BoostWinInstaller-PyTemplate.iss"), "r") as installer_template:
-            stemplate = Template(installer_template.read())
-            with open("installer_" + config + ".iss", "w") as installer:
-                installer.write(stemplate.safe_substitute(replace))
-
-        subprocess.call('"' + self.inno_cmd + '" /cc installer_' + config + ".iss", shell=True)
-        os.chdir(self.build_path)
-        installer_file = self.source + "-" + config + ".exe"
-        shutil.move(os.path.join(build_dir, installer_file), installer_file)
-        shutil.rmtree(build_dir)
+    def make_installer_options(self, arch, vc):
+        options = {
+            'tmp_build_dir': "build-msvc-" + vc + "-" + arch,
+            'zip_cmd': self.zip_cmd,
+            'source_path': self.source_path,
+            'source_archive_output': self.source_archive_output,
+            'source': self.source,
+            'libs': "lib" + arch + "-msvc-" + vc,
+            'config': "msvc-" + vc + "-" + arch,
+            'build_path': self.build_path,
+            'inno_cmd': self.inno_cmd
+        }
+        return options
 
     def initialize(self):
         # TODO: Load comamd arguments
@@ -285,16 +305,19 @@ class Builder(object):
         self.make_archive()
 
         for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
-            self.make_installer(vc_arch, vc_ver)
+            options = self.make_installer_options(vc_arch, vc_ver)
+            make_installer(options)
         self.package_stop = datetime.datetime.now()
 
-    def package_threaded(self):
+    def package_parallel(self):
         self.package_start = datetime.datetime.now()
         workers = []
         workers.append(threading.Thread(target=self.make_archive))
 
         for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
-            workers.append(threading.Thread(target=self.make_installer, args=(vc_arch, vc_ver)))
+            options = self.make_installer_options(vc_arch, vc_ver)
+            workers.append(multiprocessing.Process(target=make_installer,
+                           args=(options,) ))
 
         for worker in workers: worker.start()
         for worker in workers: worker.join()

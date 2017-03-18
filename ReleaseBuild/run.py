@@ -332,12 +332,12 @@ class Builder(object):
         self.initialize()
         self.prepare()
         self.build()
-        self.package()
+        self.package_parallel()
 
     def run_package(self):
         self.initialize()
         os.chdir(self.build_path)
-        self.package()
+        self.package_parallel()
 
 
 if __name__ == "__main__":

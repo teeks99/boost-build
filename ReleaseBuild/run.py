@@ -93,6 +93,8 @@ def run_remote_archive(params):
 
 def make_installer(options):
     o = options
+    installer_file = o['source'] + "-" + o['config'] + ".exe"
+
     os.mkdir(o['tmp_build_dir'])
     os.chdir(o['tmp_build_dir'])
     subprocess.call(o['zip_cmd'] + " x " + o['source_path'] + ".tar")        
@@ -105,11 +107,12 @@ def make_installer(options):
         with open("installer_" + o['config'] + ".iss", "w") as installer:
             installer.write(stemplate.safe_substitute(replace))
 
+    print("Making installer for: " + installer_file)
     subprocess.call('"' + o['inno_cmd'] + '" /cc installer_' + o['config'] + ".iss", shell=True)
     os.chdir(o['build_path'])
-    installer_file = o['source'] + "-" + o['config'] + ".exe"
     shutil.move(os.path.join(o['tmp_build_dir'], installer_file), installer_file)
-    shutil.rmtree(o['tmp_build_dir'])    
+    shutil.rmtree(o['tmp_build_dir'])
+    print("Installer " + installer_file + " complete")
 
 
 class Builder(object):
@@ -311,16 +314,18 @@ class Builder(object):
 
     def package_parallel(self):
         self.package_start = datetime.datetime.now()
-        workers = []
-        workers.append(threading.Thread(target=self.make_archive))
+        archive_thread = threading.Thread(target=self.make_archive)
+        archive_thread.start()
 
+        pool = multiprocessing.Pool(processes=4)
         for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
             options = self.make_installer_options(vc_arch, vc_ver)
-            workers.append(multiprocessing.Process(target=make_installer,
-                           args=(options,) ))
+            pool.apply_async(make_installer, options)
 
-        for worker in workers: worker.start()
-        for worker in workers: worker.join()
+        archive_thread.join()
+        pool.close()
+        pool.join()
+
         self.package_stop = datetime.datetime.now()
 
     def run_build(self):

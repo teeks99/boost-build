@@ -6,12 +6,25 @@ import itertools
 import threading
 import multiprocessing
 import datetime
+import sys
+import argparse
 from string import Template
 try:
     from urllib.request import urlretrieve
 except ImportError: # Python 2
     from urllib import urlretrieve
 
+VERSION = "64"
+TYPE = "master-snapshot"
+REPO = "bintray"
+
+BUILD_DRIVE = "D:" + os.sep
+BUILD_DIR = "ReleaseBuild"
+
+vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.10"]
+vc_archs = ["32", "64"]
+
+# Binary packages used during build, that we can't get from upstream
 tk_boost_deps = "https://boost.teeks99.com/deps/"
 
 python2_ver = "2.7.13"
@@ -25,8 +38,17 @@ bzip2_base_path = "http://www.bzip.org/"
 
 inno_ver = "5.5.9"
 
-vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.10"]
-vc_archs = ["32", "64"]
+# https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
+REPOS = {
+    "bintray": {
+        "master-snapshot": {
+            "url": "https://dl.bintray.com/boostorg/master/",
+            "file": "boost_1_{version}_0-snapshot.tar.bz2",
+            "source_archive_output": "boost_1_{version}_0"
+        }
+    }
+}
+
 
 class Archive(object):
     def __init__(self, zip_cmd, base_url, package, extensions=[], local_file=None):
@@ -117,16 +139,56 @@ def make_installer(options):
 
 class Builder(object):
     def __init__(self):
-        self.version = "64"
-        self.type = "master-snapshot"
-        self.repo = "bintray"
-        self.url = None
-        self.file = None
-        self.source_archive_output = None
-        self.build_drive = "D:" + os.sep
-        self.build_dir = "ReleaseBuild"
         self.lib_check_dir = "LibraryCheck"
+        self.load_args()
         self.archives = []
+
+    def load_args(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+            "--version",
+            help="The part of the boost version that changes." +
+            ' e.g. "64" in "boost_1_64_0"', default=VERSION)
+        parser.add_argument(
+            "--type", help="Type of build: master-snapshot, beta, rc, release",
+            default=TYPE)
+        parser.add_argument(
+            "--repo", help="Repo to use for build", default=REPO)
+        parser.add_argument(
+            "--url", help="base of the URL to get the binary from. " + 
+            "Combines with file to make the full URL.", default=None)
+        parser.add_argument(
+            "--file",
+            help="file to get from the url. e.g. boost_1_64_0.tar.bz2",
+            default=None)
+        parser.add_argument(
+            "--source-archive-output",
+            help="directory name the source file will extract to",
+            default=None)
+        parser.add_argument(
+            "--build-drive",
+            help="Drive to use for build, including trailing seperator",
+            default=BUILD_DRIVE)
+        parser.add_argument(
+            "--build-dir",
+            help="Directory on build drive to use for build",
+            default=BUILD_DIR)
+
+        parser.add_argument(
+            "--vc-ver", action='append',
+            help='version to build in dotted for e.g. 8.0, 14.1')
+        parser.add_argument(
+            "--vc-arch", action='append',
+            help='architecture to build for e.g. 32 or 64')
+        parser.parse_args(namespace=self)
+        
+        if self.vc_arch:
+            global vc_archs
+            vc_archs = self.vc_arch
+
+        if self.vc_ver:
+            global vc_versions
+            vc_versions = self.vc_ver
 
     def make_vars(self):
         self.build_path = os.path.join("/", self.build_drive, self.build_dir)
@@ -141,19 +203,15 @@ class Builder(object):
         self.set_source_info()
 
     def set_source_info(self):
-        # https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
         if not self.url:
-            if self.repo == "bintray":
-                if self.type == "master-snapshot":
-                    self.url = "https://dl.bintray.com/boostorg/master/"
+            self.url = REPOS[self.repo][self.type]["url"]
 
         if not self.file:
-            if self.type == "master-snapshot":
-                self.file = "boost_1_" + self.version + "_0-snapshot.tar.bz2"
+            self.file = REPOS[self.repo][self.type]["file"].format(version=self.version)
 
         if not self.source_archive_output:
-            if self.type == "master-snapshot":
-                self.source_archive_output = "boost_1_" + self.version + "_0"
+            source_file = REPOS[self.repo][self.type]["source_archive_output"]
+            self.source_archive_output = source_file.format(version=self.version)
 
     def make_user_config(self):
         usrcfg_file = os.path.expanduser("~/user-config.jam")
@@ -314,19 +372,33 @@ class Builder(object):
 
     def package_parallel(self):
         self.package_start = datetime.datetime.now()
-        archive_thread = threading.Thread(target=self.make_archive)
-        archive_thread.start()
+        self.make_archive()
 
         pool = multiprocessing.Pool(processes=4)
+        self.package_results = []
         for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
             options = self.make_installer_options(vc_arch, vc_ver)
-            pool.apply_async(make_installer, options)
+            self.package_results.append(
+                pool.apply_async(make_installer, (options,)))
 
-        archive_thread.join()
         pool.close()
         pool.join()
 
         self.package_stop = datetime.datetime.now()
+
+    def print_times(self):
+        self.print_part("prepare")
+        self.print_part("build")
+        self.print_part("package")
+
+    def print_part(self, part):
+        if hasattr(self, part + "_start") and hasattr(self, part + "_stop"):
+            start = getattr(self, part + "_start")
+            stop = getattr(self, part + "_stop")
+            print("--- " + part + " ---")
+            print("    start: " + str(start))
+            print("    stop:  " + str(stop))
+            print("    elapsed: " + str(stop - start))
 
     def run_build(self):
         self.initialize()
@@ -343,3 +415,4 @@ class Builder(object):
 if __name__ == "__main__":
     b = Builder()
     b.run_build()
+    b.print_times()

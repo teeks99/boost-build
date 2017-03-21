@@ -24,6 +24,8 @@ BUILD_DIR = "ReleaseBuild"
 vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.10"]
 vc_archs = ["32", "64"]
 
+PACKAGE_PROCESSES = 4
+
 # Binary packages used during build, that we can't get from upstream
 tk_boost_deps = "https://boost.teeks99.com/deps/"
 
@@ -374,7 +376,7 @@ class Builder(object):
         self.package_start = datetime.datetime.now()
         self.make_archive()
 
-        pool = multiprocessing.Pool(processes=4)
+        pool = multiprocessing.Pool(processes=PACKAGE_PROCESSES)
         self.package_results = []
         for vc_arch, vc_ver in itertools.product(vc_archs, vc_versions):
             options = self.make_installer_options(vc_arch, vc_ver)

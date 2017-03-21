@@ -21,7 +21,7 @@ REPO = "bintray"
 BUILD_DRIVE = "D:" + os.sep
 BUILD_DIR = "ReleaseBuild"
 
-vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.10"]
+vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.1"]
 vc_archs = ["32", "64"]
 
 PACKAGE_PROCESSES = 4
@@ -271,10 +271,10 @@ class Builder(object):
 
     def set_env_vars(self):
         zlib = os.path.join(self.build_path, "zlib-" + zlib_ver)
-        os.environ["ZLIB_SOURCE"] = os.path.normalize(zlib)
+        os.environ["ZLIB_SOURCE"] = os.path.normpath(zlib)
 
         bzip2 = os.path.join(self.build_path, "bzip2-" + bzip2_ver)
-        os.environ["BZIP2_SOURCE"] = os.path.normalize(bzip2)
+        os.environ["BZIP2_SOURCE"] = os.path.normpath(bzip2)
 
     def make_dependency_versions(self):
         with open("VS_DEPENDENCY_VERSIONS.txt", "r") as vs_versions:
@@ -347,7 +347,8 @@ class Builder(object):
         #self.get_and_extract_archives()
         #self.get_and_extract_archives_threaded()
         self.get_and_extract_archives_process()
-        self.move_source()       
+        self.move_source()
+        self.set_env_vars()
         self.prepare_stop = datetime.datetime.now()
 
     def build(self):

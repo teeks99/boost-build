@@ -212,7 +212,7 @@ class Builder(object):
         self.lib_check_path = os.path.join(self.build_drive, self.lib_check_dir)
         if self.type == "master-snapshot":
             self.source = "boost_1_" + self.version + "_0_" + self.type
-        elif self.type == "release":
+        elif self.type == "release" or self.type == "b1":
             self.source = "boost_1_" + self.version + "_0"
         self.source_path = os.path.join(self.build_path, self.source)
         self.zip_cmd = os.path.join(self.build_path, "7z1604/7za.exe")
@@ -221,7 +221,7 @@ class Builder(object):
 
     def set_source_info(self):
         if not self.url:
-            self.url = REPOS[self.repo][self.type]["url"]
+            self.url = REPOS[self.repo][self.type]["url"].format(version=self.version)
 
         if not self.file:
             self.file = REPOS[self.repo][self.type]["file"].format(version=self.version)

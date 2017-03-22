@@ -15,7 +15,7 @@ except ImportError: # Python 2
     from urllib import urlretrieve
 
 VERSION = "64"
-TYPE = "master-snapshot"
+TYPE = "b1"
 REPO = "bintray"
 
 BUILD_DRIVE = "D:" + os.sep
@@ -24,7 +24,7 @@ BUILD_DIR = "ReleaseBuild"
 vc_versions = ["8.0", "9.0", "10.0", "11.0", "12.0", "14.0", "14.1"]
 vc_archs = ["32", "64"]
 
-PACKAGE_PROCESSES = 4
+PACKAGE_PROCESSES = 16
 
 # Binary packages used during build, that we can't get from upstream
 tk_boost_deps = "https://boost.teeks99.com/deps/"
@@ -47,16 +47,29 @@ REPOS = {
             "url": "https://dl.bintray.com/boostorg/master/",
             "file": "boost_1_{version}_0-snapshot.tar.bz2",
             "source_archive_output": "boost_1_{version}_0"
+        },
+        "b1": {
+            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.0.beta.1/",
+            "file": "boost_1_{version}_0_b1.tar.bz2",
+            "source_archive_output": "boost_1_{version}_0"
+        }
+    },
+    "local": {
+        "b1": {
+            "url": "none",
+            "file": "boost_1_{version}_0_b1.tar.bz2",
+            "source_archive_output": "boost_1_{version}_0"
         }
     }
 }
 
 
 class Archive(object):
-    def __init__(self, zip_cmd, base_url, package, extensions=[], local_file=None):
+    def __init__(self, zip_cmd, base_url, package, extensions=[], local_file=None, do_download=True):
         self.zip_cmd = zip_cmd
         self.base_url = base_url
         self.package = package
+        self.do_download = download
         self.extensions = extensions
         if not self.extensions:
             base, ext = os.path.splitext(self.package)
@@ -77,11 +90,12 @@ class Archive(object):
             self.local_file += extension
 
     def download(self):
-        url = self.base_url + self.download_name
-        print("Downloading: " + url)
-        urlretrieve(url, self.local_file)
-        with open(self.local_file, "r") as f:
-            pass
+        if self.do_download and self.base_url != "none":
+            url = self.base_url + self.download_name
+            print("Downloading: " + url)
+            urlretrieve(url, self.local_file)
+            with open(self.local_file, "r") as f:
+                pass
 
     def extract(self):
         unzip_name = self.local_file
@@ -96,7 +110,7 @@ class Archive(object):
     def params(self):
         return [
             self.zip_cmd, self.base_url, self.package, self.extensions,
-            self.local_file, self.download_name
+            self.local_file, self.download_name, self.do_download
         ]
 
 
@@ -108,6 +122,7 @@ class RemoteArchive(Archive):
         self.extensions = params[3]
         self.local_file = params[4]
         self.download_name = params[5]
+        self.do_download = params[6]
 
 
 def run_remote_archive(params):

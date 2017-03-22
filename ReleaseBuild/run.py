@@ -65,11 +65,10 @@ REPOS = {
 
 
 class Archive(object):
-    def __init__(self, zip_cmd, base_url, package, extensions=[], local_file=None, do_download=True):
+    def __init__(self, zip_cmd, base_url, package, extensions=[], local_file=None):
         self.zip_cmd = zip_cmd
         self.base_url = base_url
         self.package = package
-        self.do_download = download
         self.extensions = extensions
         if not self.extensions:
             base, ext = os.path.splitext(self.package)
@@ -90,7 +89,7 @@ class Archive(object):
             self.local_file += extension
 
     def download(self):
-        if self.do_download and self.base_url != "none":
+        if self.base_url != "none":
             url = self.base_url + self.download_name
             print("Downloading: " + url)
             urlretrieve(url, self.local_file)
@@ -110,7 +109,7 @@ class Archive(object):
     def params(self):
         return [
             self.zip_cmd, self.base_url, self.package, self.extensions,
-            self.local_file, self.download_name, self.do_download
+            self.local_file, self.download_name
         ]
 
 
@@ -122,7 +121,6 @@ class RemoteArchive(Archive):
         self.extensions = params[3]
         self.local_file = params[4]
         self.download_name = params[5]
-        self.do_download = params[6]
 
 
 def run_remote_archive(params):

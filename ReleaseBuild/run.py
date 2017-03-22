@@ -49,7 +49,7 @@ REPOS = {
             "source_archive_output": "boost_1_{version}_0"
         },
         "b1": {
-            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.0.beta.1/",
+            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.0.beta.1/source/",
             "file": "boost_1_{version}_0_b1.tar.bz2",
             "source_archive_output": "boost_1_{version}_0"
         }

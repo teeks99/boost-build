@@ -15,8 +15,10 @@ except ImportError: # Python 2
     from urllib import urlretrieve
 
 VERSION = "64"
-TYPE = "b1"
+TYPE = "beta"
 REPO = "bintray"
+BETA = 1
+RC = None
 
 BUILD_DRIVE = "D:" + os.sep
 BUILD_DIR = "ReleaseBuild"
@@ -41,17 +43,20 @@ bzip2_base_path = "http://www.bzip.org/"
 inno_ver = "5.5.9"
 
 # https://dl.bintray.com/boostorg/master/boost_1_64_0-snapshot.tar.bz2
+# https://dl.bintray.com/boostorg/beta/1.64.0.beta.1/source/boost_1_64_0_b1.tar.bz2
 REPOS = {
     "bintray": {
         "master-snapshot": {
             "url": "https://dl.bintray.com/boostorg/master/",
-            "file": "boost_1_{version}_0-snapshot.tar.bz2",
-            "source_archive_output": "boost_1_{version}_0"
+            "file": "boost_1_{version}_0{archive_suffix}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_0",
+            "archive_suffix": "-snapshot"
         },
-        "b1": {
-            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.0.beta.1/source/",
-            "file": "boost_1_{version}_0_b1.tar.bz2",
-            "source_archive_output": "boost_1_{version}_0"
+        "beta": {
+            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.0.beta.{beta}/source/",
+            "file": "boost_1_{version}_0{archive_suffix}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_0",
+            "archive_suffix": "_b{beta}"
         }
     },
     "local": {
@@ -130,7 +135,7 @@ def run_remote_archive(params):
 
 def make_installer(options):
     o = options
-    installer_file = o['source'] + "-" + o['config'] + ".exe"
+    installer_file = o['version'] + "-" + o['config'] + ".exe"
 
     os.mkdir(o['tmp_build_dir'])
     os.chdir(o['tmp_build_dir'])
@@ -188,6 +193,14 @@ class Builder(object):
             "--build-dir",
             help="Directory on build drive to use for build",
             default=BUILD_DIR)
+        parser.add_argument(
+            "--beta",
+            help="Beta version to use, only applies if type is 'beta'",
+            default=BETA)
+        parser.add_argument(
+            "--rc",
+            help="RC version to use, only applies if type is 'rc'",
+            default=RC)
 
         parser.add_argument(
             "--vc-ver", action='append',
@@ -208,25 +221,28 @@ class Builder(object):
     def make_vars(self):
         self.build_path = os.path.join("/", self.build_drive, self.build_dir)
         self.lib_check_path = os.path.join(self.build_drive, self.lib_check_dir)
-        if self.type == "master-snapshot":
-            self.source = "boost_1_" + self.version + "_0_" + self.type
-        elif self.type == "release" or self.type == "b1":
-            self.source = "boost_1_" + self.version + "_0"
+        self.archive_suffix = ""
+        self.source = "boost_1_" + self.version + "_0"
         self.source_path = os.path.join(self.build_path, self.source)
         self.zip_cmd = os.path.join(self.build_path, "7z1604/7za.exe")
         self.inno_cmd = os.path.join(self.build_path, "Inno Setup 5/Compil32.exe")
         self.set_source_info()
 
     def set_source_info(self):
+        config = REPOS[self.repo][self.type]
+        replace = {"beta": self.beta, "rc": self.rc, "version": self.version}
+        if not self.archive_suffix:
+            self.archive_suffix = config["archive_suffix"].format(**replace)
+
+        replace["archive_suffix"] = self.archive_suffix
         if not self.url:
-            self.url = REPOS[self.repo][self.type]["url"].format(version=self.version)
+            self.url = config["url"].format(**replace)
 
         if not self.file:
-            self.file = REPOS[self.repo][self.type]["file"].format(version=self.version)
+            self.file = config["file"].format(**replace)
 
         if not self.source_archive_output:
-            source_file = REPOS[self.repo][self.type]["source_archive_output"]
-            self.source_archive_output = source_file.format(version=self.version)
+            self.source_archive_output = config["source_archive_output"].format(**replace)
 
     def make_user_config(self):
         usrcfg_file = os.path.expanduser("~/user-config.jam")
@@ -318,8 +334,9 @@ class Builder(object):
         shutil.copy("../DEPENDENCY_VERSIONS.txt", "lib" + arch + "-msvc-" + vc + "/DEPENDENCY_VERSIONS.txt")
 
     def copy_logs(self, arch):
-        shutil.copy(arch + "bitlog.txt", "../" + self.source + "-" + arch + "bitlog.txt")
-        cmd = "start \"Build Output\" notepad " + self.build_path + "\\" + self.source + "-" + arch + "bitlog.txt"
+        to_file = os.path.join(self.build_path, self.source + self.archive_suffix + "-" + arch + "bitlog.txt")
+        shutil.copy(arch + "bitlog.txt", to_file)
+        cmd = "start \"Build Output\" notepad " + to_file
         subprocess.call(cmd, shell=True)
 
     def midway_cleanup(self):
@@ -328,7 +345,7 @@ class Builder(object):
 
     def make_archive(self):
         shutil.move(os.path.join(self.source_path, "bin.v2"), "bin.v2")
-        archive = self.source + "-bin-msvc-all-32-64.7z"
+        archive = self.source + self.archive_suffix + "-bin-msvc-all-32-64.7z"
         subprocess.call(self.zip_cmd + " a " + archive + " " + self.source_path)
         shutil.move("bin.v2", os.path.join(self.source_path, "bin.v2"))
 
@@ -339,7 +356,7 @@ class Builder(object):
             'source_path': self.source_path,
             'source_archive_output': self.source_archive_output,
             'source': self.source,
-            'version': self.source,
+            'version': self.source + self.archive_suffix,
             'libs': "lib" + arch + "-msvc-" + vc,
             'config': "msvc-" + vc + "-" + arch,
             'build_path': self.build_path,

@@ -143,7 +143,7 @@ def make_installer(options):
     shutil.move(o['source_archive_output'], o['source'])
     shutil.copytree(os.path.join(o['source_path'], o['libs']), os.path.join(o['source'], o['libs']))
 
-    replace = {"FILL_VERSION": o['version'], "FILL_CONFIG": o['config']}
+    replace = {"FILL_VERSION": o['version'], "FILL_CONFIG": o['config'], "FILL_SOURCE": o['source']}
     with open(os.path.join(o['build_path'], "BoostWinInstaller-PyTemplate.iss"), "r") as installer_template:
         stemplate = Template(installer_template.read())
         with open("installer_" + o['config'] + ".iss", "w") as installer:

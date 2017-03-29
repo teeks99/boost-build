@@ -15,6 +15,7 @@ except ImportError: # Python 2
     from urllib import urlretrieve
 
 VERSION = "64"
+MINOR_VERSION = "0"
 TYPE = "beta"
 REPO = "bintray"
 BETA = 1
@@ -48,22 +49,28 @@ REPOS = {
     "bintray": {
         "master-snapshot": {
             "url": "https://dl.bintray.com/boostorg/master/",
-            "file": "boost_1_{version}_0{archive_suffix}.tar.bz2",
-            "source_archive_output": "boost_1_{version}_0",
+            "file": "boost_1_{version}_{minor_version}{archive_suffix}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": "-snapshot"
         },
         "beta": {
-            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.0.beta.{beta}/source/",
-            "file": "boost_1_{version}_0{archive_suffix}.tar.bz2",
-            "source_archive_output": "boost_1_{version}_0",
+            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.{minor_version}.beta.{beta}/source/",
+            "file": "boost_1_{version}_{minor_version}{archive_suffix}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": "_b{beta}"
+        },
+        "release": {
+            "url": "https://dl.bintray.com/boostorg/release/1.{version}.{minor_version}/source/",
+            "file": "boost_1_{version}_{minor_version}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_{minor_version}",
+            "archive_suffix": ""
         }
     },
     "local": {
         "b1": {
             "url": "none",
-            "file": "boost_1_{version}_0_b1.tar.bz2",
-            "source_archive_output": "boost_1_{version}_0"
+            "file": "boost_1_{version}_{minor_version}{archive_suffix}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_{minor_version}"
         }
     }
 }
@@ -170,6 +177,11 @@ class Builder(object):
             help="The part of the boost version that changes." +
             ' e.g. "64" in "boost_1_64_0"', default=VERSION)
         parser.add_argument(
+            "--minor-version",
+            help="The part of the boost version that can be changed when an" +
+            ' error in a build is found. e.g. "0" in "boost_1_64_0"',
+            default=MINOR_VERSION)
+        parser.add_argument(
             "--type", help="Type of build: master-snapshot, beta, rc, release",
             default=TYPE)
         parser.add_argument(
@@ -222,7 +234,7 @@ class Builder(object):
         self.build_path = os.path.join("/", self.build_drive, self.build_dir)
         self.lib_check_path = os.path.join(self.build_drive, self.lib_check_dir)
         self.archive_suffix = ""
-        self.source = "boost_1_" + self.version + "_0"
+        self.source = "boost_1_" + self.version + "_" + self.minor_version
         self.source_path = os.path.join(self.build_path, self.source)
         self.zip_cmd = os.path.join(self.build_path, "7z1604/7za.exe")
         self.inno_cmd = os.path.join(self.build_path, "Inno Setup 5/Compil32.exe")
@@ -230,7 +242,9 @@ class Builder(object):
 
     def set_source_info(self):
         config = REPOS[self.repo][self.type]
-        replace = {"beta": self.beta, "rc": self.rc, "version": self.version}
+        replace = {
+            "beta": self.beta, "rc": self.rc, "version": self.version,
+            "minor_version": self.minor_version}
         if not self.archive_suffix:
             self.archive_suffix = config["archive_suffix"].format(**replace)
 

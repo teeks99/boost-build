@@ -232,7 +232,7 @@ class Builder(object):
 
     def make_vars(self):
         self.build_path = os.path.join("/", self.build_drive, self.build_dir)
-        self.lib_check_path = os.path.join(self.build_drive, self.lib_check_dir)
+        self.lib_check_path = os.path.join(self.build_path, self.lib_check_dir)
         self.archive_suffix = ""
         self.source = "boost_1_" + self.version + "_" + self.minor_version
         self.source_path = os.path.join(self.build_path, self.source)
@@ -279,7 +279,6 @@ class Builder(object):
 
     def make_dirs(self):
         shutil.copytree("../ReleaseBuild", self.build_path)
-        shutil.copytree("../LibraryCheck", self.lib_check_path)
  
     def make_source_archive(self):
         self.archives.append(Archive(self.zip_cmd, self.url, self.file, local_file=self.source))        

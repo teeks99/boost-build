@@ -5,7 +5,7 @@ using python
 : # Interperter/path to dir
 : ${PY27_32include} # includes
 : ${PY27_32libs} # libs 
-: <address-model>32 <address-model> # conditions 
+: # conditions 
 ; 
 
 using python
@@ -21,7 +21,7 @@ using python
 : # Interperter/path to dir
 : ${PY36_32include} # includes
 : ${PY36_32libs} # libs 
-: <address-model>32 <address-model> # conditions 
+: # conditions 
 ;
 
 using python

@@ -24,13 +24,13 @@ RUN cd /usr/bin && ln -s python2.7 python
 
 # Install Tool
 #RUN apt-get update && apt-get install -y clang-4.0 libc++-dev libc++abi-dev
-RUN cd /root \
+RUN cd /home \
  && wget http://releases.llvm.org/4.0.0/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz \
  && tar -xf clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz \
- && ln -s /root/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang-4.0 /usr/bin/clang++-4.0 \
- && cp -r /root/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/lib/*.a /usr/lib/ \
- && cp -r /root/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/lib/*.so* /usr/lib/ \
- && cp -r /root/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/include/* /usr/include/ 
+ && ln -s /home/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang-4.0 /usr/bin/clang++-4.0 \
+ && cp -r /home/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/lib/*.a /usr/lib/ \
+ && cp -r /home/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/lib/*.so* /usr/lib/ \
+ && cp -r /home/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-16.04/include/* /usr/include/ 
 
 # Symlink tools
 

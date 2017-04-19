@@ -12,6 +12,8 @@ msvc-12.0   32      X       X       X
 msvc-12.0   64      X       X       X
 msvc-14.0   32      X       X       X
 msvc-14.0   64      X       X       X
+msvc-14.1   32      X       X       X
+msvc-14.1   64      X       X       X
 
 Compile means that the b2 command completed without errors
 Install means that the installers for the respective version were generated

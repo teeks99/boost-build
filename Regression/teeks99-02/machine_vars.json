@@ -7,42 +7,40 @@
     "setup":"Docker Ubuntu16.04",
     "runs":"linux_docker_configs.json",
     "run_order":[
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
         "dg4.4-98", "dg4.4-0x", "dg4.4-g98", "dg4.4-g0x", "dg4.4-opt", "dg4.4-warn", 
         "mg4.4-98", "mg4.4-0x", "mg4.4-g98", "mg4.4-g0x", "mg4.4-opt", "mg4.4-warn", 
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
-        "dg4.5", "dg4.6", "dg4.7", "dg4.8", "dg4.9", "dg5",
-        "mg4.5", "mg4.6", "mg4.7", "mg4.8", "mg4.9", "mg5",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
+        "dg4.5", "dg4.6", "dg4.7", "dg4.8", "dg4.9", "dg5", "dg6",
+        "mg4.5", "mg4.6", "mg4.7", "mg4.8", "mg4.9", "mg5", "mg6",
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
-        "dg6-14", "dg6-g14", "dg6-g1z", "dg6-11", "dg6-g11", "dg6-98", "dg6-g98",
-        "dg6-opt", "dg6-warn",
-        "mg6-14", "mg6-g14", "mg6-g1z",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
+        "dg7-14", "dg7-g14", "dg7-g1z", "dg7-11", "dg7-g11", "dg7-98", "dg7-g98",
+        "dg7-opt", "dg7-warn",
+        "mg7-14", "mg7-g14", "mg7-g1z",
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
-        "mg6-11", "mg6-g11", "mg6-98", "mg6-g98", "mg6-opt", "mg6-warn",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
+        "mg7-11", "mg7-g11", "mg7-98", "mg7-g98", "mg7-opt", "mg7-warn",
         "dc3.0-98", "dc3.0-g98", "dc3.0-11", "dc3.0-g11", "dc3.0-opt", "dc3.0-warn",
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
         "mc3.0-98", "mc3.0-g98", "mc3.0-11", "mc3.0-g11", "mc3.0-opt", "mc3.0-warn",
         "dc3.1-11", "dc3.2-11", "dc3.3-11", "dc3.4-11", "dc3.5-14", "dc3.6-14",
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
-        "dc3.7-14", "dc3.8-14", "dc3.9-14",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
+        "dc3.7-14", "dc3.8-14", "dc3.9-14", "dc4-14",
         "mc3.1-11", "mc3.2-11", "mc3.3-11", "mc3.4-11", "mc3.5-14",
-        "mc3.6-14", "mc3.7-14", "mc3.8-14", "mc3.9-14",
+        "mc3.6-14", "mc3.7-14", "mc3.8-14", "mc3.9-14", "mc4-14",
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
-        "dc4-g1z", "dc4-14", "dc4-g14",
-        "dc4-11", "dc4-g11", "dc4-98", "dc4-g98", 
-        "dc4-opt", "dc4-warn", "dc4-1z-lc",
-        "dc5-1z",
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
+        "dc5-g1z", "dc5-14", "dc5-g14",
+        "dc5-11", "dc5-g11", "dc5-98", "dc5-g98", 
+        "dc5-opt", "dc5-warn", "dc5-1z-lc",
         
-        "dg6-1z", "mg6-1z", "dc4-1z", "mc4-1z",
-        "mc4-g1z", "mc4-14", "mc4-g14",
-        "mc4-11", "mc4-g11", "mc4-98", "mc4-g98", 
-        "mc4-opt", "mc4-warn", "mc4-1z-lc",
-        "mc5-1z"
+        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z",
+        "mc5-g1z", "mc5-14", "mc5-g14",
+        "mc5-11", "mc5-g11", "mc5-98", "mc5-g98", 
+        "mc5-opt", "mc5-warn", "mc5-1z-lc"
     ]
 }

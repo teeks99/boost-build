@@ -1,26 +1,35 @@
-FROM ubuntu:trusty
-MAINTAINER Thomas Kent <teeks99@yahoo.com>
+FROM ubuntu:xenial
+MAINTAINER Thomas Kent <docker@teeks99.com>
 
-# Enable PPA
-RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:ubuntu-toolchain-r/test
-
+# Pre-Req Repos
+RUN apt-get update \
+ && apt-get install -y software-properties-common \
+ && add-apt-repository -y ppa:git-core/ppa \
 # Install pre-reqs
-RUN apt-get update && apt-get install -y \
- build-essential \
- git \
- wget \
- python2.7 \
- python2.7-dev \
- python3.4 \
- python3.4-dev \
- libbz2-dev \
- zlib1g-dev
-RUN cd /usr/bin && ln -s python2.7 python
-
+ && apt-get update \
+ && apt-get install -y \
+  ca-certificates \
+  build-essential \
+  git \
+  wget \
+  python2.7 \
+  python2.7-dev \
+  python3.5 \
+  python3.5-dev \
+  libbz2-dev \
+  zlib1g-dev \
+ && cd /usr/bin \
+ && ln -s python2.7 python \
+# Speed up fetch
+ && git config --global submodule.fetchJobs 40
+# Enable Compiler Repo
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test \
 # Install Tool
-RUN apt-get update && apt-get install -y gcc-7 g++-7
+ && apt-get update \
+ && apt-get install -y gcc-7 g++-7
 
 # Symlink tools
 
 # Add the tool configs
 ADD user-config.jam /
+

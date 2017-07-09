@@ -14,7 +14,7 @@ try:
 except ImportError: # Python 2
     from urllib import urlretrieve
 
-VERSION = "64"
+VERSION = "65"
 MINOR_VERSION = "0"
 TYPE = "rc"
 REPO = "bintray"

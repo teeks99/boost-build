@@ -110,7 +110,11 @@ class Archive(object):
         if self.base_url != "none":
             url = self.base_url + self.download_name
             print("Downloading: " + url)
-            urlretrieve(url, self.local_file)
+            try:
+                urlretrieve(url, self.local_file)
+            except:
+                print("Error Downloading: " + url)
+                raise
             with open(self.local_file, "r") as f:
                 pass
 

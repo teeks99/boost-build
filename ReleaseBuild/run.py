@@ -61,7 +61,7 @@ REPOS = {
         },
         "rc": {
             "url": "https://dl.bintray.com/boostorg/beta/",
-            "file": "boost_1_{version}_{minor_version}_rc{rc}.tar.bz2",
+            "file": "boost_1_{version}_{minor_version}_beta{beta}_rc{rc}.tar.bz2",
             "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": ""
         },

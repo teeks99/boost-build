@@ -54,19 +54,19 @@ REPOS = {
             "archive_suffix": "-snapshot"
         },
         "beta": {
-            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.{minor_version}.beta.{beta}/source/",
+            "url": "https://dl.bintray.com/boostorg/beta/",
             "file": "boost_1_{version}_{minor_version}{archive_suffix}.tar.bz2",
             "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": "_b{beta}"
         },
         "rc": {
-            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.{minor_version}.rc.{rc}/source/",
+            "url": "https://dl.bintray.com/boostorg/beta/",
             "file": "boost_1_{version}_{minor_version}_rc{rc}.tar.bz2",
             "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": ""
         },
         "release": {
-            "url": "https://dl.bintray.com/boostorg/release/1.{version}.{minor_version}/source/",
+            "url": "https://dl.bintray.com/boostorg/release/",
             "file": "boost_1_{version}_{minor_version}.tar.bz2",
             "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": ""

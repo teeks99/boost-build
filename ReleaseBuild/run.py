@@ -16,7 +16,7 @@ except ImportError: # Python 2
 
 VERSION = "65"
 MINOR_VERSION = "0"
-TYPE = "rc"
+TYPE = "beta-rc"
 REPO = "bintray"
 BETA = 1
 RC = 2
@@ -52,6 +52,12 @@ REPOS = {
             "file": "boost_1_{version}_{minor_version}{archive_suffix}.tar.bz2",
             "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": "-snapshot"
+        },
+        "beta-rc": {
+            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.{minor_version}.beta.{beta}/source/",            
+            "file": "boost_1_{version}_{minor_version}{archive_suffix}.tar.bz2",
+            "source_archive_output": "boost_1_{version}_{minor_version}",
+            "archive_suffix": "_b{beta}_rc{rc}"
         },
         "beta": {
             "url": "https://dl.bintray.com/boostorg/beta/1.{version}.{minor_version}.beta.{beta}/source/",            

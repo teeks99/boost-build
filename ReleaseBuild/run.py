@@ -16,10 +16,10 @@ except ImportError: # Python 2
 
 VERSION = "65"
 MINOR_VERSION = "0"
-TYPE = "beta-rc"
+TYPE = "rc"
 REPO = "bintray"
 BETA = 1
-RC = 2
+RC = 1
 
 BUILD_DRIVE = "D:" + os.sep
 BUILD_DIR = "ReleaseBuild"
@@ -66,7 +66,7 @@ REPOS = {
             "archive_suffix": "_b{beta}"
         },
         "rc": {
-            "url": "https://dl.bintray.com/boostorg/beta/1.{version}.{minor_version}.rc.{rc}/source/",
+            "url": "https://dl.bintray.com/boostorg/release/1.{version}.{minor_version}/source/",
             "file": "boost_1_{version}_{minor_version}_rc{rc}.tar.bz2",
             "source_archive_output": "boost_1_{version}_{minor_version}",
             "archive_suffix": ""
@@ -325,7 +325,8 @@ class Builder(object):
         for worker in workers: worker.join()
 
     def move_source(self):
-        shutil.move(self.source_archive_output, self.source)
+        if self.source_archive_output != self.source:
+            shutil.move(self.source_archive_output, self.source)
 
     def set_env_vars(self):
         zlib = os.path.join(self.build_path, "zlib-" + zlib_ver)

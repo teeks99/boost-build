@@ -104,7 +104,29 @@
         "dc5-warn":{"branch":"develop", "arch":"64", "compilers":"clang-5.0~c++1z~warn", "docker_img":"teeks99/boost-build:clang-5"},
         "mc5-warn":{"branch":"master", "arch":"64", "compilers":"clang-5.0~c++1z~warn", "docker_img":"teeks99/boost-build:clang-5"},
         "dc5-1z-lc":{"branch":"develop", "arch":"64", "compilers":"clang-5.0~c++1z~lc", "docker_img":"teeks99/boost-build:clang-5"},
-        "mc5-1z-lc":{"branch":"master", "arch":"64", "compilers":"clang-5.0~c++1z~lc", "docker_img":"teeks99/boost-build:clang-5"}
+        "mc5-1z-lc":{"branch":"master", "arch":"64", "compilers":"clang-5.0~c++1z~lc", "docker_img":"teeks99/boost-build:clang-5"},
+        "dc6-14":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++14", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-14":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++14", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-g14":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~gnu14", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-g14":{"branch":"master", "arch":"64", "compilers":"clang-6.0~gnu14", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-1z":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++1z", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-1z":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-g1z":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~gnu1z", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-g1z":{"branch":"master", "arch":"64", "compilers":"clang-6.0~gnu1z", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-11":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++11", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-11":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++11", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-g11":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~gnu11", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-g11":{"branch":"master", "arch":"64", "compilers":"clang-6.0~gnu11", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-98":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++98", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-98":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++98", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-g98":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~gnu98", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-g98":{"branch":"master", "arch":"64", "compilers":"clang-6.0~gnu98", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-opt":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++1z~O2", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-opt":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z~O2", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-warn":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++1z~warn", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-warn":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z~warn", "docker_img":"teeks99/boost-build:clang-6"},
+        "dc6-1z-lc":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++1z~lc", "docker_img":"teeks99/boost-build:clang-6"},
+        "mc6-1z-lc":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z~lc", "docker_img":"teeks99/boost-build:clang-6"}
         
     }
 }

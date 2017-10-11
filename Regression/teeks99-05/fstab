@@ -1,3 +1,0 @@
-UUID=246c6158-2136-4632-95bd-b413386d176d	/	 ext4	defaults,discard	0 0
-/dev/sdb1	/mnt	auto	defaults,nobootwait,comment=cloudconfig	0	2
-/mnt/swapfile1   swap    swap    defaults 0 0 

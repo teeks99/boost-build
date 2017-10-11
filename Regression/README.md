@@ -8,9 +8,9 @@ Each set of runs is controlled by its respective `machine_vars.json` file.
 Linux Regression Configurations
 -------------------------------
 
-On Linux we run versions of GCC (4.4 - 6) and Clang (3.0 - 3.9). 
+On Linux we run versions of GCC (4.4 - 7) and Clang (3.0 - 6). 
 
-Linux runs are executed within docker. The various docker images that are use can be found in the [Docker](..\Docker) directory of this git repo. They all run on the Ubuntu image for the LTS OS version that was in common use at the time of the compiler release. Each of these images has multiple compiler configurations defined in its `user-config.jam` file. There are too many configurations of compiler + switches to run tests against all the combinations.
+Linux runs are executed within docker. The various docker images that are use can be found in the corresponding [Docker](http://github.com/teeks99/boost-cpp-docker) repo. They all run on the Ubuntu image for the LTS OS version that was in common use at the time of the compiler release. Each of these images has multiple compiler configurations defined in its `user-config.jam` file. There are too many configurations of compiler + switches to run tests against all the combinations.
 
 In general, the teeks99-02 tester will run the most common switches option for each of the compilers against both the development and master branches. Then for the most recent version of each compiler only it will perform a run against each of the enumerated switch options against both develop and master. In total, this is nearly 100 configurations, each taking between 0.9 and 1.6 hours to execute. This results in a revist time for any single configuration of approximately five days. So that developers can have some results quicker, every approximately ten runs, the order will be paused and four runs will be executed consisiting of the latest version of each compiler, with the most common switches, against each of develop and master.
 

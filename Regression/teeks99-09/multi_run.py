@@ -164,13 +164,8 @@ class Runner(object):
             os.system('git checkout ' + branch)
             print('git pull')
             os.system('git pull')
-            print('git submodule init')
-            os.system('git submodule init')
-            print('git submodule update')
-            os.system('git submodule update')
-            print('git fetch --recurse-submodules')
-            os.system('git fetch --recurse-submodules')
-
+            print('git submodule update -f --recursive --remote')
+            os.system('git submodule update -f --recursive --remote')
         finally:
             os.chdir(orig_dir)
 

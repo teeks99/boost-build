@@ -49,11 +49,15 @@ class Runner(object):
         order_index = start_at
 
         while True:
+   
             if self.check_for_stop():
                print("Stopping runs because file: 'stop_runs.on' exists")
                break
 
-            if order_index >= len(self.run_order):
+            order_index = self.run_one(order_index)
+
+    def run_one(self, order_index):
+            if self.order_index >= len(self.run_order):
                 order_index = 0
 
             self.current_run_id = self.run_order[order_index]
@@ -91,6 +95,7 @@ class Runner(object):
                 run.process()
             self.log_end()
             order_index += 1
+            return order_index
 
     def update_docker_img(self, run_config):
         if 'docker_img' in run_config:
@@ -164,8 +169,8 @@ class Runner(object):
             os.system('git checkout ' + branch)
             print('git pull')
             os.system('git pull')
-            print('git submodule update -f --recursive --remote')
-            os.system('git submodule update -f --recursive --remote')
+            print('git submodule update -f --recursive --remote --init')
+            os.system('git submodule update -f --recursive --remote --init')
         finally:
             os.chdir(orig_dir)
 
@@ -185,8 +190,8 @@ if __name__ == '__main__':
 
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
-        r.current_run_id = sys.argv[1]
-        r.run_one(r.runs[r.current_run_id])
+        run_id = sys.argv[1]
+        r.run_one(run_id)
     else:
         r.cleanup = True
         r.restart()

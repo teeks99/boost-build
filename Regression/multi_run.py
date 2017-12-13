@@ -57,7 +57,7 @@ class Runner(object):
             order_index = self.run_one(order_index)
 
     def run_one(self, order_index):
-            if self.order_index >= len(self.run_order):
+            if order_index >= len(self.run_order):
                 order_index = 0
 
             self.current_run_id = self.run_order[order_index]

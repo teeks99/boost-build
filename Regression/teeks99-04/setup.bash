@@ -38,7 +38,7 @@ ln -s python2.7 python
 git config --global submodule.fetchJobs 40
 
 # Enable Compiler Repo
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
+add-apt-repository -y ppa:ubuntu-toolchain-r/test
 
 # Install Tool
 apt-get update
@@ -46,6 +46,7 @@ apt-get install -y gcc-7 g++-7
 
 # User Config
 cp user-config.jam ~/
+cp user-config.jam /home/boost
 
 # Setup Script
 rsync -a ./ /mnt/fs1/teeks99-04/

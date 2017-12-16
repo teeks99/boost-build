@@ -17,16 +17,13 @@ apt-get install -y \
   build-essential \
   git \
   wget \
+  parted \
   python2.7 \
   python2.7-dev \
   python3.5 \
   python3.5-dev \
   libbz2-dev \
   zlib1g-dev 
-
-pushd /usr/bin
-ln -s python2.7 python
-popd
 
 # Setup work disk
 mkdir /mnt/fs1
@@ -58,7 +55,7 @@ cp user-config.jam ~/
 cp user-config.jam /home/boost
 
 # Setup Script
-rsync -a ./ /mnt/fs1/teeks99-04/
+rsync -aL ./ /mnt/fs1/teeks99-04/
 chown -R boost:boost /mnt/fs1/teeks99-04
 
 # Login as boost

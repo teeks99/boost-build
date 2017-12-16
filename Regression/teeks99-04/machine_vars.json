@@ -7,7 +7,7 @@
     "setup":"Ubuntu 16.04",
     "runs":{
         "dg7-1z":{"branch":"develop", "arch":"64", "compilers":"gcc-7~c++1z"},
-        "mg7-1z":{"branch":"master", "arch":"64", "compilers":"gcc-7~c++1z",}
+        "mg7-1z":{"branch":"master", "arch":"64", "compilers":"gcc-7~c++1z"}
     },
     "run_order":[
         "dg7-1z", "mg7-1z"

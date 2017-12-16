@@ -1,15 +1,8 @@
 # Before running: 
 # Create user tomkent as sudo
 # Create user boost
-# Setup /dev/vda1 as /mnt/fs1, world 777
 # Clone https://github.com/teeks99/boost-build to ~/
 # Run this script from ~/boost-build/regression/teeks99-04
-
-fallocate -l 4G /swap4g
-chmod 600 /swap4g
-mkswap /swap4g
-swapon /swap4g
-echo '/swap4g none swap sw 0 0' >> /etc/fstab
 
 apt update
 
@@ -31,8 +24,24 @@ apt-get install -y \
   libbz2-dev \
   zlib1g-dev 
 
-cd /usr/bin
+pushd /usr/bin
 ln -s python2.7 python
+popd
+
+# Setup work disk
+mkdir /mnt/fs1
+parted /dev/vdb mklabel gpt
+parted /dev/vdb mkpart primary 0% 100%
+mkfs.ext4 /dev/vdb1
+echo '/dev/vdb1 /mnt/fs1 ext4 defaults 0 0' >> /etc/fstab
+
+fallocate -l 4G /swap4g
+chmod 600 /swap4g
+mkswap /swap4g
+echo '/swap4g none swap sw 0 0' >> /etc/fstab
+
+mount -a
+chmod 777 /mnt/fs1
 
 # Speed up fetch
 git config --global submodule.fetchJobs 40

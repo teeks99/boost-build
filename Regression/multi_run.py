@@ -171,6 +171,8 @@ class Runner(object):
             os.system('git pull')
             print('git submodule update -f --recursive --remote --init')
             os.system('git submodule update -f --recursive --remote --init')
+            print('git clean -xfdf')
+            os.system('git clean -xfdf')
         finally:
             os.chdir(orig_dir)
 

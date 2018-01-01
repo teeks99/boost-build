@@ -28,8 +28,13 @@ def get_submodules():
 
 def replace_git_path(submodule):
     submodule = submodule.rstrip()
-    print("replacing: " + submodule + "/.git")
-    with open(os.path.join(submodule, ".git"), 'r+') as f:
+    gitfile = os.path.join(submodule, ".git")
+    print("replacing: " + gitfile)
+    if not os.path.isfile(gitfile):
+        print("No git file, not a submodule?")
+        return
+
+    with open(gitfile, 'r+') as f:
         lines = []
         for l in f.readlines():           
             if l.startswith(KEY_STR):

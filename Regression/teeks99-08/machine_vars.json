@@ -1,9 +1,9 @@
 {
     "machine":"teeks99-08",
-    "os":"win2012R2",
+    "os":"win2016",
     "os_arch":"64",
     "procs":3,
-    "ram":"24GB",
+    "ram":"16GB",
     "setup":"QEMU/KVM VM",
     "other_options":"--abbreviate-paths",
     "tmpdir": "D:/temp/boost",

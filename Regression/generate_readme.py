@@ -16,6 +16,10 @@ linux_flags = {
     'gnu14': '-std=gnu++14',
     'c++1z': '-std=c++1z',
     'gnu1z': '-std=gnu++1z',
+    'c++17': '-std=c++17',
+    'gnu17': '-std=gnu++17',
+    'c++2a': '-std=c++2a',
+    'gnu2a': '-std=gnu++2a',
     'lc': '-stdlib=libc++',
     'O2': '-O2',
     'warn': '-Wall -Wextra'

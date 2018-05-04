@@ -7,40 +7,41 @@
     "setup":"Docker Ubuntu16.04",
     "runs":"linux_docker_configs.json",
     "run_order":[
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
         "dg4.4-98", "dg4.4-0x", "dg4.4-g98", "dg4.4-g0x", "dg4.4-opt", "dg4.4-warn", 
         "mg4.4-98", "mg4.4-0x", "mg4.4-g98", "mg4.4-g0x", "mg4.4-opt", "mg4.4-warn", 
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
         "dg4.5", "dg4.6", "dg4.7", "dg4.8", "dg4.9", "dg5", "dg6", "dg7",
         "mg4.5", "mg4.6", "mg4.7", "mg4.8", "mg4.9", "mg5", "mg6", "mg7",
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
         "dg8-14", "dg8-g14", "dg8-17", "dg8-g17", "dg8-g2a", "dg8-11", "dg8-g11",
        	"dg8-98", "dg8-g98", "dg8-opt", "dg8-warn",
         "mg8-14", "mg8-g14", "mg8-17", "mg8-g17", "mg8-g2a",
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
         "mg8-11", "mg8-g11", "mg8-98", "mg8-g98", "mg8-opt", "mg8-warn",
         "dc3.0-98", "dc3.0-g98", "dc3.0-11", "dc3.0-g11", "dc3.0-opt", "dc3.0-warn",
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
         "mc3.0-98", "mc3.0-g98", "mc3.0-11", "mc3.0-g11", "mc3.0-opt", "mc3.0-warn",
         "dc3.1-11", "dc3.2-11", "dc3.3-11", "dc3.4-11", "dc3.5-14", "dc3.6-14",
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
-        "dc3.7-14", "dc3.8-14", "dc3.9-14", "dc4-14",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
+        "dc3.7-14", "dc3.8-14", "dc3.9-14", "dc4-14", "dc5-14",
         "mc3.1-11", "mc3.2-11", "mc3.3-11", "mc3.4-11", "mc3.5-14",
-        "mc3.6-14", "mc3.7-14", "mc3.8-14", "mc3.9-14", "mc4-14",
+        "mc3.6-14", "mc3.7-14", "mc3.8-14", "mc3.9-14", "mc4-14", "mc5-14",
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
-        "dc5-g1z", "dc5-14", "dc5-g14",
-        "dc5-11", "dc5-g11", "dc5-98", "dc5-g98", 
-        "dc5-opt", "dc5-warn", "dc5-1z-lc",
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
+        "dc6-g17", "dc6-14", "dc6-g14",
+        "dc6-11", "dc6-g11", "dc6-98", "dc6-g98", 
+        "dc6-opt", "dc6-warn", "dc6-2a-lc",
         
-        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z",
-        "mc5-g1z", "mc5-14", "mc5-g14",
-        "mc5-11", "mc5-g11", "mc5-98", "mc5-g98", 
-        "mc5-opt", "mc5-warn", "mc5-1z-lc"
+        "dg8-2a", "mg8-2a", "dc6-17", "mc6-17",
+        "mc6-g17", "mc6-14", "mc6-g14",
+        "mc6-11", "mc6-g11", "mc6-98", "mc6-g98", 
+        "mc6-opt", "mc6-warn", "mc6-17-lc",
+	"dc7-2a", "mc7-2a"
     ]
 }

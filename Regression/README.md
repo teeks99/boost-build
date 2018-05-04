@@ -146,6 +146,8 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mc6-warn | master | clang | 6.0 | -std=c++1z -Wall -Wextra | teeks99/boost-cpp-docker:clang-6 |
 | dc6-1z-lc | develop | clang | 6.0 | -std=c++1z -stdlib=libc++ | teeks99/boost-cpp-docker:clang-6 |
 | mc6-1z-lc | master | clang | 6.0 | -std=c++1z -stdlib=libc++ | teeks99/boost-cpp-docker:clang-6 |
+| dc7-2a | develop | clang | 7.0 | -std=c++2a | teeks99/boost-cpp-docker:clang-6 |
+| mc7-2a | master | clang | 7.0 | -std=c++2a | teeks99/boost-cpp-docker:clang-7 |
 
 
 

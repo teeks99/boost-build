@@ -133,7 +133,9 @@
         "dc6-warn":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++1z~warn", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
         "mc6-warn":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z~warn", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
         "dc6-1z-lc":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++1z~lc", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
-        "mc6-1z-lc":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z~lc", "docker_img":"teeks99/boost-cpp-docker:clang-6"}
+        "mc6-1z-lc":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++1z~lc", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
+        "dc7-2a":{"branch":"develop", "arch":"64", "compilers":"clang-7.0~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
+        "mc7-2a":{"branch":"master", "arch":"64", "compilers":"clang-7.0~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-7"}
         
     }
 }

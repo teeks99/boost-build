@@ -7,6 +7,6 @@
     "setup":"Docker Ubuntu 16.04",
     "runs":"linux_docker_configs.json",
     "run_order":[
-        "dg7-1z", "mg7-1z", "dc5-1z", "mc5-1z"
+        "dg8-2a", "mg8-2a", "dc5-1z", "mc5-1z"
     ]
 }

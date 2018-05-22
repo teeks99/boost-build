@@ -26,8 +26,8 @@
         "mg5":{"branch":"master", "arch":"64", "compilers":"gcc-5~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-5"},
         "dg6":{"branch":"develop", "arch":"64", "compilers":"gcc-6~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-6"},
         "mg6":{"branch":"master", "arch":"64", "compilers":"gcc-6~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-6"},        
-        "dg7-14":{"branch":"develop", "arch":"64", "compilers":"gcc-7~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-7"},
-        "mg7-14":{"branch":"master", "arch":"64", "compilers":"gcc-7~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-7"},
+        "dg7":{"branch":"develop", "arch":"64", "compilers":"gcc-7~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-7"},
+        "mg7":{"branch":"master", "arch":"64", "compilers":"gcc-7~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-7"},
 
         
         "dg8-14":{"branch":"develop", "arch":"64", "compilers":"gcc-8~c++14", "docker_img":"teeks99/boost-cpp-docker:gcc-8"},

@@ -7,20 +7,20 @@
     "setup":"Docker Ubuntu16.04",
     "runs":"linux_docker_configs.json",
     "run_order":[
-        "dg8-2a", "mg8-2a", "dc7-17", "mc7-17",
+        "dg8-2a", "mg8-2a", "dc7-2a", "mc7-2a",
         "dg4.4-98", "dg4.4-0x", "dg4.4-g98", "dg4.4-g0x", "dg4.4-opt", "dg4.4-warn",
         "mg4.4-98", "mg4.4-0x", "mg4.4-g98", "mg4.4-g0x", "mg4.4-opt", "mg4.4-warn",
         "dg4.5", "dg4.6", "dg4.7", "dg4.8", "dg4.9", "dg5", "dg6", "dg7",
         "mg4.5", "mg4.6", "mg4.7", "mg4.8", "mg4.9", "mg5", "mg6", "mg7",
 
-        "dg8-2a", "mg8-2a", "dc7-17", "mc7-17",
+        "dg8-2a", "mg8-2a", "dc7-2a", "mc7-2a",
         "dg8-14", "dg8-g14", "dg8-17", "dg8-g17", "dg8-g2a", "dg8-11", "dg8-g11",
        	"dg8-98", "dg8-g98", "dg8-opt", "dg8-warn",
         "mg8-14", "mg8-g14", "mg8-17", "mg8-g17", "mg8-g2a",
         "mg8-11", "mg8-g11", "mg8-98", "mg8-g98", "mg8-opt", "mg8-warn",
         "dc3.0-98", "dc3.0-g98", "dc3.0-11", "dc3.0-g11", "dc3.0-opt", "dc3.0-warn",
 
-        "dg8-2a", "mg8-2a", "dc7-17", "mc7-17",
+        "dg8-2a", "mg8-2a", "dc7-2a", "mc7-2a",
         "mc3.0-98", "mc3.0-g98", "mc3.0-11", "mc3.0-g11", "mc3.0-opt", "mc3.0-warn",
         "dc3.1-11", "dc3.2-11", "dc3.3-11", "dc3.4-11", "dc3.5-14", "dc3.6-14",
         "dc3.7-14", "dc3.8-14", "dc3.9-14", "dc4-14", "dc5-14",
@@ -29,14 +29,13 @@
         "mc3.6-14", "mc3.7-14", "mc3.8-14", "mc3.9-14", "mc4-14", "mc5-14",
         "mc6-17",
 
-        "dg8-2a", "mg8-2a", "dc7-17", "mc7-17",
-        "dc7-g17", "dc7-14", "dc7-g14",
+        "dg8-2a", "mg8-2a", "dc7-2a", "mc7-2a",
+        "dc7-17", "dc7-g17", "dc7-14", "dc7-g14",
         "dc7-11", "dc7-g11", "dc7-98", "dc7-g98",
-        "dc7-opt", "dc7-warn", "dc7-17-lc",
-        "mc7-g17", "mc7-14", "mc7-g14",
+        "dc7-opt", "dc7-warn", "dc7-2a-lc",
+        "mc7-17", "mc7-g17", "mc7-14", "mc7-g14",
         "mc7-11", "mc7-g11", "mc7-98", "mc7-g98",
-        "mc7-opt", "mc7-warn", "mc7-17-lc",
-	      "dc7-2a", "mc7-2a",
+        "mc7-opt", "mc7-warn", "mc7-2a-lc",
 
 	      "dc8-2a", "mc8-2a"
     ]

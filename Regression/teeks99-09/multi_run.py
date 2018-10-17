@@ -8,6 +8,13 @@ import datetime
 import time
 import subprocess
 
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    string_types = str
+else:
+    string_types = basestring
+
 def win_rmtree(directory):
     if os.path.isdir(directory):
         os.system('rmdir /S /Q \"{}\"'.format(directory))
@@ -49,7 +56,7 @@ class Runner(object):
         order_index = start_at
 
         while True:
-   
+
             if self.check_for_stop():
                print("Stopping runs because file: 'stop_runs.on' exists")
                break
@@ -178,7 +185,7 @@ class Runner(object):
 
 
 def add_external_runs(machine_vars):
-    if isinstance(machine_vars['runs'], basestring):
+    if isinstance(machine_vars['runs'], string_types):
         with open(machine_vars['runs'], 'r') as external_runs_file:
             external_runs = json.load(external_runs_file)
             machine_vars['runs'] = external_runs['runs']

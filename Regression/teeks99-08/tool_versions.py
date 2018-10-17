@@ -1,6 +1,14 @@
 import subprocess
 import os
 import collections
+import sys
+
+PY3 = sys.version_info[0] == 3
+
+def convert_str(bytes_data):
+    if PY3 and isinstance(bytes_data, bytes):
+        return bytes_data.decode()
+    return bytes_data
 
 tools = {
     'msvc': collections.OrderedDict([
@@ -42,7 +50,7 @@ tools = {
     },
     'python': [
         'python',
-        'python3', 
+        'python3',
         'C:\Python27\python.exe',
         'C:\Python27-32\python.exe',
         'C:\Python27-64\python.exe',
@@ -59,7 +67,9 @@ tools = {
 }
 def parse_msvc_version_output(ver):
     #example: b'Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.762 for 80x86\r\nCopyright (C) Microsoft Corporation.  All rights reserved.\r\n\r\n'
-    full = ver.decode('utf-8')
+    full = ver
+    if not PY3:
+        full = ver.decode('utf-8')
     words = full.split()
     num_index = 0
     for w in words:
@@ -81,6 +91,8 @@ def get_msvc_info(version):
         p = subprocess.Popen(version['command'], stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         out, err = p.communicate()
+        out = convert_str(out)
+        err = convert_str(err)
         version['full'], version['number'], version['arch'] = \
             parse_msvc_version_output(err)
     finally:
@@ -158,6 +170,8 @@ def make_gcc_versions():
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE, shell=True)
         out, err = p.communicate()
+        out = convert_str(out)
+        err = convert_str(err)
         if not out:
             continue
         v = {'version':'gcc-'+name, 'arch':''}
@@ -179,6 +193,8 @@ def make_clang_versions():
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE, shell=True)
         out, err = p.communicate()
+        out = convert_str(out)
+        err = convert_str(err)
         if not out:
             continue
         v = {'version':'clang-'+name}
@@ -217,7 +233,7 @@ class ConfigFinder(object):
         fn = 'user-config.jam'
         self.value = ''
 
-        # Since the boost-build isn't clear on which one is used if multiple are present, 
+        # Since the boost-build isn't clear on which one is used if multiple are present,
         # just going to concatenate all of them.
         if os.environ.get('HOME'):
             self.try_read(os.path.join(os.environ.get('HOME'), fn))
@@ -237,7 +253,7 @@ class ConfigFinder(object):
         fn = 'site-config.jam'
         self.value = ''
 
-        # Since the boost-build isn't clear on which one is used if multiple are present, 
+        # Since the boost-build isn't clear on which one is used if multiple are present,
         # just going to concatenate all of them.
         self.try_read(os.path.join('/etc', fn))
         if os.environ.get('SystemRoot'):
@@ -269,6 +285,8 @@ def python_version():
         p = subprocess.Popen(processor + " " + command, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, shell=True)
         out, err = p.communicate()
+        out = convert_str(out)
+        err = convert_str(err)
         if out:
             versions += processor + ':\n'
             versions += out
@@ -278,6 +296,8 @@ def git_version():
     p = subprocess.Popen('git --version', stdout=subprocess.PIPE,
         stderr=subprocess.PIPE, shell=True)
     out, err = p.communicate()
+    out = convert_str(out)
+    err = convert_str(err)
     return out
 
 def print_all():
@@ -287,4 +307,3 @@ def print_all():
 
 if __name__ == "__main__":
     print_all()
-

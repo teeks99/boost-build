@@ -123,7 +123,11 @@ class Run(object):
         if 'other_options' in self.machine:
             other_options += ' ' + self.machine['other_options']
 
-        command = ['python', 'run.py', '--runner=' + self.machine['machine'] +
+        py_int = 'python'
+        if 'python_interpreter' in self.machine:
+            py_int = self.machine['python_interpreter']
+
+        command = [py_int, 'run.py', '--runner=' + self.machine['machine'] +
             '-' + self.config['id'] + '-' + self.machine['os'] + '-' +
             self.config['arch'] + "on" + self.machine['os_arch'], '--toolsets=' +
             self.config['compilers'], '--bjam-options=-j' +
@@ -131,7 +135,7 @@ class Run(object):
             ' --remove-test-targets' + other_options, '--comment=info.html',
             '--tag=' + self.config['branch']]
 
-        # Output the command to the screen before running it            
+        # Output the command to the screen before running it
         cmd_str = ""
         for s in command:
             cmd_str += " " + s
@@ -141,20 +145,20 @@ class Run(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        with open('../logs/' + self.config['id'] + '-output.log', 'w') as \
+        with open('../logs/' + self.config['id'] + '-output.log', 'wb') as \
                 log_file:
-            log_file.write('Running command:\n:')
-            log_file.write(cmd_str[1:])
-            log_file.write('\n')
-            log_file.write(
-                'at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
-            log_file.write('\n\n\n')
+            log_file.write('Running command:\n:'.encode())
+            log_file.write(cmd_str[1:].encode())
+            log_file.write('\n'.encode())
+            stamp = 'at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC'
+            log_file.write(stamp.encode())
+            log_file.write('\n\n\n'.encode())
 
             proc = subprocess.Popen(command,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
-            stdoutThread = StreamThread(proc.stdout, sys.stdout, log_file)
-            stderrThread = StreamThread(proc.stderr, sys.stderr, log_file)
+            stdoutThread = StreamThread(proc.stdout, sys.stdout.buffer, log_file)
+            stderrThread = StreamThread(proc.stderr, sys.stderr.buffer, log_file)
             stdoutThread.start()
             stderrThread.start()
             proc.wait()
@@ -173,4 +177,3 @@ class Run(object):
 if __name__ == '__main__':
     run = Run(run_file='CurrentRun.json')
     run.process()
-

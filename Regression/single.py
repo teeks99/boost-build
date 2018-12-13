@@ -15,6 +15,15 @@ import tempfile
 import string
 import cgi
 
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    stdout_access = sys.stdout.buffer
+    stderr_access = sys.stderr.buffer
+else:
+    stdout_access = sys.stdout
+    stderr_access = sys.stderr
+
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
         threading.Thread.__init__(self)
@@ -157,8 +166,8 @@ class Run(object):
             proc = subprocess.Popen(command,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
-            stdoutThread = StreamThread(proc.stdout, sys.stdout.buffer, log_file)
-            stderrThread = StreamThread(proc.stderr, sys.stderr.buffer, log_file)
+            stdoutThread = StreamThread(proc.stdout, stdout_access, log_file)
+            stderrThread = StreamThread(proc.stderr, stderr_access, log_file)
             stdoutThread.start()
             stderrThread.start()
             proc.wait()

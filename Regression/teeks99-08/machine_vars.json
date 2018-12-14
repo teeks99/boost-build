@@ -23,5 +23,5 @@
         "p":{"id":"p", "branch":"develop", "arch":"64", "compilers":"msvc-14.1", "other_options":"cxxflags=/std:c++latest"},
         "q":{"id":"q", "branch":"master", "arch":"64", "compilers":"msvc-14.1", "other_options":"cxxflags=/std:c++latest"}
     },
-    "run_order":["a","b","c","d","e","n","f","g","h","i","j","n","k","l","m","n","o","p","q"]
+    "run_order":["c","d","e","n","f","i","j","n","k","l","m","n","o","p","q"]
 }

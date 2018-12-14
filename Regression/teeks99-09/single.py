@@ -33,7 +33,9 @@ class StreamThread ( threading.Thread ):
     def run ( self ):
         while 1:
             line = self.source.readline()
-            if line == '' or line == b'':
+            if isinstance(line, str) and line  == '':
+                break
+            if isinstance(line, bytes) and line == b'':
                 break
             self.sink1.write(line)
             self.sink1.flush()

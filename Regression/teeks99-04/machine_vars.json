@@ -2,14 +2,16 @@
     "machine":"teeks99-04",
     "os":"Ubuntu",
     "os_arch":"arm64",
-    "procs":8,
-    "ram":"16GB",
-    "setup":"Ubuntu 16.04",
+    "procs":4,
+    "ram":"2GB",
+    "setup":"Ubuntu 18.04 - Scaleway",
     "runs":{
         "dg7-1z":{"branch":"develop", "arch":"64", "compilers":"gcc-7~c++1z"},
-        "mg7-1z":{"branch":"master", "arch":"64", "compilers":"gcc-7~c++1z"}
+        "mg7-1z":{"branch":"master", "arch":"64", "compilers":"gcc-7~c++1z"},
+        "dc6-17":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++17"},
+        "mc6-17":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++17"}
     },
     "run_order":[
-        "dg7-1z", "mg7-1z"
+        "dg7-1z", "mg7-1z", "dc6-17", "mc6-17"
     ]
 }

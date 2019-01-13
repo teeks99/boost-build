@@ -31,6 +31,7 @@ tools = {
         '5': {},
         '6': {},
         '7': {},
+        '8': {},
     },
     'clang': {
         '2.8': {},
@@ -47,6 +48,9 @@ tools = {
         '3.9': {},
         '4.0': {},
         '5.0': {},
+        '6.0': {},
+        '7': {},
+        '8': {},
     },
     'python': [
         'python',
@@ -186,7 +190,7 @@ def get_parse_clang_output(output):
 def make_clang_versions():
     versions = []
     for name, data in tools['clang'].items():
-        exe = 'clang-' + name
+        exe = 'clang++-' + name
         if 'exe' in data:
             exe = data['exe']
         cmd = exe + ' --version'

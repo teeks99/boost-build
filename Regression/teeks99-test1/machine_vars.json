@@ -1,0 +1,12 @@
+{
+    "machine":"teeks99-test1",
+    "os":"Docker",
+    "os_arch":"64",
+    "procs":72,
+    "ram":"144GB",
+    "setup":"Docker Ubuntu 18.04 - Azure F72",
+    "runs":"linux_docker_configs.json",
+    "run_order":[
+        "dc7-2a"
+    ]
+}

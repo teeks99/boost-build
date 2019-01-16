@@ -1,0 +1,24 @@
+using msvc : 8.0 ;
+using msvc : 9.0 ;
+using msvc : 10.0 ;
+using msvc : 11.0 ;
+using msvc : 12.0 ;
+using msvc : 14.0 ;
+using msvc : 14.1 ;
+
+using python
+: 2.7 # version
+: C:\\Python27-32\\python.exe # Interperter/path to dir
+: C:\\Python27-32\\include # includes
+: C:\\Python27-32\\libs # libs
+: <address-model>32 <address-model> # conditions
+;
+
+using python
+: 2.7 # version
+: C:\\Python27-64\\python.exe # Interperter/path to dir
+: C:\\Python27-64\\include # includes
+: C:\\Python27-64\\libs # libs
+: <address-model>64 # conditions
+;
+

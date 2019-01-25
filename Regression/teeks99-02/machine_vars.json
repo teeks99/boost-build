@@ -37,6 +37,7 @@
         "dc7-opt", "dc7-warn", "dc7-2a-lc",
         "mc7-17", "mc7-g17", "mc7-14", "mc7-g14",
         "mc7-11", "mc7-g11", "mc7-98", "mc7-g98",
-        "mc7-opt", "mc7-warn", "mc7-2a-lc"
+        "mc7-opt", "mc7-warn", "mc7-2a-lc",
+        "dc8-2a", "mc8-2a", "dc9-2a", "mc9-2a"
     ]
 }

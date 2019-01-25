@@ -106,6 +106,8 @@
         "mc7-2a-lc":{"branch":"master", "arch":"64", "compilers":"clang-7~c++2a~lc", "docker_img":"teeks99/boost-cpp-docker:clang-7"},
 
         "dc8-2a":{"branch":"develop", "arch":"64", "compilers":"clang-8~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-8"},
-        "mc8-2a":{"branch":"master", "arch":"64", "compilers":"clang-8~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-8"}
+        "mc8-2a":{"branch":"master", "arch":"64", "compilers":"clang-8~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-8"},
+        "dc9-2a":{"branch":"develop", "arch":"64", "compilers":"clang-9~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-9"},
+        "mc9-2a":{"branch":"master", "arch":"64", "compilers":"clang-9~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-9"}
     }
 }

@@ -2,14 +2,14 @@
     "machine":"teeks99-test2",
     "os":"win2016",
     "os_arch":"64",
-    "procs":72,
-    "ram":"144GB",
-    "setup":"Azure F72",
+    "procs":16,
+    "ram":"32GB",
+    "setup":"Azure VM",
     "other_options":"--abbreviate-paths",
     "tmpdir": "D:/temp/boost",
     "python_interpreter": "C:/Python27-64/python.exe",
     "runs":{
-        "a":{"id":"n", "branch":"develop", "arch":"64", "compilers":"msvc-14.1"}
+        "a":{"id":"n", "branch":"develop", "arch":"64", "compilers":"msvc-16.0"}
     },
     "run_order":["a"]
 }

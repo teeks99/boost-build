@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Tom Kent - machine: ${machine} runner: ${runner}</h1>
+<p>Contact me: teeks99@yahoo.com, 314-266-8359</p>
+<p>This runner is on a ${setup}.  Its has ${ram} of ram and ${cores} cores.<br/>
+This is running the ${arch}-bit version of ${os}. 
+</p><p>
+<h2>user-config.jam</h2>
+<pre>
+${user_config}
+</pre>
+<h2>site-config.jam</h2>
+<pre>
+${site_config}
+</pre>
+</p><p>
+<h2>Complier Versions</h2>
+<pre>
+${compiler_versions}
+</pre>
+</p><p>
+<h2> Support Versions </h2>
+<pre>
+${python_version}
+</pre>
+</p><p>
+<pre>
+${git_version}
+</pre>
+</p><p>
+<pre>
+${docker_image_info}
+</pre>
+</p>
+
+</body>
+</html>

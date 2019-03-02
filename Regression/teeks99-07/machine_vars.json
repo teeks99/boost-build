@@ -1,0 +1,20 @@
+{
+    "machine":"teeks99-09",
+    "os":"win2012R2",
+    "os_arch":"64",
+    "procs":4,
+    "ram":"8GB",
+    "setup":"Azure F4 VM",
+    "other_options":"--abbreviate-paths",
+    "tmpdir":"D:/temp/boost",
+    "python_interpreter": "C:/Python27-64/python.exe",
+    "runs":{
+        "v16d":{"id":"v16d", "branch":"develop", "arch":"64", "compilers":"msvc-14.2"},
+        "v16m":{"id":"v16m", "branch":"master", "arch":"64", "compilers":"msvc-14.2"},
+        "v16dl":{"id":"v16l", "branch":"develop", "arch":"64", "compilers":"msvc-14.2",
+             "other_options":"cxxflags=/std:c++latest"},
+        "v16ml":{"id":"v16l", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
+             "other_options":"cxxflags=/std:c++latest"}
+    },
+    "run_order":["v16d","v16m","v16dl","v16ml"]
+}

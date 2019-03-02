@@ -19,7 +19,7 @@ tools = {
         ('12.0', {'dir_type': 'modern', 'number': '120'}),
         ('14.0', {'dir_type': 'modern', 'number': '140'}),
         ('14.1', {'dir_type': 'modern', 'number': '141'}),
-        ('15.0', {'dir_type': 'modern', 'number': '150'}),
+        ('14.2', {'dir_type': 'modern', 'number': '142'}),
     ]),
     'gcc': {
         '4.4': {},

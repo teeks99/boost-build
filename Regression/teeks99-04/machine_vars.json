@@ -2,8 +2,8 @@
     "machine":"teeks99-04",
     "os":"Ubuntu",
     "os_arch":"arm64",
-    "procs":4,
-    "ram":"2GB",
+    "procs":16,
+    "ram":"16GB",
     "setup":"Ubuntu 18.04 - Scaleway",
     "runs":{
         "dg7-1z":{"branch":"develop", "arch":"64", "compilers":"gcc-7~c++1z"},

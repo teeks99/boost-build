@@ -170,7 +170,7 @@ def make_vswhere(id):
     args += " -prerelease"
     args += " -version \"[{}, {})\"".format(vs_id, int(vs_id)+1)
 
-    cmd = vswhere_path + args
+    cmd = '"' + vswhere_path + '"' + args
 
     p = subprocess.run(cmd, shell=True, capture_output=True)
 

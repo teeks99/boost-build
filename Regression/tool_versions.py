@@ -20,8 +20,8 @@ tools = {
         ('11.0', {'dir_type': 'default', 'number': '110'}),
         ('12.0', {'dir_type': 'modern', 'number': '120'}),
         ('14.0', {'dir_type': 'modern', 'number': '140'}),
-        ('14.1', {'dir_type': 'modern', 'number': '141'}),
-        ('14.2', {'dir_type': 'modern', 'number': '142'}),
+        ('14.1', {'dir_type': 'vswhere', 'number': '141'}),
+        ('14.2', {'dir_type': 'vswhere', 'number': '142'}),
     ]),
     'gcc': {
         '4.4': {},

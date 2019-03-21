@@ -161,7 +161,7 @@ def make_vswhere(id):
         vs_id = toolset_to_vs[tool_id]
     
     vswhere_path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe"
-    default_toolset_config = "VC\\Auxillary\\Build\\Microsoft.VCToolsVersion.default.txt"
+    default_toolset_config = "VC\\Auxiliary\\Build\\Microsoft.VCToolsVersion.default.txt"
     toolset_location = "VC\\Tools\\MSVC"
 
     args = " -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
@@ -172,7 +172,7 @@ def make_vswhere(id):
 
     cmd = '"' + vswhere_path + '"' + args
 
-    p = subprocess.run(cmd, shell=True, capture_output=True)
+    p = subprocess.run(cmd, shell=True, capture_output=True, text=True)
 
     archs = {
         "32-32": "bin\\Hostx86\\x86\\cl.exe",
@@ -184,11 +184,11 @@ def make_vswhere(id):
     versions = []
     for installPath in p.stdout.splitlines():
         with open(os.path.join(installPath, default_toolset_config), "r") as dt:
-            toolset_ver = dt.read()
+            toolset_ver = dt.read().strip()
         toolset_path = os.path.join(toolset_location, toolset_ver)
         for arch, cl_path in archs.items():
             ver = {
-                'version': id+arch,
+                'version': id + "-" + arch,
                 'command': os.path.join(installPath, toolset_path, cl_path),
                 'sys_path_add': ""}
             get_msvc_info(ver)

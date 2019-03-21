@@ -194,6 +194,8 @@ def make_vswhere(id):
             get_msvc_info(ver)
             versions.append(ver)
 
+    return versions
+
 def make_msvc_versions():
     versions = []
     for name, data in tools['msvc'].items():

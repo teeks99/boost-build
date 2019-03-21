@@ -10,6 +10,8 @@ def convert_str(bytes_data):
         return bytes_data.decode()
     return bytes_data
 
+toolset_to_vs = {"14.1": "15", "14.2": "16"}
+
 tools = {
     'msvc': collections.OrderedDict([
         ('8.0', {'dir_type': 'default', 'number': '80'}),
@@ -18,8 +20,8 @@ tools = {
         ('11.0', {'dir_type': 'default', 'number': '110'}),
         ('12.0', {'dir_type': 'modern', 'number': '120'}),
         ('14.0', {'dir_type': 'modern', 'number': '140'}),
-        ('14.1', {'dir_type': 'modern', 'number': '141'}),
-        ('15.0', {'dir_type': 'modern', 'number': '150'}),
+        ('14.1', {'dir_type': 'vswhere', 'number': '141'}),
+        ('14.2', {'dir_type': 'vswhere', 'number': '142'}),
     ]),
     'gcc': {
         '4.4': {},
@@ -31,6 +33,7 @@ tools = {
         '5': {},
         '6': {},
         '7': {},
+        '8': {},
     },
     'clang': {
         '2.8': {},
@@ -47,6 +50,9 @@ tools = {
         '3.9': {},
         '4.0': {},
         '5.0': {},
+        '6.0': {},
+        '7': {},
+        '8': {},
     },
     'python': [
         'python',
@@ -148,6 +154,48 @@ def make_modern(number, id):
         get_msvc_info(v)
     return versions
 
+def make_vswhere(id):
+    tool_id = id.split("msvc-")[1]
+    vs_id = tool_id
+    if tool_id in toolset_to_vs:
+        vs_id = toolset_to_vs[tool_id]
+    
+    vswhere_path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe"
+    default_toolset_config = "VC\\Auxiliary\\Build\\Microsoft.VCToolsVersion.default.txt"
+    toolset_location = "VC\\Tools\\MSVC"
+
+    args = " -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+    args += " -property installationPath"
+    args += " -products *"
+    args += " -prerelease"
+    args += " -version \"[{}, {})\"".format(vs_id, int(vs_id)+1)
+
+    cmd = '"' + vswhere_path + '"' + args
+
+    p = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+
+    archs = {
+        "32-32": "bin\\Hostx86\\x86\\cl.exe",
+        "32-64": "bin\\Hostx86\\x64\\cl.exe",
+        "64-32": "bin\\Hostx64\\x86\\cl.exe",
+        "64-64": "bin\\Hostx64\\x64\\cl.exe"
+            }
+
+    versions = []
+    for installPath in p.stdout.splitlines():
+        with open(os.path.join(installPath, default_toolset_config), "r") as dt:
+            toolset_ver = dt.read().strip()
+        toolset_path = os.path.join(toolset_location, toolset_ver)
+        for arch, cl_path in archs.items():
+            ver = {
+                'version': id + "-" + arch,
+                'command': os.path.join(installPath, toolset_path, cl_path),
+                'sys_path_add': ""}
+            get_msvc_info(ver)
+            versions.append(ver)
+
+    return versions
+
 def make_msvc_versions():
     versions = []
     for name, data in tools['msvc'].items():
@@ -155,6 +203,8 @@ def make_msvc_versions():
             versions += make_default(data['number'], 'msvc-' + name)
         elif data['dir_type'] == 'modern':
             versions += make_modern(data['number'], 'msvc-' + name)
+        elif data['dir_type'] == 'vswhere':
+            versions += make_vswhere('msvc-' + name)
     return versions
 
 def get_parse_gcc_output(output):
@@ -186,7 +236,7 @@ def get_parse_clang_output(output):
 def make_clang_versions():
     versions = []
     for name, data in tools['clang'].items():
-        exe = 'clang-' + name
+        exe = 'clang++-' + name
         if 'exe' in data:
             exe = data['exe']
         cmd = exe + ' --version'

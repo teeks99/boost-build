@@ -66,6 +66,8 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mg8-opt | master | gcc | 8 | -std=c++2a -O2 | teeks99/boost-cpp-docker:gcc-8 |
 | dg8-warn | develop | gcc | 8 | -std=c++2a -Wall -Wextra | teeks99/boost-cpp-docker:gcc-8 |
 | mg8-warn | master | gcc | 8 | -std=c++2a -Wall -Wextra | teeks99/boost-cpp-docker:gcc-8 |
+| dg9-2a | develop | gcc | 9 | -std=c++2a | teeks99/boost-cpp-docker:gcc-9 |
+| mg9-2a | master | gcc | 9 | -std=c++2a | teeks99/boost-cpp-docker:gcc-9 |
 | dc3.4-98 | develop | clang | 3.4 | -std=c++98 | teeks99/boost-cpp-docker:clang-3.4 |
 | mc3.4-98 | master | clang | 3.4 | -std=c++98 | teeks99/boost-cpp-docker:clang-3.4 |
 | dc3.4-g98 | develop | clang | 3.4 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-3.4 |

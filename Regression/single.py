@@ -67,6 +67,7 @@ class Run(object):
 
         self.config = config
         self.machine = machine
+        self.runner_machine = self.machine["machine"]
         self.start_dir = os.getcwd()
         self.run_dir = os.path.join(self.start_dir, 'run')
 
@@ -95,9 +96,18 @@ class Run(object):
         with open('../info.html.template', 'r') as info_template_file:
             info_template = string.Template(info_template_file.read())
 
+        if 'docker_img' in self.config:
+            self.runner_machine = "teeks99-dkr"
+            self.runner_config = self.runner_machine + \
+                '-' + self.config['id']
+        else:
+            self.runner_config = self.runner_machine + \
+                '-' + self.config['id'] + '-' + self.machine['os'] + '-' + \
+                self.config['arch'] + "on" + self.machine['os_arch']
+
         mapping = {
-            'machine': self.machine['machine'],
-            'runner': self.config['id'],
+            'machine': self.runner_machine,
+            'id': self.config['id'],
             'setup': self.machine['setup'],
             'ram': self.machine['ram'],
             'cores': self.machine['procs'],
@@ -138,13 +148,11 @@ class Run(object):
         if 'python_interpreter' in self.machine:
             py_int = self.machine['python_interpreter']
 
-        command = [py_int, 'run.py', '--runner=' + self.machine['machine'] +
-            '-' + self.config['id'] + '-' + self.machine['os'] + '-' +
-            self.config['arch'] + "on" + self.machine['os_arch'], '--toolsets=' +
-            self.config['compilers'], '--bjam-options=-j' +
-            str(self.machine['procs']) + ' address-model=' + self.config['arch'] +
-            ' --remove-test-targets' + other_options, '--comment=info.html',
-            '--tag=' + self.config['branch']]
+        command = [py_int, 'run.py', '--runner=' + self.runner_config,
+             '--toolsets=' +  self.config['compilers'], '--bjam-options=-j' +
+            str(self.machine['procs']) + ' address-model=' +
+            self.config['arch'] + ' --remove-test-targets' + other_options,
+            '--comment=info.html', '--tag=' + self.config['branch']]
 
         # Output the command to the screen before running it
         cmd_str = ""

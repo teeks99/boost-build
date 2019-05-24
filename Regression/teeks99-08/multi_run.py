@@ -191,7 +191,7 @@ def add_external_runs(machine_vars):
             machine_vars['runs'] = external_runs['runs']
 
 def ensure_boost_root(source):
-    if not os.path.exists(boost_root):
+    if not os.path.exists("boost_root"):
         cmd = "git clone --recursive {} boost_root".format(source)
         print(cmd)
         subprocess.call(cmd)

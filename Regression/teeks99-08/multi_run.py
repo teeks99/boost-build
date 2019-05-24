@@ -190,10 +190,21 @@ def add_external_runs(machine_vars):
             external_runs = json.load(external_runs_file)
             machine_vars['runs'] = external_runs['runs']
 
+def ensure_boost_root(source):
+    if not os.path.exists(boost_root):
+        cmd = "git clone --recursive {} boost_root".format(source)
+        print(cmd)
+        subprocess.call(cmd)
+
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')
     machine_vars = json.load(f)
     f.close()
+
+    source="https://github.com/boostorg/boost"
+    if "source" in machine_vars:
+        source = machine_vars["source"]
+    ensure_boost_root(source)
 
     add_external_runs(machine_vars)
 

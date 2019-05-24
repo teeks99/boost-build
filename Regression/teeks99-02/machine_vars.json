@@ -6,6 +6,7 @@
     "ram":"16GB",
     "setup":"Docker Ubuntu16.04",
     "runs":"linux_docker_configs.json",
+    "source":"http://bart.lan/boostorg/boost.git",
     "run_order":[
         "dg8-2a", "mg8-2a", "dc8-2a", "mc8-2a",
         "dg4.6-98", "dg4.6-0x", "dg4.6-g98", "dg4.6-g0x", "dg4.6-opt", "dg4.6-warn",

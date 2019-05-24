@@ -194,7 +194,7 @@ def ensure_boost_root(source):
     if not os.path.exists("boost_root"):
         cmd = "git clone --recursive {} boost_root".format(source)
         print(cmd)
-        subprocess.call(cmd)
+        subprocess.call(cmd, shell=True)
 
 if __name__ == '__main__':
     f = open("machine_vars.json", 'r')

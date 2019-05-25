@@ -14,6 +14,8 @@ import datetime
 import tempfile
 import string
 import cgi
+import multiprocessing
+import platform
 
 PY3 = sys.version_info[0] == 3
 
@@ -102,17 +104,17 @@ class Run(object):
                 '-' + self.config['id']
         else:
             self.runner_config = self.runner_machine + \
-                '-' + self.config['id'] + '-' + self.machine['os'] + '-' + \
-                self.config['arch'] + "on" + self.machine['os_arch']
+                '-' + self.config['id'] + '-' + \
+                self.config['arch'] + "on" + platform.machine()
 
         mapping = {
             'machine': self.runner_machine,
             'id': self.config['id'],
             'setup': self.machine['setup'],
             'ram': self.machine['ram'],
-            'cores': self.machine['procs'],
-            'arch': self.machine['os_arch'],
-            'os': self.machine['os'],
+            'cores': str(multiprocessing.cpu_count()),
+            'arch': platform.machine(),
+            'os': platform.platform(),
             'user_config': cgi.escape(tool_versions.user_config()),
             'site_config': cgi.escape(tool_versions.site_config()),
             'compiler_versions': cgi.escape(tool_versions.build_version_string()),
@@ -189,7 +191,6 @@ class Run(object):
                          '-results-bjam.log')
 
         os.chdir(self.start_dir)
-
 
 
 # For running standalone, typically in docker.

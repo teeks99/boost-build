@@ -64,45 +64,45 @@ class Runner(object):
             order_index = self.run_one(order_index)
 
     def run_one(self, order_index):
-            if order_index >= len(self.run_order):
-                order_index = 0
+        if order_index >= len(self.run_order):
+            order_index = 0
 
-            self.current_run_id = self.run_order[order_index]
-            run_dir = 'run'
+        self.current_run_id = self.run_order[order_index]
+        run_dir = 'run'
 
-            self.start_time = datetime.datetime.now()
-            start_str = self.start_time.strftime('%m-%d %H:%M:%S')
+        self.start_time = datetime.datetime.now()
+        start_str = self.start_time.strftime('%m-%d %H:%M:%S')
 
-            run_config = self.runs[self.current_run_id].copy()
-            run_config['order_index'] = order_index
-            run_config['start_time'] = start_str
-            run_config['run_dir'] = run_dir
+        run_config = self.runs[self.current_run_id].copy()
+        run_config['order_index'] = order_index
+        run_config['start_time'] = start_str
+        run_config['run_dir'] = run_dir
 
-            self.update_base_repo(run_config['branch'])
-            my_rmtree(run_dir)
-            os.mkdir(run_dir)
+        self.update_base_repo(run_config['branch'])
+        my_rmtree(run_dir)
+        os.mkdir(run_dir)
 
-            self.update_docker_img(run_config)
+        self.update_docker_img(run_config)
 
-            self.write_run_config(run_config)
-            self.log_start(run_config)
-            if 'docker_img' in run_config:
-                docker_cmd = 'docker run -v ' + os.getcwd()
-                docker_cmd += ':/var/boost'
-                if "docker_cpu_quota" in self.machine:
-                    docker_cmd += ' --cpu-quota '
-                    docker_cmd += str(self.machine['docker_cpu_quota'])
-                docker_cmd += ' --rm -i -t '
-                docker_cmd += run_config['docker_img']
-                docker_cmd += ' /bin/bash /var/boost/inside.bash'
-                print(docker_cmd)
-                subprocess.call(docker_cmd, shell=True)
-            else:
-                run = single.Run(config=run_config, machine=self.machine)
-                run.process()
-            self.log_end()
-            order_index += 1
-            return order_index
+        self.write_run_config(run_config)
+        self.log_start(run_config)
+        if 'docker_img' in run_config:
+            docker_cmd = 'docker run -v ' + os.getcwd()
+            docker_cmd += ':/var/boost'
+            if "docker_cpu_quota" in self.machine:
+                docker_cmd += ' --cpu-quota '
+                docker_cmd += str(self.machine['docker_cpu_quota'])
+            docker_cmd += ' --rm -i -t '
+            docker_cmd += run_config['docker_img']
+            docker_cmd += ' /bin/bash /var/boost/inside.bash'
+            print(docker_cmd)
+            subprocess.call(docker_cmd, shell=True)
+        else:
+            run = single.Run(config=run_config, machine=self.machine)
+            run.process()
+        self.log_end()
+        order_index += 1
+        return order_index
 
     def update_docker_img(self, run_config):
         if 'docker_img' in run_config:

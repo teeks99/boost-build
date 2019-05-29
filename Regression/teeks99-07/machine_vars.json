@@ -29,7 +29,5 @@
              "other_options":"cxxflags=/std:c++latest"}
     },
     "run_order":[
-        "v14d", "v14m", "v14dl", "v14ml",
-        "v15d", "v15m", "v15dl", "v15ml",
-        "v16d", "v16m", "v16dl", "v16ml"]
+        "v14d", "v14m", "v14dl", "v14ml"]
 }

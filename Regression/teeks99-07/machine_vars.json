@@ -9,6 +9,12 @@
     "tmpdir":"D:/temp/boost",
     "python_interpreter": "C:/Python27-64/python.exe",
     "runs":{
+        "v10d":{"id":"v10d", "branch":"develop", "arch":"64", "compilers":"msvc-10.0"},
+        "v10m":{"id":"v10m", "branch":"master", "arch":"64", "compilers":"msvc-10.0"},
+        "v11d":{"id":"v11d", "branch":"develop", "arch":"64", "compilers":"msvc-11.0"},
+        "v11m":{"id":"v11m", "branch":"master", "arch":"64", "compilers":"msvc-11.0"},
+        "v12d":{"id":"v12d", "branch":"develop", "arch":"64", "compilers":"msvc-12.0"},
+        "v12m":{"id":"v12m", "branch":"master", "arch":"64", "compilers":"msvc-12.0"},
         "v14d":{"id":"v14d", "branch":"develop", "arch":"64", "compilers":"msvc-14.0"},
         "v14m":{"id":"v14m", "branch":"master", "arch":"64", "compilers":"msvc-14.0"},
         "v14dl":{"id":"v14l", "branch":"develop", "arch":"64", "compilers":"msvc-14.0",
@@ -29,5 +35,8 @@
              "other_options":"cxxflags=/std:c++latest"}
     },
     "run_order":[
-        "v14d", "v14m", "v14dl", "v14ml"]
+        "v10d", "v10m", "v11d", "v11m", "v12d", "v12m",
+        "v14d", "v14m", "v14dl", "v14ml",
+        "v15d", "v15m", "v15dl", "v15ml",
+        "v16d", "v16m", "v16dl", "v16ml"]
 }

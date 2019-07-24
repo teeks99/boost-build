@@ -1,10 +1,10 @@
 {
     "machine":"teeks99-07",
-    "os":"win2012R2",
+    "os":"win2019",
     "os_arch":"64",
-    "procs":4,
+    "procs":16,
     "ram":"8GB",
-    "setup":"Azure F4 VM",
+    "setup":"Azure F8 VM",
     "other_options":"--abbreviate-paths",
     "tmpdir":"D:/temp/boost",
     "python_interpreter": "C:/Python27-64/python.exe",

@@ -8,6 +8,6 @@
     "runs":"linux_docker_configs.json",
     "source":"http://bart.lan/boostorg/boost.git",
     "run_order":[
-        "dg8-2a", "mg8-2a", "dc8-2a", "mc8-2a"
+        "dg8-2a", "mg8-2a", "dc9-2a", "mc9-2a"
     ]
 }

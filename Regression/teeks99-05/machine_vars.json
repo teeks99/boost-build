@@ -1,0 +1,17 @@
+{
+    "machine":"teeks99-04",
+    "os":"Raspbian",
+    "os_arch":"armhf",
+    "procs":4,
+    "ram":"4GB",
+    "setup":"Raspberry Pi 4GB - Raspbian",
+    "runs":{
+        "dg8-1z":{"branch":"develop", "arch":"64", "compilers":"gcc-8~c++1z"},
+        "mg8-1z":{"branch":"master", "arch":"64", "compilers":"gcc-8~c++1z"},
+        "dc9-1z":{"branch":"develop", "arch":"64", "compilers":"clang-9~c++1z"},
+        "mc9-1z":{"branch":"master", "arch":"64", "compilers":"clang-9~c++1z"}
+    },
+    "run_order":[
+        "dg8-1z", "mg8-1z", "dc9-1z", "mc9-1z"
+    ]
+}

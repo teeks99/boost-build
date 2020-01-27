@@ -101,9 +101,9 @@ using python
 ;
 
 using python
-: 3.6 # version
+: 3.7 # version
 : # Interpreter/path to dir
-: /usr/include/python3.6 # includes
-: /usr/lib/x86_64-linux-gnu # libs
+: /usr/include/python3.7 # includes
+: /usr/lib/aarch64-linux-gnu # libs
 : # conditions
 ;

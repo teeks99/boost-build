@@ -1,7 +1,7 @@
 {
     "machine":"teeks99-06",
     "os":"Ubuntu",
-    "os_arch":"arm64",
+    "os_arch":"aarch64",
     "procs":4,
     "ram":"4GB",
     "setup":"Raspberry Pi 4GB - Ubuntu 19.10",

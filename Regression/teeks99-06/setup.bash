@@ -19,8 +19,8 @@ apt-get install -y \
   parted \
   python2.7 \
   python2.7-dev \
-  python3.5 \
-  python3.5-dev \
+  python3.7 \
+  python3.7-dev \
   libbz2-dev \
   zlib1g-dev 
 

@@ -107,8 +107,8 @@
         "mc5-14":{"branch":"master", "arch":"64", "compilers":"clang-5.0~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-5"},
         "dc6-17":{"branch":"develop", "arch":"64", "compilers":"clang-6.0~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
         "mc6-17":{"branch":"master", "arch":"64", "compilers":"clang-6.0~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-6"},
-        "dc7-2a":{"branch":"develop", "arch":"64", "compilers":"clang-7~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-7"},
-        "mc7-2a":{"branch":"master", "arch":"64", "compilers":"clang-7~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-7"},
+        "dc7-17":{"branch":"develop", "arch":"64", "compilers":"clang-7~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-7"},
+        "mc7-17":{"branch":"master", "arch":"64", "compilers":"clang-7~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-7"},
 
         "dc8":{"branch":"develop", "arch":"64", "compilers":"clang-8~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-8"},
         "mc8":{"branch":"master", "arch":"64", "compilers":"clang-8~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-8"},

@@ -191,6 +191,34 @@
         "dc10-warn":{"branch":"develop", "arch":"64", "compilers":"clang-10~c++2a~warn", "docker_img":"teeks99/boost-cpp-docker:clang-10"},
         "mc10-warn":{"branch":"master", "arch":"64", "compilers":"clang-10~c++2a~warn", "docker_img":"teeks99/boost-cpp-docker:clang-10"},
         "dc10-2a-lc":{"branch":"develop", "arch":"64", "compilers":"clang-10~c++2a~lc", "docker_img":"teeks99/boost-cpp-docker:clang-10"},
-        "mc10-2a-lc":{"branch":"master", "arch":"64", "compilers":"clang-10~c++2a~lc", "docker_img":"teeks99/boost-cpp-docker:clang-10"}
+        "mc10-2a-lc":{"branch":"master", "arch":"64", "compilers":"clang-10~c++2a~lc", "docker_img":"teeks99/boost-cpp-docker:clang-10"},
+
+
+        "dc11":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11":{"branch":"master", "arch":"64", "compilers":"clang-11~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-2a":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-2a":{"branch":"master", "arch":"64", "compilers":"clang-11~c++2a", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-14":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-14":{"branch":"master", "arch":"64", "compilers":"clang-11~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-g14":{"branch":"develop", "arch":"64", "compilers":"clang-11~gnu14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-g14":{"branch":"master", "arch":"64", "compilers":"clang-11~gnu14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-17":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-17":{"branch":"master", "arch":"64", "compilers":"clang-11~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-g17":{"branch":"develop", "arch":"64", "compilers":"clang-11~gnu17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-g17":{"branch":"master", "arch":"64", "compilers":"clang-11~gnu17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-11":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++11", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-11":{"branch":"master", "arch":"64", "compilers":"clang-11~c++11", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-g11":{"branch":"develop", "arch":"64", "compilers":"clang-11~gnu11", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-g11":{"branch":"master", "arch":"64", "compilers":"clang-11~gnu11", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-98":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++98", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-98":{"branch":"master", "arch":"64", "compilers":"clang-11~c++98", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-g98":{"branch":"develop", "arch":"64", "compilers":"clang-11~gnu98", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-g98":{"branch":"master", "arch":"64", "compilers":"clang-11~gnu98", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-opt":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++2a~O2", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-opt":{"branch":"master", "arch":"64", "compilers":"clang-11~c++2a~O2", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-warn":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++2a~warn", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-warn":{"branch":"master", "arch":"64", "compilers":"clang-11~c++2a~warn", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-2a-lc":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++2a~lc", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-2a-lc":{"branch":"master", "arch":"64", "compilers":"clang-11~c++2a~lc", "docker_img":"teeks99/boost-cpp-docker:clang-11"}
     }
 }

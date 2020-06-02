@@ -208,7 +208,7 @@ if __name__ == '__main__':
 
     if not "source" in machine_vars:
         machine_vars["source"] = "https://github.com/boostorg/boost"
-    ensure_boost_root(source)
+    ensure_boost_root(machine_vars["source"])
 
     add_external_runs(machine_vars)
 

@@ -206,9 +206,8 @@ if __name__ == '__main__':
     machine_vars = json.load(f)
     f.close()
 
-    source="https://github.com/boostorg/boost"
-    if "source" in machine_vars:
-        source = machine_vars["source"]
+    if not "source" in machine_vars:
+        machine_vars["source"] = "https://github.com/boostorg/boost"
     ensure_boost_root(source)
 
     add_external_runs(machine_vars)

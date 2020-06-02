@@ -17,6 +17,8 @@ import cgi
 import multiprocessing
 import platform
 
+NO_DOWNLOAD_SOURCE = "run_script"
+
 PY3 = sys.version_info[0] == 3
 
 if PY3:
@@ -137,7 +139,9 @@ class Run(object):
         self.clean_and_make_tmp()
         self.make_info()
 
-        self.copy_repo()
+        if not self.machine['source'] == NO_DOWNLOAD_SOURCE:
+            self.copy_repo()
+
         shutil.copy2('../run.py', './')
 
         other_options = ''

@@ -78,7 +78,9 @@ class Runner(object):
         run_config['start_time'] = start_str
         run_config['run_dir'] = run_dir
 
-        self.update_base_repo(run_config['branch'])
+        if not self.machine["source"] == single.NO_DOWNLOAD_SOURCE:
+            self.update_base_repo(run_config['branch'])
+
         my_rmtree(run_dir)
         os.mkdir(run_dir)
 
@@ -191,6 +193,9 @@ def add_external_runs(machine_vars):
             machine_vars['runs'] = external_runs['runs']
 
 def ensure_boost_root(source):
+    if source == single.NO_DOWNLOAD_SOURCE:
+        return
+
     if not os.path.exists("boost_root"):
         cmd = "git clone --recursive {} boost_root".format(source)
         print(cmd)

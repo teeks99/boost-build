@@ -139,7 +139,7 @@ class Run(object):
         self.clean_and_make_tmp()
         self.make_info()
 
-        if not self.machine['source'] == NO_DOWNLOAD_SOURCE:
+        if not 'source' in self.machine or not self.machine['source'] == NO_DOWNLOAD_SOURCE:
             self.copy_repo()
 
         shutil.copy2('../run.py', './')

@@ -6,7 +6,6 @@
     "ram":"16GB",
     "setup":"Docker Ubuntu 16.04",
     "runs":"linux_docker_configs.json",
-    "source":"http://bart.lan/boostorg/boost.git",
     "run_order":[
         "dg9-2a", "mg9-2a", "dc10-2a", "mc10-2a"
     ]

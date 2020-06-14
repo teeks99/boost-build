@@ -1,0 +1,45 @@
+{
+    "machine":"teeks99-02",
+    "os":"Docker",
+    "os_arch":"64",
+    "procs":8,
+    "ram":"16GB",
+    "setup":"Docker Ubuntu18.04",
+    "runs":"linux_docker_configs.json",
+    "source":"run_script",
+    "run_order":[
+        "dg9-2a", "mg9-2a", "dc10-2a", "mc10-2a",
+        "dg4.6-98", "dg4.6-0x", "dg4.6-g98", "dg4.6-g0x", "dg4.6-opt", "dg4.6-warn",
+        "mg4.6-98", "mg4.6-0x", "mg4.6-g98", "mg4.6-g0x", "mg4.6-opt", "mg4.6-warn",
+        "dg4.7", "dg4.8", "dg4.9", "dg5", "dg6", "dg7", "dg8",
+        "mg4.7", "mg4.8", "mg4.9", "mg5", "mg6", "mg7", "mg8",
+
+        "dg9-2a", "mg9-2a", "dc10-2a", "mc10-2a",
+        "dg9-14", "dg9-g14", "dg9-17", "dg9-g17", "dg9-g2a", "dg9-11", "dg9-g11",
+       	"dg9-98", "dg9-g98", "dg9-opt", "dg9-warn",
+        "mg9-14", "mg9-g14", "mg9-17", "mg9-g17", "mg9-g2a",
+        "mg9-11", "mg9-g11", "mg9-98", "mg9-g98", "mg9-opt", "mg9-warn",
+
+        "dg9-2a", "mg9-2a", "dc10-2a", "mc10-2a",
+        "dc3.4-98", "dc3.4-g98", "dc3.4-11", "dc3.4-g11",
+        "dc3.4-opt", "dc3.4-warn",
+        "mc3.4-98", "mc3.4-g98", "mc3.4-11", "mc3.4-g11",
+        "mc3.4-opt", "mc3.4-warn",
+        "dc3.5-14", "dc3.6-14",
+        "dc3.7-14", "dc3.8-14", "dc3.9-14", "dc4-14", "dc5-14",
+        "dc6-17", "dc7-17", "dc8-17", "dc9-17",
+        "mc3.5-14",
+        "mc3.6-14", "mc3.7-14", "mc3.8-14", "mc3.9-14", "mc4-14", "mc5-14",
+        "mc6-17", "mc7-17", "mc8-17", "mc9-17",
+
+        "dg9-2a", "mg9-2a", "dc10-2a", "mc10-2a",
+        "dc10-17", "dc10-g17", "dc10-14", "dc10-g14",
+        "dc10-11", "dc10-g11", "dc10-98", "dc10-g98",
+        "dc10-opt", "dc10-warn", "dc10-2a-lc",
+        "mc10-17", "mc10-g17", "mc10-14", "mc10-g14",
+        "mc10-11", "mc10-g11", "mc10-98", "mc10-g98",
+        "mc10-opt", "mc10-warn", "mc10-2a-lc",
+
+        "dc11-2a", "mc11-2a"
+    ]
+}

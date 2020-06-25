@@ -8,6 +8,7 @@
     "other_options":"--abbreviate-paths",
     "tmpdir":"D:/temp/boost",
     "python_interpreter": "C:/Python27-64/python.exe",
+    "source":"run_script",
     "runs":{
         "v10d":{"id":"v10d", "branch":"develop", "arch":"64", "compilers":"msvc-10.0"},
         "v10m":{"id":"v10m", "branch":"master", "arch":"64", "compilers":"msvc-10.0"},

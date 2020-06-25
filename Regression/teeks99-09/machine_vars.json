@@ -21,10 +21,12 @@
         "m":{"id":"m", "branch":"develop", "arch":"32", "compilers":"msvc-12.0"},
         "n":{"id":"n", "branch":"develop", "arch":"64", "compilers":"msvc-14.1"},
         "o":{"id":"o", "branch":"master", "arch":"64", "compilers":"msvc-14.1"},
-        "p":{"id":"p", "branch":"develop", "arch":"64", "compilers":"msvc-14.1",
+        "r":{"id":"r", "branch":"develop", "arch":"64", "compilers":"msvc-14.2"},
+        "s":{"id":"s", "branch":"master", "arch":"64", "compilers":"msvc-14.2"},
+        "t":{"id":"t", "branch":"develop", "arch":"64", "compilers":"msvc-14.2",
              "other_options":"cxxflags=/std:c++latest"},
-        "q":{"id":"q", "branch":"master", "arch":"64", "compilers":"msvc-14.1",
+        "u":{"id":"u", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
              "other_options":"cxxflags=/std:c++latest"}
     },
-    "run_order":["c","d","e","n","f","i","j","n","k","l","m","n","o","p","q"]
+    "run_order":["c","d","e","n","f","i","j","n","k","l","m","n","o","r","s","t","u"]
 }

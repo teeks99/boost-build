@@ -6,10 +6,10 @@
     "ram":"4GB",
     "setup":"Raspberry Pi 4GB - Raspbian",
     "runs":{
-        "dg8-2a":{"branch":"develop", "arch":"64", "compilers":"gcc-8~c++2a"},
-        "mg8-2a":{"branch":"master", "arch":"64", "compilers":"gcc-8~c++2a"},
-        "dc9-2a":{"branch":"develop", "arch":"64", "compilers":"clang-9~c++2a"},
-        "mc9-2a":{"branch":"master", "arch":"64", "compilers":"clang-9~c++2a"}
+        "dg8-2a":{"branch":"develop", "arch":"32", "compilers":"gcc-8~c++2a"},
+        "mg8-2a":{"branch":"master", "arch":"32", "compilers":"gcc-8~c++2a"},
+        "dc9-2a":{"branch":"develop", "arch":"32", "compilers":"clang-9~c++2a"},
+        "mc9-2a":{"branch":"master", "arch":"32", "compilers":"clang-9~c++2a"}
     },
     "run_order":[
         "dg8-2a", "mg8-2a", "dc9-2a", "mc9-2a"

@@ -20,6 +20,8 @@ linux_flags = {
     'gnu17': '-std=gnu++17',
     'c++2a': '-std=c++2a',
     'gnu2a': '-std=gnu++2a',
+    'c++20': '-std=c++20',
+    'gnu20': '-std=gnu++20',
     'lc': '-stdlib=libc++',
     'O2': '-O2',
     'warn': '-Wall -Wextra'

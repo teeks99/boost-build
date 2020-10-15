@@ -198,6 +198,8 @@
         "mc11":{"branch":"master", "arch":"64", "compilers":"clang-11~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
         "dc11-20":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++20", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
         "mc11-20":{"branch":"master", "arch":"64", "compilers":"clang-11~c++20", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "dc11-g20":{"branch":"develop", "arch":"64", "compilers":"clang-11~gnu++20", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
+        "mc11-g20":{"branch":"master", "arch":"64", "compilers":"clang-11~gnu++20", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
         "dc11-14":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
         "mc11-14":{"branch":"master", "arch":"64", "compilers":"clang-11~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
         "dc11-g14":{"branch":"develop", "arch":"64", "compilers":"clang-11~gnu14", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
@@ -222,10 +224,12 @@
         "mc11-20-lc":{"branch":"master", "arch":"64", "compilers":"clang-11~c++20~lc", "docker_img":"teeks99/boost-cpp-docker:clang-11"},
 
 
-        "dc12":{"branch":"develop", "arch":"64", "compilers":"clang-12~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
-        "mc12":{"branch":"master", "arch":"64", "compilers":"clang-12~c++17", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
+        "dc12":{"branch":"develop", "arch":"64", "compilers":"clang-12~c++20", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
+        "mc12":{"branch":"master", "arch":"64", "compilers":"clang-12~c++20", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
         "dc12-20":{"branch":"develop", "arch":"64", "compilers":"clang-12~c++20", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
         "mc12-20":{"branch":"master", "arch":"64", "compilers":"clang-12~c++20", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
+        "dc12-g20":{"branch":"develop", "arch":"64", "compilers":"clang-12~gnu++20", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
+        "mc12-g20":{"branch":"master", "arch":"64", "compilers":"clang-12~gnu++20", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
         "dc12-14":{"branch":"develop", "arch":"64", "compilers":"clang-12~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
         "mc12-14":{"branch":"master", "arch":"64", "compilers":"clang-12~c++14", "docker_img":"teeks99/boost-cpp-docker:clang-12"},
         "dc12-g14":{"branch":"develop", "arch":"64", "compilers":"clang-12~gnu14", "docker_img":"teeks99/boost-cpp-docker:clang-12"},

@@ -202,18 +202,20 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mc10-warn | master | clang | 10 | -std=c++2a -Wall -Wextra | teeks99/boost-cpp-docker:clang-10 |
 | dc10-2a-lc | develop | clang | 10 | -std=c++2a -stdlib=libc++ | teeks99/boost-cpp-docker:clang-10 |
 | mc10-2a-lc | master | clang | 10 | -std=c++2a -stdlib=libc++ | teeks99/boost-cpp-docker:clang-10 |
-| dc11 | develop | clang | 11 | -std=c++17 | teeks99/boost-cpp-docker:clang-11 |
-| mc11 | master | clang | 11 | -std=c++17 | teeks99/boost-cpp-docker:clang-11 |
+| dc11 | develop | clang | 11 | -std=c++20 | teeks99/boost-cpp-docker:clang-11 |
+| mc11 | master | clang | 11 | -std=c++20 | teeks99/boost-cpp-docker:clang-11 |
 | dc11-20 | develop | clang | 11 | -std=c++20 | teeks99/boost-cpp-docker:clang-11 |
 | mc11-20 | master | clang | 11 | -std=c++20 | teeks99/boost-cpp-docker:clang-11 |
-| dc11-14 | develop | clang | 11 | -std=c++14 | teeks99/boost-cpp-docker:clang-11 |
-| mc11-14 | master | clang | 11 | -std=c++14 | teeks99/boost-cpp-docker:clang-11 |
-| dc11-g14 | develop | clang | 11 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-11 |
-| mc11-g14 | master | clang | 11 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-11 |
+| dc11-g20 | develop | clang | 11 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-11 |
+| mc11-g20 | master | clang | 11 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-11 |
 | dc11-17 | develop | clang | 11 | -std=c++17 | teeks99/boost-cpp-docker:clang-11 |
 | mc11-17 | master | clang | 11 | -std=c++17 | teeks99/boost-cpp-docker:clang-11 |
 | dc11-g17 | develop | clang | 11 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-11 |
 | mc11-g17 | master | clang | 11 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-11 |
+| dc11-14 | develop | clang | 11 | -std=c++14 | teeks99/boost-cpp-docker:clang-11 |
+| mc11-14 | master | clang | 11 | -std=c++14 | teeks99/boost-cpp-docker:clang-11 |
+| dc11-g14 | develop | clang | 11 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-11 |
+| mc11-g14 | master | clang | 11 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-11 |
 | dc11-11 | develop | clang | 11 | -std=c++11 | teeks99/boost-cpp-docker:clang-11 |
 | mc11-11 | master | clang | 11 | -std=c++11 | teeks99/boost-cpp-docker:clang-11 |
 | dc11-g11 | develop | clang | 11 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-11 |
@@ -228,18 +230,20 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mc11-warn | master | clang | 11 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-11 |
 | dc11-20-lc | develop | clang | 11 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-11 |
 | mc11-20-lc | master | clang | 11 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-11 |
-| dc12 | develop | clang | 12 | -std=c++17 | teeks99/boost-cpp-docker:clang-12 |
-| mc12 | master | clang | 12 | -std=c++17 | teeks99/boost-cpp-docker:clang-12 |
+| dc12 | develop | clang | 12 | -std=c++20 | teeks99/boost-cpp-docker:clang-12 |
+| mc12 | master | clang | 12 | -std=c++20 | teeks99/boost-cpp-docker:clang-12 |
 | dc12-20 | develop | clang | 12 | -std=c++20 | teeks99/boost-cpp-docker:clang-12 |
 | mc12-20 | master | clang | 12 | -std=c++20 | teeks99/boost-cpp-docker:clang-12 |
-| dc12-14 | develop | clang | 12 | -std=c++14 | teeks99/boost-cpp-docker:clang-12 |
-| mc12-14 | master | clang | 12 | -std=c++14 | teeks99/boost-cpp-docker:clang-12 |
-| dc12-g14 | develop | clang | 12 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-12 |
-| mc12-g14 | master | clang | 12 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-12 |
+| dc12-g20 | develop | clang | 12 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-12 |
+| mc12-g20 | master | clang | 12 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-12 |
 | dc12-17 | develop | clang | 12 | -std=c++17 | teeks99/boost-cpp-docker:clang-12 |
 | mc12-17 | master | clang | 12 | -std=c++17 | teeks99/boost-cpp-docker:clang-12 |
 | dc12-g17 | develop | clang | 12 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-12 |
 | mc12-g17 | master | clang | 12 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-12 |
+| dc12-14 | develop | clang | 12 | -std=c++14 | teeks99/boost-cpp-docker:clang-12 |
+| mc12-14 | master | clang | 12 | -std=c++14 | teeks99/boost-cpp-docker:clang-12 |
+| dc12-g14 | develop | clang | 12 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-12 |
+| mc12-g14 | master | clang | 12 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-12 |
 | dc12-11 | develop | clang | 12 | -std=c++11 | teeks99/boost-cpp-docker:clang-12 |
 | mc12-11 | master | clang | 12 | -std=c++11 | teeks99/boost-cpp-docker:clang-12 |
 | dc12-g11 | develop | clang | 12 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-12 |

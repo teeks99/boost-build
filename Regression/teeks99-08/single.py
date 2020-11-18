@@ -13,9 +13,16 @@ import threading
 import datetime
 import tempfile
 import string
-import cgi
 import multiprocessing
 import platform
+
+escape = None
+import cgi
+if hasattr(cgi, "escape"):
+    escape = cgi.escape
+else:
+    import html
+    escape = html.escape
 
 NO_DOWNLOAD_SOURCE = "run_script"
 
@@ -117,11 +124,11 @@ class Run(object):
             'cores': str(multiprocessing.cpu_count()),
             'arch': platform.machine(),
             'os': platform.platform(),
-            'user_config': cgi.escape(tool_versions.user_config()),
-            'site_config': cgi.escape(tool_versions.site_config()),
-            'compiler_versions': cgi.escape(tool_versions.build_version_string()),
-            'python_version': cgi.escape(tool_versions.python_version()),
-            'git_version': cgi.escape(tool_versions.git_version()),
+            'user_config': escape(tool_versions.user_config()),
+            'site_config': escape(tool_versions.site_config()),
+            'compiler_versions': escape(tool_versions.build_version_string()),
+            'python_version': escape(tool_versions.python_version()),
+            'git_version': escape(tool_versions.git_version()),
             'docker_image_info': ''}
 
         if 'docker_image_info' in self.config:

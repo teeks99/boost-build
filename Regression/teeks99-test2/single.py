@@ -13,7 +13,18 @@ import threading
 import datetime
 import tempfile
 import string
+import multiprocessing
+import platform
+
+escape = None
 import cgi
+if hasattr(cgi, "escape"):
+    escape = cgi.escape
+else:
+    import html
+    escape = html.escape
+
+NO_DOWNLOAD_SOURCE = "run_script"
 
 PY3 = sys.version_info[0] == 3
 
@@ -67,6 +78,7 @@ class Run(object):
 
         self.config = config
         self.machine = machine
+        self.runner_machine = self.machine["machine"]
         self.start_dir = os.getcwd()
         self.run_dir = os.path.join(self.start_dir, 'run')
 
@@ -95,19 +107,28 @@ class Run(object):
         with open('../info.html.template', 'r') as info_template_file:
             info_template = string.Template(info_template_file.read())
 
+        if 'docker_img' in self.config:
+            self.runner_machine = "teeks99-dkr"
+            self.runner_config = self.runner_machine + \
+                '-' + self.config['id']
+        else:
+            self.runner_config = self.runner_machine + \
+                '-' + self.config['id'] + '-' + \
+                self.config['arch'] + "on" + platform.machine()
+
         mapping = {
-            'machine': self.machine['machine'],
-            'runner': self.config['id'],
+            'machine': self.runner_machine,
+            'id': self.config['id'],
             'setup': self.machine['setup'],
             'ram': self.machine['ram'],
-            'cores': self.machine['procs'],
-            'arch': self.machine['os_arch'],
-            'os': self.machine['os'],
-            'user_config': cgi.escape(tool_versions.user_config()),
-            'site_config': cgi.escape(tool_versions.site_config()),
-            'compiler_versions': cgi.escape(tool_versions.build_version_string()),
-            'python_version': cgi.escape(tool_versions.python_version()),
-            'git_version': cgi.escape(tool_versions.git_version()),
+            'cores': str(multiprocessing.cpu_count()),
+            'arch': platform.machine(),
+            'os': platform.platform(),
+            'user_config': escape(tool_versions.user_config()),
+            'site_config': escape(tool_versions.site_config()),
+            'compiler_versions': escape(tool_versions.build_version_string()),
+            'python_version': escape(tool_versions.python_version()),
+            'git_version': escape(tool_versions.git_version()),
             'docker_image_info': ''}
 
         if 'docker_image_info' in self.config:
@@ -125,7 +146,9 @@ class Run(object):
         self.clean_and_make_tmp()
         self.make_info()
 
-        self.copy_repo()
+        if not 'source' in self.machine or not self.machine['source'] == NO_DOWNLOAD_SOURCE:
+            self.copy_repo()
+
         shutil.copy2('../run.py', './')
 
         other_options = ''
@@ -138,13 +161,11 @@ class Run(object):
         if 'python_interpreter' in self.machine:
             py_int = self.machine['python_interpreter']
 
-        command = [py_int, 'run.py', '--runner=' + self.machine['machine'] +
-            '-' + self.config['id'] + '-' + self.machine['os'] + '-' +
-            self.config['arch'] + "on" + self.machine['os_arch'], '--toolsets=' +
-            self.config['compilers'], '--bjam-options=-j' +
-            str(self.machine['procs']) + ' address-model=' + self.config['arch'] +
-            ' --remove-test-targets' + other_options, '--comment=info.html',
-            '--tag=' + self.config['branch']]
+        command = [py_int, 'run.py', '--runner=' + self.runner_config,
+             '--toolsets=' +  self.config['compilers'], '--bjam-options=-j' +
+            str(self.machine['procs']) + ' address-model=' +
+            self.config['arch'] + ' --remove-test-targets' + other_options,
+            '--comment=info.html', '--tag=' + self.config['branch']]
 
         # Output the command to the screen before running it
         cmd_str = ""
@@ -181,7 +202,6 @@ class Run(object):
                          '-results-bjam.log')
 
         os.chdir(self.start_dir)
-
 
 
 # For running standalone, typically in docker.

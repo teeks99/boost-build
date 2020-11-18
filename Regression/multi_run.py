@@ -45,6 +45,7 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run_id = None
+        self.docker_image_updates = {}
 
     def _set_ids(self):
         for key, val in self.machine['runs'].items():
@@ -108,10 +109,21 @@ class Runner(object):
 
     def update_docker_img(self, run_config):
         if 'docker_img' in run_config:
-            subprocess.call('docker pull ' + run_config['docker_img'],
-                            shell=True)
+            img_name = run_config['docker_img']
 
-            p = subprocess.Popen('docker images ' + run_config['docker_img'] + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - {{.ID}}" --no-trunc', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            diu = self.docker_image_updates
+            one_day = datetime.timedelta(days=1)
+            if img_name in diu and \
+                datetime.datetime.now() - diu[img_name] > one_day:
+
+                subprocess.call('docker pull ' + img_name, shell=True)
+                diu[img_name] = datetime.datetime.now()
+
+            p = subprocess.Popen(
+                'docker images ' + img_name
+                + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - '
+                + '{{.ID}}" --no-trunc', stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE, shell=True)
             out, err = p.communicate()
             run_config['docker_image_info'] = out
 

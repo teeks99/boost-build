@@ -45,6 +45,7 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run_id = None
+        self.docker_image_updates = {}
 
     def _set_ids(self):
         for key, val in self.machine['runs'].items():
@@ -76,13 +77,15 @@ class Runner(object):
         run_config = self.runs[self.current_run_id].copy()
         run_config['order_index'] = order_index
         run_config['start_time'] = start_str
-        run_config['run_dir'] = run_dir
-
         if not self.machine["source"] == single.NO_DOWNLOAD_SOURCE:
             self.update_base_repo(run_config['branch'])
 
-        my_rmtree(run_dir)
-        os.mkdir(run_dir)
+        if 'docker_run_inside' in run_config:
+            run_config['run_dir'] = run_config['docker_run_inside']
+        else:
+            run_config['run_dir'] = run_dir
+            my_rmtree(run_dir)
+            os.mkdir(run_dir)
 
         self.update_docker_img(run_config)
 
@@ -99,6 +102,17 @@ class Runner(object):
             docker_cmd += ' /bin/bash /var/boost/inside.bash'
             print(docker_cmd)
             subprocess.call(docker_cmd, shell=True)
+        elif 'docker_win_img' in run_config:
+            docker_cmd = 'docker run -v ' + os.getcwd()
+            docker_cmd += ':C:/boost'
+            if "docker_cpu_quota" in self.machine:
+                docker_cmd += ' --cpu-quota '
+                docker_cmd += str(self.machine['docker_cpu_quota'])
+            docker_cmd += ' --rm -i -t '
+            docker_cmd += run_config['docker_win_img']
+            docker_cmd += 'C:/boost/inside.bat'
+            print(docker_cmd)
+            subprocess.call(docker_cmd, shell=True)        
         else:
             run = single.Run(config=run_config, machine=self.machine)
             run.process()
@@ -107,11 +121,26 @@ class Runner(object):
         return order_index
 
     def update_docker_img(self, run_config):
-        if 'docker_img' in run_config:
-            subprocess.call('docker pull ' + run_config['docker_img'],
-                            shell=True)
+        if 'docker_img' in run_config or 'docker_win_img' in run_config:
+            img_name = None
+            if 'docker_img' in run_config:
+                img_name = run_config['docker_img']
+            else:
+                img_name = run_config['docker_win_img']
 
-            p = subprocess.Popen('docker images ' + run_config['docker_img'] + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - {{.ID}}" --no-trunc', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            diu = self.docker_image_updates
+            one_day = datetime.timedelta(days=1)
+            if img_name in diu and \
+                datetime.datetime.now() - diu[img_name] > one_day:
+
+                subprocess.call('docker pull ' + img_name, shell=True)
+                diu[img_name] = datetime.datetime.now()
+
+            p = subprocess.Popen(
+                'docker images ' + img_name
+                + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - '
+                + '{{.ID}}" --no-trunc', stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE, shell=True)
             out, err = p.communicate()
             run_config['docker_image_info'] = out
 

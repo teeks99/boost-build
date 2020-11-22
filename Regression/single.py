@@ -164,8 +164,9 @@ class Run(object):
         command = [py_int, 'run.py', '--runner=' + self.runner_config,
              '--toolsets=' +  self.config['compilers'], '--bjam-options=-j' +
             str(self.machine['procs']) + ' address-model=' +
-            self.config['arch'] + ' --remove-test-targets' + other_options,
-            '--comment=info.html', '--tag=' + self.config['branch']]
+            self.config['arch'] + ' debug-symbols=off --remove-test-targets' +
+            other_options, '--comment=info.html',
+            '--tag=' + self.config['branch']]
 
         # Output the command to the screen before running it
         cmd_str = ""

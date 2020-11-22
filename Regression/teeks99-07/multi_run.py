@@ -142,7 +142,7 @@ class Runner(object):
                 + '{{.ID}}" --no-trunc', stdout=subprocess.PIPE, 
                 stderr=subprocess.PIPE, shell=True)
             out, err = p.communicate()
-            run_config['docker_image_info'] = out
+            run_config['docker_image_info'] = out.decode()
 
     def check_for_stop(self):
         if os.path.exists(self.start_dir + "/stop_runs.on"):

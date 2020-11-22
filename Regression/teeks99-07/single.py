@@ -183,7 +183,7 @@ class Run(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        output_path = os.path.join(script_dir, logs, 
+        output_path = os.path.join(script_dir, "logs", 
                                    self.config['id'] + '-output.log')
         with open(output_path, 'wb') as log_file:
             log_file.write('Running command:\n:'.encode())
@@ -205,7 +205,7 @@ class Run(object):
             stderrThread.join()
 
         if os.path.isfile('results/bjam.log'):
-            result_path = os.path.join(script_dir, logs, self.config['id'] +
+            result_path = os.path.join(script_dir, "logs", self.config['id'] +
                                        '-results-bjam.log')
             shutil.copy2('results/bjam.log', result_path)
 

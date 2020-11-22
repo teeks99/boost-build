@@ -110,7 +110,7 @@ class Runner(object):
                 docker_cmd += str(self.machine['docker_cpu_quota'])
             docker_cmd += ' --rm -i -t '
             docker_cmd += run_config['docker_win_img']
-            docker_cmd += 'C:/boost/inside.bat'
+            docker_cmd += ' cmd /c C:/boost/inside.bat'
             print(docker_cmd)
             subprocess.call(docker_cmd, shell=True)        
         else:

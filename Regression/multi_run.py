@@ -226,7 +226,13 @@ if __name__ == '__main__':
 
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
+        # Numerical Index
         run_id = sys.argv[1]
+
+        # Lookup the name 
+        if sys.argv[1] in r.run_order:
+            run_id = r.run_order.index(sys.argv[1])
+
         r.run_one(run_id)
     else:
         r.cleanup = True

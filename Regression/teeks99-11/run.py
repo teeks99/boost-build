@@ -15,44 +15,16 @@ import urllib
 ### ----------------------------- Unique --------------------------------------
 # Needed for running on GCC build farm
 import ssl
+tls_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+tls_context.load_verify_locations(cafile='/etc/ssl/certs/ca-certificates.crt')
 
-# Patch SSL to load correct cafile
-debian_cafile='/etc/ssl/certs/ca-certificates.crt'
+keep_urllib_urlopen = urllib.urlopen
 
-def patch_create_default_context(purpose=ssl.Purpose.SERVER_AUTH,
-                           cafile=debian_cafile,
-                           capath=None, cadata=None):
-    """Create a SSLContext object with default settings.
-    NOTE: The protocol and settings may change anytime without prior
-          deprecation. The values represent a fair balance between maximum
-          compatibility and security.
-    """
-    if not isinstance(purpose, ssl._ASN1Object):
-        raise TypeError(purpose)
+def patch_urlopen(url, data=None, proxies=None, context=tls_context):
+    keep_urllib_urlopen(url, data, proxies, context)
 
-    # SSLContext sets OP_NO_SSLv2, OP_NO_SSLv3, OP_NO_COMPRESSION,
-    # OP_CIPHER_SERVER_PREFERENCE, OP_SINGLE_DH_USE and OP_SINGLE_ECDH_USE
-    # by default.
-    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+urllib.urlopen = patch_urlopen
 
-    if purpose == ssl.Purpose.SERVER_AUTH:
-        # verify certs and host name in client mode
-        context.verify_mode = ssl.CERT_REQUIRED
-        context.check_hostname = True
-    elif purpose == ssl.Purpose.CLIENT_AUTH:
-        context.set_ciphers(ssl._RESTRICTED_SERVER_CIPHERS)
-
-    if cafile or capath or cadata:
-        context.load_verify_locations(cafile, capath, cadata)
-    elif context.verify_mode != ssl.CERT_NONE:
-        # no explicit cafile, capath or cadata but the verify mode is
-        # CERT_OPTIONAL or CERT_REQUIRED. Let's try to load default system
-        # root CA certificates for the given purpose. This may fail silently.
-        context.load_default_certs(purpose)
-    return context
-
-keep_ssl_create_default_context = ssl.create_default_context
-ssl.create_default_context = patch_create_default_context
 ### -----------------------------End Unique -----------------------------------
 
 #~ Using --skip-script-download is useful to avoid repeated downloading of
@@ -104,7 +76,7 @@ if not no_update:
                 break
         for src in script_sources:
             #urllib.FancyURLopener(proxy).retrieve(
-            urllib.FancyURLopener(proxy).retrieve(
+            urllib.FancyURLopener(proxy, context=tls_context).retrieve(
                 '%s/%s' % (script_remote,src), os.path.join(script_dir,src) )
 
 #~ * Make the scripts available to Python

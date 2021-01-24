@@ -104,7 +104,7 @@ if not no_update:
                 break
         for src in script_sources:
             #urllib.FancyURLopener(proxy).retrieve(
-            urllib.FancyURLopener(proxy, context=tls_context).retrieve(
+            urllib.FancyURLopener(proxy).retrieve(
                 '%s/%s' % (script_remote,src), os.path.join(script_dir,src) )
 
 #~ * Make the scripts available to Python

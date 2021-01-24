@@ -1,26 +1,40 @@
 {
-     "machine":"teeks99-07",
-     "os":"win2019",
-     "os_arch":"64",
-     "procs":8,
-     "ram":"16GB",
-     "setup":"Azure F8 VM",
-     "other_options":"--abbreviate-paths",
-     "python_interpreter": "C:/Python27-64/python.exe",
-     "source":"run_script",
-     "runs":{
-         "v16d":{"id":"v16d", "branch":"develop", "arch":"64", "compilers":"msvc-14.2", 
-              "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run"},
-         "v16m":{"id":"v16m", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
-              "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run"},
-         "v16dl":{"id":"v16l", "branch":"develop", "arch":"64", "compilers":"msvc-14.2",
-              "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run",
-              "other_options":"cxxflags=/std:c++latest"},
-         "v16ml":{"id":"v16l", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
-              "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run",
-              "other_options":"cxxflags=/std:c++latest"}
-     },
-     "run_order":[
-         "v16d", "v16m", "v16dl", "v16ml"]
+    "machine":"teeks99-07",
+    "os":"win2019",
+    "os_arch":"64",
+    "procs":8,
+    "ram":"16GB",
+    "setup":"Azure F8 VM",
+    "other_options":"--abbreviate-paths",
+    "python_interpreter": "C:/Python27-64/python.exe",
+    "source":"run_script",
+    "runs":{
+        "v14d":{"id":"v14d", "branch":"develop", "arch":"64", "compilers":"msvc-14.0", 
+            "docker_win_img":"teeks99/boost-msvc:14.0", "docker_run_inside":"C:/run"},
+        "v14m":{"id":"v14m", "branch":"master", "arch":"64", "compilers":"msvc-14.0",
+            "docker_win_img":"teeks99/boost-msvc:14.0", "docker_run_inside":"C:/run"},
+        "v15d":{"id":"v15d", "branch":"develop", "arch":"64", "compilers":"msvc-14.1", 
+            "docker_win_img":"teeks99/boost-msvc:14.1", "docker_run_inside":"C:/run"},
+        "v15m":{"id":"v15m", "branch":"master", "arch":"64", "compilers":"msvc-14.1",
+            "docker_win_img":"teeks99/boost-msvc:14.1", "docker_run_inside":"C:/run"},
+        "v15dl":{"id":"v15dl", "branch":"develop", "arch":"64", "compilers":"msvc-14.1",
+            "docker_win_img":"teeks99/boost-msvc:14.1", "docker_run_inside":"C:/run",
+            "other_options":"cxxflags=/std:c++latest"},
+        "v15ml":{"id":"v15ml", "branch":"master", "arch":"64", "compilers":"msvc-14.1",
+            "docker_win_img":"teeks99/boost-msvc:14.1", "docker_run_inside":"C:/run",
+            "other_options":"cxxflags=/std:c++latest"},
+        "v16d":{"id":"v16d", "branch":"develop", "arch":"64", "compilers":"msvc-14.2", 
+            "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run"},
+        "v16m":{"id":"v16m", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
+            "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run"},
+        "v16dl":{"id":"v16dl", "branch":"develop", "arch":"64", "compilers":"msvc-14.2",
+            "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run",
+            "other_options":"cxxflags=/std:c++latest"},
+        "v16ml":{"id":"v16ml", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
+            "docker_win_img":"teeks99/boost-msvc:14.2", "docker_run_inside":"C:/run",
+            "other_options":"cxxflags=/std:c++latest"}
+    },
+    "run_order":[
+        "v14d", "v14m", "v15d", "v15m", "v15dl", "v15ml", "v16d", "v16m", "v16dl", "v16ml"]
  }
  

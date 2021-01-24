@@ -19,7 +19,7 @@ import ssl
 # Patch SSL to load correct cafile
 debian_cafile='/etc/ssl/certs/ca-certificates.crt'
 
-def patch_create_default_context(purpose=Purpose.SERVER_AUTH,
+def patch_create_default_context(purpose=ssl.Purpose.SERVER_AUTH,
                            cafile=debian_cafile,
                            capath=None, cadata=None):
     """Create a SSLContext object with default settings.
@@ -27,24 +27,24 @@ def patch_create_default_context(purpose=Purpose.SERVER_AUTH,
           deprecation. The values represent a fair balance between maximum
           compatibility and security.
     """
-    if not isinstance(purpose, _ASN1Object):
+    if not isinstance(purpose, ssl._ASN1Object):
         raise TypeError(purpose)
 
     # SSLContext sets OP_NO_SSLv2, OP_NO_SSLv3, OP_NO_COMPRESSION,
     # OP_CIPHER_SERVER_PREFERENCE, OP_SINGLE_DH_USE and OP_SINGLE_ECDH_USE
     # by default.
-    context = SSLContext(PROTOCOL_TLS)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
 
-    if purpose == Purpose.SERVER_AUTH:
+    if purpose == ssl.Purpose.SERVER_AUTH:
         # verify certs and host name in client mode
-        context.verify_mode = CERT_REQUIRED
+        context.verify_mode = ssl.CERT_REQUIRED
         context.check_hostname = True
-    elif purpose == Purpose.CLIENT_AUTH:
-        context.set_ciphers(_RESTRICTED_SERVER_CIPHERS)
+    elif purpose == ssl.Purpose.CLIENT_AUTH:
+        context.set_ciphers(ssl._RESTRICTED_SERVER_CIPHERS)
 
     if cafile or capath or cadata:
         context.load_verify_locations(cafile, capath, cadata)
-    elif context.verify_mode != CERT_NONE:
+    elif context.verify_mode != ssl.CERT_NONE:
         # no explicit cafile, capath or cadata but the verify mode is
         # CERT_OPTIONAL or CERT_REQUIRED. Let's try to load default system
         # root CA certificates for the given purpose. This may fail silently.

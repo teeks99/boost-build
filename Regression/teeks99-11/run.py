@@ -21,7 +21,7 @@ tls_context.load_verify_locations(cafile='/etc/ssl/certs/ca-certificates.crt')
 keep_urllib_urlopen = urllib.urlopen
 
 def patch_urlopen(url, data=None, proxies=None, context=tls_context):
-    keep_urllib_urlopen(url, data, proxies, context)
+    return keep_urllib_urlopen(url, data, proxies, context)
 
 urllib.urlopen = patch_urlopen
 

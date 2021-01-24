@@ -1,0 +1,17 @@
+{
+    "machine":"teeks99-05",
+    "os":"Debian Sid",
+    "os_arch":"sparc64",
+    "procs":16,
+    "ram":"64GB",
+    "setup":"GCC Compile Farm - gcc102",
+    "runs":{
+        "dg10-20":{"branch":"develop", "arch":"64", "compilers":"gcc-10~c++20"},
+        "mg10-20":{"branch":"master", "arch":"64", "compilers":"gcc-10~c++20"},
+        "dc11-20":{"branch":"develop", "arch":"64", "compilers":"clang-11~c++20~lc"},
+        "mc11-20":{"branch":"master", "arch":"64", "compilers":"clang-11~c++20~lc"}
+    },
+    "run_order":[
+        "dg10-20", "mg10-20", "dc11-20", "mc11-20"
+    ]
+}

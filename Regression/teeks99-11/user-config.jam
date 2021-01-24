@@ -1,0 +1,21 @@
+using gcc : 10 : g++-10 : ;
+using gcc : 10~c++20 : g++-10 : <cxxflags>"-std=c++20" ;
+
+using clang : 11 : clang++-11 : <cxxflags>"-Wno-c99-extensions" ;
+using clang : 11~c++20~lc : clang++-11 : <cxxflags>"-Wno-c99-extensions -std=c++20 -stdlib=libc++ -isystem/usr/include/libcxxabi" <linkflags>"-stdlib=libc++ -lc++abi" ;
+
+using python
+: 2.7 # version
+: # Interpreter/path to dir
+: /usr/include/python2.7 # includes
+: /usr/lib/sparc64-linux-gnu # libs
+: # conditions
+;
+
+using python
+: 3.9 # version
+: # Interpreter/path to dir
+: /usr/include/python3.9 # includes
+: /usr/lib/sparc64-linux-gnu # libs
+: # conditions
+;

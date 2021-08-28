@@ -3,7 +3,7 @@
 </head>
 <body>
 <h1>Tom Kent - machine: ${machine} id: ${id}</h1>
-<p>Contact me: teeks99@yahoo.com, 314-266-8359</p>
+<p>Contact me: tom@teeks99.com, 314-266-8359</p>
 <p>This runner is on a ${setup}.  Its has ${ram} of ram and ${cores} cores.<br/>
 This is running the ${arch}-bit version of ${os}. 
 </p><p>

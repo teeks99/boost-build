@@ -9,11 +9,11 @@
     "python_interpreter": "C:/Python27-64/python.exe",
     "source":"run_script",
     "runs":{
-        "v17d":{"id":"v16d", "branch":"develop", "arch":"64", "compilers":"msvc-14.2"},
-        "v17m":{"id":"v16m", "branch":"master", "arch":"64", "compilers":"msvc-14.2"},
-        "v17dl":{"id":"v16dl", "branch":"develop", "arch":"64", "compilers":"msvc-14.2",
+        "v17d":{"id":"v17d", "branch":"develop", "arch":"64", "compilers":"msvc-14.3"},
+        "v17m":{"id":"v17m", "branch":"master", "arch":"64", "compilers":"msvc-14.3"},
+        "v17dl":{"id":"v17dl", "branch":"develop", "arch":"64", "compilers":"msvc-14.3",
             "other_options":"cxxflags=/std:c++latest"},
-        "v17ml":{"id":"v16ml", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
+        "v17ml":{"id":"v17ml", "branch":"master", "arch":"64", "compilers":"msvc-14.3",
             "other_options":"cxxflags=/std:c++latest"}
     },
     "run_order":[

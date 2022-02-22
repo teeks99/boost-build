@@ -1,12 +1,12 @@
 {
     "machine":"teeks99-09",
-    "os":"win2019",
+    "os":"win2022",
     "os_arch":"64",
     "procs":8,
-    "ram":"14GB",
-    "setup":"QEMU/KVM VM",
+    "ram":"16GB",
+    "setup":"Hardware",
     "other_options":"--abbreviate-paths",
-    "tmpdir":"D:/temp/boost",
+    "tmpdir":"C:/temp/boost",
     "python_interpreter": "C:/Python27-64/python.exe",
     "source":"run_script",
     "runs":{
@@ -33,11 +33,18 @@
         "v16dl":{"id":"v16l", "branch":"develop", "arch":"64", "compilers":"msvc-14.2",
              "other_options":"cxxflags=/std:c++latest"},
         "v16ml":{"id":"v16l", "branch":"master", "arch":"64", "compilers":"msvc-14.2",
+             "other_options":"cxxflags=/std:c++latest"},
+        "v17d":{"id":"v17d", "branch":"develop", "arch":"64", "compilers":"msvc-14.3"},
+        "v17m":{"id":"v17m", "branch":"master", "arch":"64", "compilers":"msvc-14.3"},
+        "v17dl":{"id":"v17l", "branch":"develop", "arch":"64", "compilers":"msvc-14.3",
+             "other_options":"cxxflags=/std:c++latest"},
+        "v17ml":{"id":"v17l", "branch":"master", "arch":"64", "compilers":"msvc-14.3",
              "other_options":"cxxflags=/std:c++latest"}
     },
     "run_order":[
         "v10d", "v10m", "v11d", "v11m", "v12d", "v12m",
         "v14d", "v14m",
         "v15d", "v15m",
-        "v16d", "v16m", "v16dl", "v16ml"]
+        "v16d", "v16m",
+        "v17d", "v17m", "v17dl", "v17ml"]
 }

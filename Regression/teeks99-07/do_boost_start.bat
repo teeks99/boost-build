@@ -1,1 +1,1 @@
-C:\Python37-64\python.exe multi_run.py
+python.exe multi_run.py

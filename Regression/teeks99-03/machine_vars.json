@@ -8,6 +8,6 @@
     "runs":"linux_docker_configs.json",
     "source":"run_script",
     "run_order":[
-        "dg12-20", "mg12-20", "dc12-20", "mc12-20"
+        "dg12-20", "mg12-20", "dc13-20", "mc13-20"
     ]
 }

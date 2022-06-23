@@ -157,7 +157,8 @@ class Run(object):
         if 'other_options' in self.machine:
             other_options += ' ' + self.machine['other_options']
 
-        py_int = 'python'
+        # Default to normal python on windows, linux specify in machine vars
+        py_int = 'python' 
         if 'python_interpreter' in self.machine:
             py_int = self.machine['python_interpreter']
 

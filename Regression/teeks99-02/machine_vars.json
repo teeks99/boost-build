@@ -7,6 +7,7 @@
     "setup":"Docker Ubuntu16.04",
     "runs":"linux_docker_configs.json",
     "source":"run_script",
+    "python_interpreter": "python2.7",
     "run_order":[
         "dg12-20", "mg12-20", "dc13-20", "mc13-20",
 

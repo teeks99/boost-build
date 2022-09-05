@@ -1,6 +1,6 @@
 {
     "machine":"teeks99-07",
-    "os":"win2019",
+    "os":"win2022",
     "os_arch":"64",
     "procs":16,
     "ram":"32GB",

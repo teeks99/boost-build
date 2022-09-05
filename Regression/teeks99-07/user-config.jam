@@ -1,4 +1,10 @@
+using msvc : 10.0 ;
+using msvc : 11.0 ;
+using msvc : 12.0 ;
+using msvc : 14.0 ;
+using msvc : 14.1 ;
 using msvc : 14.2 ;
+using msvc : 14.3 ;
 
 using python
 : 2.7 # version
@@ -13,6 +19,22 @@ using python
 : C:\\Python27-64\\python.exe # Interperter/path to dir
 : C:\\Python27-64\\include # includes
 : C:\\Python27-64\\libs # libs
+: <address-model>64 # conditions
+;
+
+using python
+: 3.10 # version
+: C:\\Python310-32\\python.exe # Interperter/path to dir
+: C:\\Python310-32\\include # includes
+: C:\\Python310-32\\libs # libs
+: <address-model>32 <address-model> # conditions
+;
+
+using python
+: 3.10 # version
+: C:\\Python310-64\\python.exe # Interperter/path to dir
+: C:\\Python310-64\\include # includes
+: C:\\Python310-64\\libs # libs
 : <address-model>64 # conditions
 ;
 

@@ -1,23 +1,45 @@
 Tom's Boost Regression Tests
 ============================
 
-These regression runs are automated sets of the [Boost Regression Test Suite](http://www.boost.org/development/running_regression_tests.html) that have a set of python scripts that continuously run them in a loop. 
+These regression runs are automated sets of the 
+[Boost Regression Test Suite](http://www.boost.org/development/running_regression_tests.html) that have a set of 
+python scripts that continuously run them in a loop. 
+
+The results are available here:
+
+*   [mainline branch](https://www.boost.org/development/tests/master/developer/summary.html)
+*   [develop branch](https://www.boost.org/development/tests/develop/developer/summary.html)
 
 Each set of runs is controlled by its respective `machine_vars.json` file. 
 
 Linux Regression Configurations
 -------------------------------
 
-On Linux we run versions of GCC (4.4 - 7) and Clang (3.0 - 6). 
+On Linux we run versions of GCC (4.4 - 12) and Clang (3.0 - 16). 
 
-Linux runs are executed within docker. The various docker images that are use can be found in the corresponding [Docker](http://github.com/teeks99/boost-cpp-docker) repo. They all run on the Ubuntu image for the LTS OS version that was in common use at the time of the compiler release. Each of these images has multiple compiler configurations defined in its `user-config.jam` file. There are too many configurations of compiler + switches to run tests against all the combinations.
+Linux runs are executed within docker. The various docker images that are use can be found in the corresponding 
+[Docker](http://github.com/teeks99/boost-cpp-docker) repo. They all run on the Ubuntu image for the LTS OS version that 
+was in common use at the time of the compiler release. Each of these images has multiple compiler configurations 
+defined in its `user-config.jam` file. There are too many configurations of compiler + switches to run tests against 
+all the combinations.
 
-In general, the teeks99-02 tester will run the most common switches option for each of the compilers against both the development and master branches. Then for the most recent version of each compiler only it will perform a run against each of the enumerated switch options against both develop and master. In total, this is nearly 100 configurations, each taking between 0.9 and 1.6 hours to execute. This results in a revist time for any single configuration of approximately five days. So that developers can have some results quicker, every approximately ten runs, the order will be paused and four runs will be executed consisiting of the latest version of each compiler, with the most common switches, against each of develop and master.
+In general, the teeks99-02 tester will run the most common switches option for each of the compilers against both the 
+development and master branches. Then for the most recent version of each compiler only it will perform a run against 
+each of the enumerated switch options against both develop and master. In total, this is nearly 100 configurations, 
+each taking between 0.9 and 1.6 hours to execute. This results in a revist time for any single configuration of 
+approximately five days. So that developers can have some results quicker, every approximately ten runs, the order will 
+be paused and four runs will be executed consisiting of the latest version of each compiler, with the most common 
+switches, against each of develop and master.
 
-As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provide rapid results to developers when they commit changes. This runner only has four configurations, the latest version of each of GCC and Clang with their most common switches, running against master and develop. This should ensure that a developer can see the results of their commit against a current GCC or Clang within three hours (plus a bit extra for the report to generate). 
+As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provide rapid results to developers when 
+they commit changes. This runner only has four configurations, the latest version of each of GCC and Clang with their 
+most common switches, running against master and develop. This should ensure that a developer can see the results of 
+their commit against a current GCC or Clang within three hours (plus a bit extra for the report to generate). 
 
 ${linux_table}
 
 
 Windows Regression Configurations
 ---------------------------------
+
+The teeks99-09 tester will cycle through the various visual studio configurations msvc-10.0 through msvc-14.3.

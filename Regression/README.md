@@ -1,20 +1,40 @@
 Tom's Boost Regression Tests
 ============================
 
-These regression runs are automated sets of the [Boost Regression Test Suite](http://www.boost.org/development/running_regression_tests.html) that have a set of python scripts that continuously run them in a loop. 
+These regression runs are automated sets of the 
+[Boost Regression Test Suite](http://www.boost.org/development/running_regression_tests.html) that have a set of 
+python scripts that continuously run them in a loop. 
+
+The results are available here:
+
+*   [mainline branch](https://www.boost.org/development/tests/master/developer/summary.html)
+*   [develop branch](https://www.boost.org/development/tests/develop/developer/summary.html)
 
 Each set of runs is controlled by its respective `machine_vars.json` file. 
 
 Linux Regression Configurations
 -------------------------------
 
-On Linux we run versions of GCC (4.4 - 7) and Clang (3.0 - 6). 
+On Linux we run versions of GCC (4.4 - 12) and Clang (3.0 - 16). 
 
-Linux runs are executed within docker. The various docker images that are use can be found in the corresponding [Docker](http://github.com/teeks99/boost-cpp-docker) repo. They all run on the Ubuntu image for the LTS OS version that was in common use at the time of the compiler release. Each of these images has multiple compiler configurations defined in its `user-config.jam` file. There are too many configurations of compiler + switches to run tests against all the combinations.
+Linux runs are executed within docker. The various docker images that are use can be found in the corresponding 
+[Docker](http://github.com/teeks99/boost-cpp-docker) repo. They all run on the Ubuntu image for the LTS OS version that 
+was in common use at the time of the compiler release. Each of these images has multiple compiler configurations 
+defined in its `user-config.jam` file. There are too many configurations of compiler + switches to run tests against 
+all the combinations.
 
-In general, the teeks99-02 tester will run the most common switches option for each of the compilers against both the development and master branches. Then for the most recent version of each compiler only it will perform a run against each of the enumerated switch options against both develop and master. In total, this is nearly 100 configurations, each taking between 0.9 and 1.6 hours to execute. This results in a revist time for any single configuration of approximately five days. So that developers can have some results quicker, every approximately ten runs, the order will be paused and four runs will be executed consisiting of the latest version of each compiler, with the most common switches, against each of develop and master.
+In general, the teeks99-02 tester will run the most common switches option for each of the compilers against both the 
+development and master branches. Then for the most recent version of each compiler only it will perform a run against 
+each of the enumerated switch options against both develop and master. In total, this is nearly 100 configurations, 
+each taking between 0.9 and 1.6 hours to execute. This results in a revist time for any single configuration of 
+approximately five days. So that developers can have some results quicker, every approximately ten runs, the order will 
+be paused and four runs will be executed consisiting of the latest version of each compiler, with the most common 
+switches, against each of develop and master.
 
-As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provide rapid results to developers when they commit changes. This runner only has four configurations, the latest version of each of GCC and Clang with their most common switches, running against master and develop. This should ensure that a developer can see the results of their commit against a current GCC or Clang within three hours (plus a bit extra for the report to generate). 
+As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provide rapid results to developers when 
+they commit changes. This runner only has four configurations, the latest version of each of GCC and Clang with their 
+most common switches, running against master and develop. This should ensure that a developer can see the results of 
+their commit against a current GCC or Clang within three hours (plus a bit extra for the report to generate). 
 
 | Name | Branch | Compiler | Version | Flags | Docker Image |
 | ---- | ------ | -------- | ------- | ----- | ------------ |
@@ -146,6 +166,32 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mg11-opt | master | gcc | 11 | -std=c++20 -O2 | teeks99/boost-cpp-docker:gcc-11 |
 | dg11-warn | develop | gcc | 11 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:gcc-11 |
 | mg11-warn | master | gcc | 11 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:gcc-11 |
+| dg12 | develop | gcc | 12 | -std=c++17 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12 | master | gcc | 12 | -std=c++17 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-14 | develop | gcc | 12 | -std=c++14 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-14 | master | gcc | 12 | -std=c++14 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-g14 | develop | gcc | 12 | -std=gnu++14 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-g14 | master | gcc | 12 | -std=gnu++14 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-17 | develop | gcc | 12 | -std=c++17 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-17 | master | gcc | 12 | -std=c++17 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-g17 | develop | gcc | 12 | -std=gnu++17 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-g17 | master | gcc | 12 | -std=gnu++17 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-20 | develop | gcc | 12 | -std=c++20 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-20 | master | gcc | 12 | -std=c++20 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-g20 | develop | gcc | 12 | -std=gnu++20 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-g20 | master | gcc | 12 | -std=gnu++20 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-11 | develop | gcc | 12 | -std=c++11 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-11 | master | gcc | 12 | -std=c++11 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-g11 | develop | gcc | 12 | -std=gnu++11 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-g11 | master | gcc | 12 | -std=gnu++11 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-98 | develop | gcc | 12 | -std=c++98 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-98 | master | gcc | 12 | -std=c++98 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-g98 | develop | gcc | 12 | -std=gnu++98 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-g98 | master | gcc | 12 | -std=gnu++98 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-opt | develop | gcc | 12 | -std=c++20 -O2 | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-opt | master | gcc | 12 | -std=c++20 -O2 | teeks99/boost-cpp-docker:gcc-12 |
+| dg12-warn | develop | gcc | 12 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:gcc-12 |
+| mg12-warn | master | gcc | 12 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:gcc-12 |
 | dc3.4-98 | develop | clang | 3.4 | -std=c++98 | teeks99/boost-cpp-docker:clang-3.4 |
 | mc3.4-98 | master | clang | 3.4 | -std=c++98 | teeks99/boost-cpp-docker:clang-3.4 |
 | dc3.4-g98 | develop | clang | 3.4 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-3.4 |
@@ -370,8 +416,74 @@ As opposed to the teeks99-02 runner, the teeks99-03 runner is optimized to provi
 | mc14-warn | master | clang | 14 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-14 |
 | dc14-20-lc | develop | clang | 14 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-14 |
 | mc14-20-lc | master | clang | 14 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-14 |
+| dc15 | develop | clang | 15 | -std=c++20 | teeks99/boost-cpp-docker:clang-15 |
+| mc15 | master | clang | 15 | -std=c++20 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-2b | develop | clang | 15 | -std=c++2b | teeks99/boost-cpp-docker:clang-15 |
+| mc15-2b | master | clang | 15 | -std=c++2b | teeks99/boost-cpp-docker:clang-15 |
+| dc15-g2b | develop | clang | 15 | -std=gnu++2b | teeks99/boost-cpp-docker:clang-15 |
+| mc15-g2b | master | clang | 15 | -std=gnu++2b | teeks99/boost-cpp-docker:clang-15 |
+| dc15-20 | develop | clang | 15 | -std=c++20 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-20 | master | clang | 15 | -std=c++20 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-g20 | develop | clang | 15 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-g20 | master | clang | 15 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-17 | develop | clang | 15 | -std=c++17 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-17 | master | clang | 15 | -std=c++17 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-g17 | develop | clang | 15 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-g17 | master | clang | 15 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-14 | develop | clang | 15 | -std=c++14 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-14 | master | clang | 15 | -std=c++14 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-g14 | develop | clang | 15 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-g14 | master | clang | 15 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-11 | develop | clang | 15 | -std=c++11 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-11 | master | clang | 15 | -std=c++11 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-g11 | develop | clang | 15 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-g11 | master | clang | 15 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-98 | develop | clang | 15 | -std=c++98 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-98 | master | clang | 15 | -std=c++98 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-g98 | develop | clang | 15 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-g98 | master | clang | 15 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-opt | develop | clang | 15 | -std=c++20 -O2 | teeks99/boost-cpp-docker:clang-15 |
+| mc15-opt | master | clang | 15 | -std=c++20 -O2 | teeks99/boost-cpp-docker:clang-15 |
+| dc15-warn | develop | clang | 15 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-15 |
+| mc15-warn | master | clang | 15 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-15 |
+| dc15-20-lc | develop | clang | 15 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-15 |
+| mc15-20-lc | master | clang | 15 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-15 |
+| dc16 | develop | clang | 16 | -std=c++20 | teeks99/boost-cpp-docker:clang-16 |
+| mc16 | master | clang | 16 | -std=c++20 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-2b | develop | clang | 16 | -std=c++2b | teeks99/boost-cpp-docker:clang-16 |
+| mc16-2b | master | clang | 16 | -std=c++2b | teeks99/boost-cpp-docker:clang-16 |
+| dc16-g2b | develop | clang | 16 | -std=gnu++2b | teeks99/boost-cpp-docker:clang-16 |
+| mc16-g2b | master | clang | 16 | -std=gnu++2b | teeks99/boost-cpp-docker:clang-16 |
+| dc16-20 | develop | clang | 16 | -std=c++20 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-20 | master | clang | 16 | -std=c++20 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-g20 | develop | clang | 16 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-g20 | master | clang | 16 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-17 | develop | clang | 16 | -std=c++17 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-17 | master | clang | 16 | -std=c++17 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-g17 | develop | clang | 16 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-g17 | master | clang | 16 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-14 | develop | clang | 16 | -std=c++14 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-14 | master | clang | 16 | -std=c++14 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-g14 | develop | clang | 16 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-g14 | master | clang | 16 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-11 | develop | clang | 16 | -std=c++11 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-11 | master | clang | 16 | -std=c++11 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-g11 | develop | clang | 16 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-g11 | master | clang | 16 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-98 | develop | clang | 16 | -std=c++98 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-98 | master | clang | 16 | -std=c++98 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-g98 | develop | clang | 16 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-g98 | master | clang | 16 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-opt | develop | clang | 16 | -std=c++20 -O2 | teeks99/boost-cpp-docker:clang-16 |
+| mc16-opt | master | clang | 16 | -std=c++20 -O2 | teeks99/boost-cpp-docker:clang-16 |
+| dc16-warn | develop | clang | 16 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-16 |
+| mc16-warn | master | clang | 16 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-16 |
+| dc16-20-lc | develop | clang | 16 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-16 |
+| mc16-20-lc | master | clang | 16 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-16 |
 
 
 
 Windows Regression Configurations
 ---------------------------------
+
+The teeks99-09 tester will cycle through the various visual studio configurations msvc-10.0 through msvc-14.3.

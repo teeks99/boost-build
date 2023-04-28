@@ -9,6 +9,6 @@
     "source":"run_script",
     "python_interpreter": "python2.7",
     "run_order":[
-        "dg12-20", "mg12-20", "dc15-20", "mc15-20"
+        "dg13-20", "mg13-20", "dc16-20", "mc16-20"
     ]
 }

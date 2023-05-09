@@ -15,7 +15,7 @@ Each set of runs is controlled by its respective `machine_vars.json` file.
 Linux Regression Configurations
 -------------------------------
 
-On Linux we run versions of GCC (4.4 - 12) and Clang (3.0 - 16). 
+On Linux we run versions of GCC (4.4 - 14) and Clang (3.0 - 17). 
 
 Linux runs are executed within docker. The various docker images that are use can be found in the corresponding 
 [Docker](http://github.com/teeks99/boost-cpp-docker) repo. They all run on the Ubuntu image for the LTS OS version that 

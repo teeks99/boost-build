@@ -9,6 +9,7 @@
     "tmpdir":"C:/temp/boost",
     "python_interpreter": "C:/Python27-64/python.exe",
     "source":"run_script",
+    "notification": "https://hc.teeks99.com/ping/7273842f-038b-4c26-8dfe-fc0ee7459939",
     "runs":{
         "v10d":{"id":"v10d", "branch":"develop", "arch":"64", "compilers":"msvc-10.0"},
         "v10m":{"id":"v10m", "branch":"master", "arch":"64", "compilers":"msvc-10.0"},

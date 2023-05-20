@@ -8,11 +8,14 @@ import datetime
 import time
 import subprocess
 
+
 PY3 = sys.version_info[0] == 3
 
 if PY3:
+    import urllib.request
     string_types = str
 else:
+    import urllib2
     string_types = basestring
 
 def win_rmtree(directory):
@@ -104,6 +107,7 @@ class Runner(object):
             run = single.Run(config=run_config, machine=self.machine)
             run.process()
         self.log_end()
+        self.notify()
         order_index += 1
         return order_index
 
@@ -179,6 +183,17 @@ class Runner(object):
             log.write(" complete: " +
                 datetime.datetime.now().strftime('%m-%d %H:%M:%S') + "in: " +
                 duration_hrs_str + "hrs\n")
+
+    def notify(self):
+        if "notification" in self.machine:
+            result = ""
+            if PY3:
+                result = urllib.request.urlopen(
+                    self.machine["notification"]).read()
+            else:
+                result = urllib2.urlopen(self.machine["notification"]).read()
+            if result != "OK":
+                print("Bad response from notification: " + result)
 
     def update_base_repo(self, branch):
         orig_dir = os.getcwd()

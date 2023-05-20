@@ -8,6 +8,7 @@
     "runs":"linux_docker_configs.json",
     "source":"run_script",
     "python_interpreter": "python2.7",
+    "notification": "https://hc.teeks99.com/ping/6449934b-73e5-4f35-90a0-383232446df5",
     "run_order":[
         "dg13-20", "mg13-20", "dc16-20", "mc16-20",
 

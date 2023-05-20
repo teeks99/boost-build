@@ -5,6 +5,7 @@
     "procs":4,
     "ram":"4GB",
     "setup":"Raspberry Pi 4GB - Ubuntu 19.10",
+    "notification": "https://hc.teeks99.com/ping/164eb866-b356-4193-b089-2be8381032f5",
     "runs":{
         "dg8-2a":{"branch":"develop", "arch":"64", "compilers":"gcc-8~c++2a"},
         "mg8-2a":{"branch":"master", "arch":"64", "compilers":"gcc-8~c++2a"},

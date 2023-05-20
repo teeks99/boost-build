@@ -5,6 +5,7 @@
     "procs":4,
     "ram":"4GB",
     "setup":"Raspberry Pi 4GB - Raspbian",
+    "notification": "https://hc.teeks99.com/ping/ff2ba7a6-d4eb-4797-b33e-a65a3903683e",
     "runs":{
         "dg8-2a":{"branch":"develop", "arch":"32", "compilers":"gcc-8~c++2a"},
         "mg8-2a":{"branch":"master", "arch":"32", "compilers":"gcc-8~c++2a"},

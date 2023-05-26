@@ -8,11 +8,14 @@ import datetime
 import time
 import subprocess
 
+
 PY3 = sys.version_info[0] == 3
 
 if PY3:
+    import urllib.request
     string_types = str
 else:
+    import urllib2
     string_types = basestring
 
 def win_rmtree(directory):
@@ -45,6 +48,7 @@ class Runner(object):
         self.cleanup = False
         self.start_dir = os.getcwd()
         self.current_run_id = None
+        self.docker_image_updates = {}
 
     def _set_ids(self):
         for key, val in self.machine['runs'].items():
@@ -103,15 +107,27 @@ class Runner(object):
             run = single.Run(config=run_config, machine=self.machine)
             run.process()
         self.log_end()
+        self.notify()
         order_index += 1
         return order_index
 
     def update_docker_img(self, run_config):
         if 'docker_img' in run_config:
-            subprocess.call('docker pull ' + run_config['docker_img'],
-                            shell=True)
+            img_name = run_config['docker_img']
 
-            p = subprocess.Popen('docker images ' + run_config['docker_img'] + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - {{.ID}}" --no-trunc', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            diu = self.docker_image_updates
+            one_day = datetime.timedelta(days=1)
+            if img_name in diu and \
+                datetime.datetime.now() - diu[img_name] > one_day:
+
+                subprocess.call('docker pull ' + img_name, shell=True)
+                diu[img_name] = datetime.datetime.now()
+
+            p = subprocess.Popen(
+                'docker images ' + img_name
+                + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - '
+                + '{{.ID}}" --no-trunc', stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE, shell=True)
             out, err = p.communicate()
             run_config['docker_image_info'] = out
 
@@ -168,6 +184,17 @@ class Runner(object):
                 datetime.datetime.now().strftime('%m-%d %H:%M:%S') + "in: " +
                 duration_hrs_str + "hrs\n")
 
+    def notify(self):
+        if "notification" in self.machine:
+            result = ""
+            if PY3:
+                result = urllib.request.urlopen(
+                    self.machine["notification"]).read()
+            else:
+                result = urllib2.urlopen(self.machine["notification"]).read()
+            if result != "OK":
+                print("Bad response from notification: " + result)
+
     def update_base_repo(self, branch):
         orig_dir = os.getcwd()
         try:
@@ -214,7 +241,13 @@ if __name__ == '__main__':
 
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
+        # Numerical Index
         run_id = sys.argv[1]
+
+        # Lookup the name 
+        if sys.argv[1] in r.run_order:
+            run_id = r.run_order.index(sys.argv[1])
+
         r.run_one(run_id)
     else:
         r.cleanup = True

@@ -172,7 +172,11 @@ def make_vswhere(id):
 
     cmd = '"' + vswhere_path + '"' + args
 
-    p = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    p = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    out, err = p.communicate()
+    out = convert_str(out)
+    err = convert_str(err)
 
     archs = {
         "32-32": "bin\\Hostx86\\x86\\cl.exe",
@@ -182,7 +186,7 @@ def make_vswhere(id):
             }
 
     versions = []
-    for installPath in p.stdout.splitlines():
+    for installPath in out.splitlines():
         with open(os.path.join(installPath, default_toolset_config), "r") as dt:
             toolset_ver = dt.read().strip()
         toolset_path = os.path.join(toolset_location, toolset_ver)

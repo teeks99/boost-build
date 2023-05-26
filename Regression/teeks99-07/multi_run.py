@@ -8,11 +8,14 @@ import datetime
 import time
 import subprocess
 
+
 PY3 = sys.version_info[0] == 3
 
 if PY3:
+    import urllib.request
     string_types = str
 else:
+    import urllib2
     string_types = basestring
 
 def win_rmtree(directory):
@@ -77,15 +80,13 @@ class Runner(object):
         run_config = self.runs[self.current_run_id].copy()
         run_config['order_index'] = order_index
         run_config['start_time'] = start_str
+        run_config['run_dir'] = run_dir
+
         if not self.machine["source"] == single.NO_DOWNLOAD_SOURCE:
             self.update_base_repo(run_config['branch'])
 
-        if 'docker_run_inside' in run_config:
-            run_config['run_dir'] = run_config['docker_run_inside']
-        else:
-            run_config['run_dir'] = run_dir
-            my_rmtree(run_dir)
-            os.mkdir(run_dir)
+        my_rmtree(run_dir)
+        os.mkdir(run_dir)
 
         self.update_docker_img(run_config)
 
@@ -102,31 +103,17 @@ class Runner(object):
             docker_cmd += ' /bin/bash /var/boost/inside.bash'
             print(docker_cmd)
             subprocess.call(docker_cmd, shell=True)
-        elif 'docker_win_img' in run_config:
-            docker_cmd = 'docker run -v ' + os.getcwd()
-            docker_cmd += ':C:/boost'
-            if "docker_cpu_quota" in self.machine:
-                docker_cmd += ' --cpu-quota '
-                docker_cmd += str(self.machine['docker_cpu_quota'])
-            docker_cmd += ' --rm -i -t '
-            docker_cmd += run_config['docker_win_img']
-            docker_cmd += ' cmd /c C:/boost/inside.bat'
-            print(docker_cmd)
-            subprocess.call(docker_cmd, shell=True)        
         else:
             run = single.Run(config=run_config, machine=self.machine)
             run.process()
         self.log_end()
+        self.notify()
         order_index += 1
         return order_index
 
     def update_docker_img(self, run_config):
-        if 'docker_img' in run_config or 'docker_win_img' in run_config:
-            img_name = None
-            if 'docker_img' in run_config:
-                img_name = run_config['docker_img']
-            else:
-                img_name = run_config['docker_win_img']
+        if 'docker_img' in run_config:
+            img_name = run_config['docker_img']
 
             diu = self.docker_image_updates
             one_day = datetime.timedelta(days=1)
@@ -142,7 +129,7 @@ class Runner(object):
                 + '{{.ID}}" --no-trunc', stdout=subprocess.PIPE, 
                 stderr=subprocess.PIPE, shell=True)
             out, err = p.communicate()
-            run_config['docker_image_info'] = out.decode()
+            run_config['docker_image_info'] = out
 
     def check_for_stop(self):
         if os.path.exists(self.start_dir + "/stop_runs.on"):
@@ -197,6 +184,17 @@ class Runner(object):
                 datetime.datetime.now().strftime('%m-%d %H:%M:%S') + "in: " +
                 duration_hrs_str + "hrs\n")
 
+    def notify(self):
+        if "notification" in self.machine:
+            result = ""
+            if PY3:
+                result = urllib.request.urlopen(
+                    self.machine["notification"]).read()
+            else:
+                result = urllib2.urlopen(self.machine["notification"]).read()
+            if result != "OK":
+                print("Bad response from notification: " + result)
+
     def update_base_repo(self, branch):
         orig_dir = os.getcwd()
         try:
@@ -243,7 +241,13 @@ if __name__ == '__main__':
 
     r = Runner(machine_vars)
     if len(sys.argv) > 1:
+        # Numerical Index
         run_id = sys.argv[1]
+
+        # Lookup the name 
+        if sys.argv[1] in r.run_order:
+            run_id = r.run_order.index(sys.argv[1])
+
         r.run_one(run_id)
     else:
         r.cleanup = True

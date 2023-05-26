@@ -34,9 +34,6 @@ if PY3:
 else:
     stdout_access = sys.stdout
     stderr_access = sys.stderr
-    
-    
-script_dir = os.path.dirname(os.path.realpath(__file__))
 
 class StreamThread ( threading.Thread ):
     def __init__(self, source, sink1, sink2):
@@ -82,7 +79,8 @@ class Run(object):
         self.config = config
         self.machine = machine
         self.runner_machine = self.machine["machine"]
-        self.run_dir = os.path.join(script_dir, 'run')
+        self.start_dir = os.getcwd()
+        self.run_dir = os.path.join(self.start_dir, 'run')
 
     def copy_repo(self, origin="../boost_root"):
         repo_name = "boost_root"
@@ -106,8 +104,7 @@ class Run(object):
 
     def make_info(self):
         info_template = None
-        template_path = os.path.join(script_dir, 'info.html.template')
-        with open(template_path, 'r') as info_template_file:
+        with open('../info.html.template', 'r') as info_template_file:
             info_template = string.Template(info_template_file.read())
 
         if 'docker_img' in self.config:
@@ -144,8 +141,6 @@ class Run(object):
             info_file.write(info_str)
 
     def process(self):
-        if not os.path.isdir(self.config['run_dir']):
-            os.makedirs(self.config['run_dir'])
         os.chdir(self.config['run_dir'])
 
         self.clean_and_make_tmp()
@@ -154,7 +149,7 @@ class Run(object):
         if not 'source' in self.machine or not self.machine['source'] == NO_DOWNLOAD_SOURCE:
             self.copy_repo()
 
-        shutil.copy2(os.path.join(script_dir, 'run.py'), './')
+        shutil.copy2('../run.py', './')
 
         other_options = ''
         if 'other_options' in self.config:
@@ -162,7 +157,8 @@ class Run(object):
         if 'other_options' in self.machine:
             other_options += ' ' + self.machine['other_options']
 
-        py_int = 'python'
+        # Default to normal python on windows, linux specify in machine vars
+        py_int = 'python' 
         if 'python_interpreter' in self.machine:
             py_int = self.machine['python_interpreter']
 
@@ -183,9 +179,8 @@ class Run(object):
         print('at: ' + datetime.datetime.utcnow().isoformat(' ') + ' UTC')
         print('')
 
-        output_path = os.path.join(script_dir, "logs", 
-                                   self.config['id'] + '-output.log')
-        with open(output_path, 'wb') as log_file:
+        with open('../logs/' + self.config['id'] + '-output.log', 'wb') as \
+                log_file:
             log_file.write('Running command:\n:'.encode())
             log_file.write(cmd_str[1:].encode())
             log_file.write('\n'.encode())
@@ -205,11 +200,10 @@ class Run(object):
             stderrThread.join()
 
         if os.path.isfile('results/bjam.log'):
-            result_path = os.path.join(script_dir, "logs", self.config['id'] +
-                                       '-results-bjam.log')
-            shutil.copy2('results/bjam.log', result_path)
+            shutil.copy2('results/bjam.log', '../logs/' + self.config['id'] +
+                         '-results-bjam.log')
 
-        os.chdir(script_dir)
+        os.chdir(self.start_dir)
 
 
 # For running standalone, typically in docker.

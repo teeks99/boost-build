@@ -192,6 +192,7 @@ class Runner(object):
                     self.machine["notification"]).read()
             else:
                 result = urllib2.urlopen(self.machine["notification"]).read()
+            result = result.decode()
             if result != "OK":
                 print("Bad response from notification: " + result)
 

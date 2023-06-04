@@ -7,27 +7,18 @@ import json
 import datetime
 import time
 import subprocess
-
-
-PY3 = sys.version_info[0] == 3
-
-if PY3:
-    import urllib.request
-    string_types = str
-else:
-    import urllib2
-    string_types = basestring
+import urllib.request
 
 def win_rmtree(directory):
     if os.path.isdir(directory):
-        os.system('rmdir /S /Q \"{}\"'.format(directory))
+        os.system(f'rmdir /S /Q \"{directory}\"')
     passes = 1
     while os.path.isdir(directory):
         time.sleep(15.0)
-        os.system('rmdir /S /Q \"{}\"'.format(directory))
+        os.system(f'rmdir /S /Q \"{directory}\"')
         passes += 1
         if passes > 20:
-            raise IOError("Could not delete windows directory: " + directory)
+            raise IOError(f"Could not delete windows directory: {directory}")
 
 def my_rmtree(directory):
     if os.path.exists(directory):
@@ -107,7 +98,6 @@ class Runner(object):
             run = single.Run(config=run_config, machine=self.machine)
             run.process()
         self.log_end()
-        self.notify()
         order_index += 1
         return order_index
 
@@ -120,14 +110,14 @@ class Runner(object):
             if img_name in diu and \
                 datetime.datetime.now() - diu[img_name] > one_day:
 
-                subprocess.call('docker pull ' + img_name, shell=True)
+                subprocess.call(f'docker pull {img_name}', shell=True)
                 diu[img_name] = datetime.datetime.now()
 
             p = subprocess.Popen(
-                'docker images ' + img_name
+                f'docker images {img_name}'
                 + ' --format "{{.Repository}}:{{.Tag}} - {{.CreatedAt}} - '
                 + '{{.ID}}" --no-trunc', stdout=subprocess.PIPE, 
-                stderr=subprocess.PIPE, shell=True)
+                stderr=subprocess.PIPE, shell=True, text=True)
             out, err = p.communicate()
             run_config['docker_image_info'] = out
 
@@ -175,6 +165,10 @@ class Runner(object):
             json.dump(config, status_file)
 
     def log_end(self):
+        notify_msg = ""
+        if not self.notify():
+            notify_msg = " - failed to notify of completion"
+
         end = datetime.datetime.now()
         end_str = end.strftime('%m-%d %H:%M:%S')
         duration_hrs = (end - self.start_time).total_seconds() / 3600.0
@@ -182,19 +176,24 @@ class Runner(object):
         with open(self.multi_run_log, "a") as log:
             log.write(" complete: " +
                 datetime.datetime.now().strftime('%m-%d %H:%M:%S') + "in: " +
-                duration_hrs_str + "hrs\n")
+                duration_hrs_str + "hrs" + notify_msg + "\n")
 
     def notify(self):
+        notified = True
         if "notification" in self.machine:
             result = ""
-            if PY3:
+            try:
                 result = urllib.request.urlopen(
                     self.machine["notification"]).read()
-            else:
-                result = urllib2.urlopen(self.machine["notification"]).read()
+            except urllib.error.URLError:
+                notified = False
+
             result = result.decode()
             if result != "OK":
                 print("Bad response from notification: " + result)
+                notified = False
+
+        return notified
 
     def update_base_repo(self, branch):
         orig_dir = os.getcwd()
@@ -215,7 +214,7 @@ class Runner(object):
 
 
 def add_external_runs(machine_vars):
-    if isinstance(machine_vars['runs'], string_types):
+    if isinstance(machine_vars['runs'], str):
         with open(machine_vars['runs'], 'r') as external_runs_file:
             external_runs = json.load(external_runs_file)
             machine_vars['runs'] = external_runs['runs']

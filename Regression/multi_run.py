@@ -190,7 +190,7 @@ class Runner(object):
 
             result = result.decode()
             if result != "OK":
-                print("Bad response from notification: " + result)
+                print("Bad response from notification: " + str(result, "utf-8"))
                 notified = False
 
         return notified

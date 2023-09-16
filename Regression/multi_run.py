@@ -188,6 +188,10 @@ class Runner(object):
             except urllib.error.URLError:
                 notified = False
 
+            if not result:
+                print("No result detected from checkin!")
+                return 
+
             result = result.decode()
             if result != "OK":
                 print("Bad response from notification: " + str(result, "utf-8"))

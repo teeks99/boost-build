@@ -7,18 +7,18 @@ using msvc : 14.1 ;
 using msvc : 14.2 ;
 
 using python
-: 3.11 # version
-: C:\\Python311-32\\python.exe # Interperter/path to dir
-: C:\\Python311-32\\include # includes
-: C:\\Python311-32\\libs # libs
+: 3.12 # version
+: C:\\Python312-32\\python.exe # Interperter/path to dir
+: C:\\Python312-32\\include # includes
+: C:\\Python312-32\\libs # libs
 : <address-model>32 <address-model> # conditions
 ;
 
 using python
-: 3.11 # version
-: C:\\Python311-64\\python.exe # Interperter/path to dir
-: C:\\Python311-64\\include # includes
-: C:\\Python311-64\\libs # libs
+: 3.12 # version
+: C:\\Python312-64\\python.exe # Interperter/path to dir
+: C:\\Python312-64\\include # includes
+: C:\\Python312-64\\libs # libs
 : <address-model>64 # conditions
 ;
 

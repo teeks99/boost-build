@@ -572,6 +572,38 @@ their commit against a current GCC or Clang within three hours (plus a bit extra
 | mc17-warn | master | clang | 17 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-17 |
 | dc17-20-lc | develop | clang | 17 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-17 |
 | mc17-20-lc | master | clang | 17 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-17 |
+| dc18 | develop | clang | 18 | -std=c++20 | teeks99/boost-cpp-docker:clang-18 |
+| mc18 | master | clang | 18 | -std=c++20 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-2b | develop | clang | 18 | -std=c++2b | teeks99/boost-cpp-docker:clang-18 |
+| mc18-2b | master | clang | 18 | -std=c++2b | teeks99/boost-cpp-docker:clang-18 |
+| dc18-g2b | develop | clang | 18 | -std=gnu++2b | teeks99/boost-cpp-docker:clang-18 |
+| mc18-g2b | master | clang | 18 | -std=gnu++2b | teeks99/boost-cpp-docker:clang-18 |
+| dc18-20 | develop | clang | 18 | -std=c++20 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-20 | master | clang | 18 | -std=c++20 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-g20 | develop | clang | 18 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-g20 | master | clang | 18 | -std=gnu++20 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-17 | develop | clang | 18 | -std=c++17 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-17 | master | clang | 18 | -std=c++17 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-g17 | develop | clang | 18 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-g17 | master | clang | 18 | -std=gnu++17 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-14 | develop | clang | 18 | -std=c++14 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-14 | master | clang | 18 | -std=c++14 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-g14 | develop | clang | 18 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-g14 | master | clang | 18 | -std=gnu++14 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-11 | develop | clang | 18 | -std=c++11 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-11 | master | clang | 18 | -std=c++11 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-g11 | develop | clang | 18 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-g11 | master | clang | 18 | -std=gnu++11 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-98 | develop | clang | 18 | -std=c++98 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-98 | master | clang | 18 | -std=c++98 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-g98 | develop | clang | 18 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-g98 | master | clang | 18 | -std=gnu++98 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-opt | develop | clang | 18 | -std=c++20 -O2 | teeks99/boost-cpp-docker:clang-18 |
+| mc18-opt | master | clang | 18 | -std=c++20 -O2 | teeks99/boost-cpp-docker:clang-18 |
+| dc18-warn | develop | clang | 18 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-18 |
+| mc18-warn | master | clang | 18 | -std=c++20 -Wall -Wextra | teeks99/boost-cpp-docker:clang-18 |
+| dc18-20-lc | develop | clang | 18 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-18 |
+| mc18-20-lc | master | clang | 18 | -std=c++20 -stdlib=libc++ | teeks99/boost-cpp-docker:clang-18 |
 
 
 

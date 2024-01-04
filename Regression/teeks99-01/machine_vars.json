@@ -1,5 +1,5 @@
 {
-    "machine":"teeks99-05",
+    "machine":"teeks99-01",
     "os":"Ubuntu",
     "os_arch":"riscv64",
     "procs":4,

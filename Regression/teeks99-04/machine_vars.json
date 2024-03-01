@@ -1,29 +1,13 @@
 {
-    "machine":"teeks99-02",
+    "machine":"teeks99-04",
     "os":"Docker",
     "os_arch":"64",
     "procs":16,
     "ram":"32GB",
-    "setup":"Docker Ubuntu18.04 Azure F16",
+    "setup":"Docker Raspberry Pi OS - Bookwork - RPI5/arm64",
     "runs":"linux_docker_configs.json",
     "source":"run_script",
     "run_order":[
-        "dc11-17", "dc11-g17", "dc11-14", "dc11-g14",
-        "dc11-11", "dc11-g11", "dc11-98", "dc11-g98",
-        "dc11-20", "dc11-g20",
-        "dc11-opt", "dc11-warn", "dc11-20-lc",
-        "mc11-17", "mc11-g17", "mc11-14", "mc11-g14",
-        "mc11-11", "mc11-g11", "mc11-98", "mc11-g98",
-        "mc11-20", "mc11-g20",
-        "mc11-opt", "mc11-warn", "mc11-20-lc",
-
-        "dc12-17", "dc12-g17", "dc12-14", "dc12-g14",
-        "dc12-11", "dc12-g11", "dc12-98", "dc12-g98",
-        "dc12-20", "dc12-g20",
-        "dc12-opt", "dc12-warn", "dc12-20-lc",
-        "mc12-17", "mc12-g17", "mc12-14", "mc12-g14",
-        "mc12-11", "mc12-g11", "mc12-98", "mc12-g98",
-        "mc12-20", "mc12-g20",
-        "mc12-opt", "mc12-warn", "mc12-20-lc"
+        "dg13-20", "mg13-20", "dc17-20", "mc17-20"
     ]
 }

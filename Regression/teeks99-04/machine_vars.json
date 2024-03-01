@@ -6,6 +6,7 @@
     "ram":"32GB",
     "setup":"Docker Raspberry Pi OS - Bookwork - RPI5/arm64",
     "runs":"linux_docker_configs.json",
+    "python_interpreter": "python2.7",
     "source":"run_script",
     "run_order":[
         "dg13-20", "mg13-20", "dc17-20", "mc17-20"

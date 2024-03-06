@@ -2,6 +2,7 @@
     "machine":"teeks99-04",
     "os":"Docker",
     "os_arch":"64",
+    "docker_arch":"arm64",
     "procs":16,
     "ram":"32GB",
     "setup":"Docker Raspberry Pi OS - Bookwork - RPI5/arm64",

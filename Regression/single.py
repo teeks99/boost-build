@@ -109,8 +109,8 @@ class Run(object):
 
         if 'docker_img' in self.config:
             self.runner_machine = "teeks99-dkr"
-            if 'docker_arch' in self.config:
-                self.runner_machine += "-" + self.config['docker_arch']
+            if 'docker_arch' in self.machine:
+                self.runner_machine += "-" + self.machine['docker_arch']
             self.runner_config = self.runner_machine + \
                 '-' + self.config['id']
         else:

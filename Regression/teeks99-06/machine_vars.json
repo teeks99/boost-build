@@ -13,6 +13,6 @@
         "mc15-2b":{"branch":"master", "arch":"64", "compilers":"clang-15~c++2b"}
     },
     "run_order":[
-        "dg8-2a", "mg8-2a", "dc9-2a", "mc9-2a"
+        "dg11-20", "mg11-20", "dc15-2b", "mc15-2b"
     ]
 }

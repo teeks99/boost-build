@@ -7,10 +7,10 @@
     "setup":"Raspberry Pi 4GB - Ubuntu 19.10",
     "notification": "https://hc.teeks99.com/ping/164eb866-b356-4193-b089-2be8381032f5",
     "runs":{
-        "dg8-2a":{"branch":"develop", "arch":"64", "compilers":"gcc-8~c++2a"},
-        "mg8-2a":{"branch":"master", "arch":"64", "compilers":"gcc-8~c++2a"},
-        "dc9-2a":{"branch":"develop", "arch":"64", "compilers":"clang-9~c++2a"},
-        "mc9-2a":{"branch":"master", "arch":"64", "compilers":"clang-9~c++2a"}
+        "dg11-20":{"branch":"develop", "arch":"64", "compilers":"gcc-11~c++20"},
+        "mg11-20":{"branch":"master", "arch":"64", "compilers":"gcc-11~c++20"},
+        "dc15-2b":{"branch":"develop", "arch":"64", "compilers":"clang-15~c++2b"},
+        "mc15-2b":{"branch":"master", "arch":"64", "compilers":"clang-15~c++2b"}
     },
     "run_order":[
         "dg8-2a", "mg8-2a", "dc9-2a", "mc9-2a"

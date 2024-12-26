@@ -112,9 +112,9 @@ using clang : 17~gnu2b~lc~warn : clang++-17 : <cxxflags>"-Wno-c99-extensions -st
 
 
 using python
-: 3.11 # version
+: 3.12 # version
 : # Interpreter/path to dir
-: /usr/include/python3.11 # includes
+: /usr/include/python3.12 # includes
 : /usr/lib/riscv64-linux-gnu # libs
 : # conditions
 ;

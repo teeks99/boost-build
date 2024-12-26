@@ -4,7 +4,7 @@
     "os_arch":"riscv64",
     "procs":4,
     "ram":"8GB",
-    "setup":"StarFive VisionFive2 running Ubuntu 23.10",
+    "setup":"StarFive VisionFive2 running Ubuntu 24.04",
     "notification": "https://hc.teeks99.com/ping/5dd6c4f2-4141-43d4-8ef0-c528217b37bb",
     "runs":{
         "dg13-20":{"branch":"develop", "arch":"64", "compilers":"gcc-13~c++20"},

@@ -107,7 +107,7 @@ class Runner(object):
 
             diu = self.docker_image_updates
             one_day = datetime.timedelta(days=1)
-            if img_name in diu and \
+            if not img_name in diu or \
                 datetime.datetime.now() - diu[img_name] > one_day:
 
                 subprocess.call(f'docker pull {img_name}', shell=True)

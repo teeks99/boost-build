@@ -1,4 +1,4 @@
-clang-20{
+{
     "machine":"teeks99-02",
     "os":"Docker",
     "os_arch":"64",

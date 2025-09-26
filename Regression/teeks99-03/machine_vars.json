@@ -10,6 +10,6 @@
     "python_interpreter": "python2.7",
     "notification": "https://hc.teeks99.com/ping/ea186e15-7dbf-4604-a81a-bb10219d7a76",
     "run_order":[
-        "dg14-20", "mg14-20", "dc20-23", "mc20-23"
+        "dg15-23", "mg15-23", "dc21-23", "mc21-23"
     ]
 }

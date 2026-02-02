@@ -50,7 +50,9 @@ def make_linux_table():
         branch = data["branch"]
         compiler_data = re.split(r'-|~', data['compilers'])
         compiler = compiler_data[0]
-        version = compiler_data[1]
+        version = ""
+        if len(compiler_data) > 1:
+            version = compiler_data[1]
         flags = ''
 
         for flag in compiler_data[2:]:

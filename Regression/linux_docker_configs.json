@@ -711,6 +711,6 @@
         "dc22-23-lc":{"branch":"develop", "arch":"64", "compilers":"clang-22~c++23~lc", "docker_img":"teeks99/boost-cpp-docker:clang-22"},
         "mc22-23-lc":{"branch":"master", "arch":"64", "compilers":"clang-22~c++23~lc", "docker_img":"teeks99/boost-cpp-docker:clang-22"},
 
-        "df0":{"branch":"develop", "arch":"64", "compilers":"fil++", "docker_img":"teeks99/boost-cpp-docker:fil-0"}
+        "df0":{"branch":"develop", "arch":"64", "compilers":"fil++", "docker_img":"teeks99/boost-cpp-docker:filc-0"}
     }
 }

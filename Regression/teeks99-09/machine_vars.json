@@ -40,12 +40,17 @@
         "v17dl":{"id":"v17l", "branch":"develop", "arch":"64", "compilers":"msvc-14.3",
              "other_options":"cxxflags=/std:c++latest"},
         "v17ml":{"id":"v17l", "branch":"master", "arch":"64", "compilers":"msvc-14.3",
+             "other_options":"cxxflags=/std:c++latest"},
+        "v18d":{"id":"v18d", "branch":"develop", "arch":"64", "compilers":"msvc-14.5"},
+        "v18m":{"id":"v18m", "branch":"master", "arch":"64", "compilers":"msvc-14.5"},
+        "v18dl":{"id":"v18l", "branch":"develop", "arch":"64", "compilers":"msvc-14.5",
+             "other_options":"cxxflags=/std:c++latest"},
+        "v18ml":{"id":"v18l", "branch":"master", "arch":"64", "compilers":"msvc-14.5",
              "other_options":"cxxflags=/std:c++latest"}
     },
     "run_order":[
-        "v10d", "v10m", "v11d", "v11m", "v12d", "v12m",
-        "v14d", "v14m",
         "v15d", "v15m",
         "v16d", "v16m",
-        "v17d", "v17m", "v17dl", "v17ml"]
+        "v17d", "v17m", 
+        "v18d", "v18m", "v18dl", "v18ml"]
 }

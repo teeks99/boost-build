@@ -17,12 +17,8 @@ import multiprocessing
 import platform
 
 escape = None
-import cgi
-if hasattr(cgi, "escape"):
-    escape = cgi.escape
-else:
-    import html
-    escape = html.escape
+import html
+escape = html.escape
 
 NO_DOWNLOAD_SOURCE = "run_script"
 
@@ -109,6 +105,8 @@ class Run(object):
 
         if 'docker_img' in self.config:
             self.runner_machine = "teeks99-dkr"
+            if 'docker_arch' in self.machine:
+                self.runner_machine += "-" + self.machine['docker_arch']
             self.runner_config = self.runner_machine + \
                 '-' + self.config['id']
         else:

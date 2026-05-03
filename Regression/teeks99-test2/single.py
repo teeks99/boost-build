@@ -17,12 +17,8 @@ import multiprocessing
 import platform
 
 escape = None
-import cgi
-if hasattr(cgi, "escape"):
-    escape = cgi.escape
-else:
-    import html
-    escape = html.escape
+import html
+escape = html.escape
 
 NO_DOWNLOAD_SOURCE = "run_script"
 
@@ -109,6 +105,8 @@ class Run(object):
 
         if 'docker_img' in self.config:
             self.runner_machine = "teeks99-dkr"
+            if 'docker_arch' in self.machine:
+                self.runner_machine += "-" + self.machine['docker_arch']
             self.runner_config = self.runner_machine + \
                 '-' + self.config['id']
         else:
@@ -157,15 +155,17 @@ class Run(object):
         if 'other_options' in self.machine:
             other_options += ' ' + self.machine['other_options']
 
-        py_int = 'python'
+        # Default to normal python on windows, linux specify in machine vars
+        py_int = 'python' 
         if 'python_interpreter' in self.machine:
             py_int = self.machine['python_interpreter']
 
         command = [py_int, 'run.py', '--runner=' + self.runner_config,
              '--toolsets=' +  self.config['compilers'], '--bjam-options=-j' +
             str(self.machine['procs']) + ' address-model=' +
-            self.config['arch'] + ' --remove-test-targets' + other_options,
-            '--comment=info.html', '--tag=' + self.config['branch']]
+            self.config['arch'] + ' debug-symbols=off --remove-test-targets' +
+            other_options, '--comment=info.html',
+            '--tag=' + self.config['branch']]
 
         # Output the command to the screen before running it
         cmd_str = ""

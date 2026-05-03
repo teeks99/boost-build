@@ -17,12 +17,8 @@ import multiprocessing
 import platform
 
 escape = None
-import cgi
-if hasattr(cgi, "escape"):
-    escape = cgi.escape
-else:
-    import html
-    escape = html.escape
+import html
+escape = html.escape
 
 NO_DOWNLOAD_SOURCE = "run_script"
 
